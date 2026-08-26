@@ -1,0 +1,2890 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>تواصل مروري — Traffic Connect V26</title>
+<style>
+:root{
+  --primary:#0b6b63;
+  --primary-dark:#074f4a;
+  --accent:#1f8f83;
+  --bg:#f4f7f7;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:#dbe5e4;
+  --danger:#b42318;
+  --warning:#b7791f;
+  --success:#16794a;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#eaf2f1,#f8fbfb);color:var(--text)}
+.app{max-width:430px;margin:auto;min-height:100vh;background:var(--bg);box-shadow:0 0 45px rgba(7,79,74,.14);position:relative;padding-bottom:76px;overflow:hidden}
+.header{background:linear-gradient(145deg,#064c47,#0b746a);color:#fff;padding:22px 18px 32px;border-radius:0 0 30px 30px;position:sticky;top:0;z-index:5;box-shadow:0 10px 30px rgba(7,79,74,.18)}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:700;font-size:20px}
+.sub{opacity:.9;font-size:12px;margin-top:4px}
+.icon-btn{border:none;background:rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:10px 12px;cursor:pointer}
+main{padding:16px}
+.card{background:var(--card);border:1px solid rgba(219,229,228,.85);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 7px 22px rgba(7,79,74,.07)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.service{cursor:pointer;min-height:128px;display:flex;flex-direction:column;justify-content:space-between;transition:.2s transform,.2s box-shadow}
+.service:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(7,79,74,.12)}
+.service .emoji{font-size:25px;width:48px;height:48px;border-radius:15px;background:#e8f5f3;display:flex;align-items:center;justify-content:center}
+.service strong{font-size:14px}
+.service span{font-size:12px;color:var(--muted)}
+h2,h3{margin:0 0 12px}
+label{display:block;font-size:13px;margin:12px 0 6px;color:#374151}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff;font-size:14px}
+textarea{min-height:90px;resize:vertical}
+.btn{width:100%;padding:13px;border:none;border-radius:12px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;margin-top:12px}
+.btn.secondary{background:#e8f2f1;color:var(--primary-dark)}
+.btn.ghost{background:#fff;color:var(--primary-dark);border:1px solid var(--border)}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:700}
+.pending{background:#fff4d8;color:#8a5a00}
+.confirmed{background:#dff7ec;color:#11663e}
+.review{background:#e8f0ff;color:#3158a6}
+.cancelled{background:#fde7e4;color:#9c2a1c}
+.completed{background:#e5f5e9;color:#256b37}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.item{padding:12px 0;border-bottom:1px solid #eef2f2}
+.item:last-child{border-bottom:none}
+.small{font-size:12px;color:var(--muted)}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);background:#fff;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);z-index:9}
+.nav-btn{padding:10px 4px;border:none;background:#fff;color:var(--muted);font-size:11px;cursor:pointer}
+.nav-btn.active{color:var(--primary);font-weight:700}
+.nav-ico{font-size:20px;display:block;margin-bottom:3px}
+.screen{display:none}
+.screen.active{display:block}
+.back{background:none;border:none;color:var(--primary);font-size:14px;cursor:pointer;margin-bottom:12px}
+.hero{padding:20px;background:linear-gradient(135deg,#dff3ef,#ffffff);border-radius:22px;border:1px solid #d2e9e6;margin:-14px 0 20px;position:relative;z-index:6;box-shadow:0 8px 24px rgba(7,79,74,.08)}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px}
+.stat b{font-size:22px;color:var(--primary-dark)}
+.login-wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:22px;background:linear-gradient(180deg,#f7fbfa 0%,#edf5f4 100%)}
+.logo{width:82px;height:82px;border-radius:25px;background:linear-gradient(145deg,#07534d,#0b7c71);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 13px;box-shadow:0 13px 28px rgba(7,79,74,.22)}
+.road-logo{position:relative;width:34px;height:49px;border-left:5px solid #fff;border-right:5px solid #fff;border-radius:50% 50% 10px 10px;transform:perspective(40px) rotateX(8deg)}
+.road-logo:after{content:"";position:absolute;left:12px;top:2px;height:40px;border-left:3px dashed #f2c94c}
+.login-title{text-align:center;color:#073f3b;font-size:25px;margin:0}.login-sub{text-align:center;color:#6e7f7d;font-size:12px;letter-spacing:1.4px;margin-top:5px}
+.city-scene{height:100px;margin:15px 4px -5px;position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(#dff2ef,#f8fbfb)}
+.city-scene:before{content:"";position:absolute;inset:auto 0 0;height:54px;background:linear-gradient(90deg,#a8cfca 0 8%,transparent 8% 11%,#c5deda 11% 20%,transparent 20% 23%,#8fbbb5 23% 34%,transparent 34% 38%,#bdd9d5 38% 50%,transparent 50% 54%,#9ac4be 54% 67%,transparent 67% 71%,#c6deda 71% 83%,transparent 83% 86%,#9bc5bf 86%);opacity:.65}
+.city-scene:after{content:"";position:absolute;left:-5%;right:-5%;bottom:-45px;height:85px;border:10px solid #fff;border-radius:50%;box-shadow:0 -3px 0 #6fa9a1}
+.login-card{margin-top:0!important;padding:20px!important}.forgot{display:block;text-align:end;color:var(--primary);font-size:12px;text-decoration:none;margin-top:8px}.signup{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}.signup b{color:var(--primary)}
+.section-title{display:flex;align-items:end;justify-content:space-between;margin:2px 2px 12px}.section-title h3{margin:0}.section-title span{font-size:11px;color:var(--muted)}
+.profile{display:flex;align-items:center;gap:10px}.avatar{width:42px;height:42px;border-radius:14px;background:#e7f4f2;color:#07534d;display:flex;align-items:center;justify-content:center;font-weight:800;border:2px solid rgba(255,255,255,.7)}
+.recent-card{padding:0 16px}.status-dot{width:9px;height:9px;background:#26a269;border-radius:50%;display:inline-block;margin-inline-end:6px}
+@media(min-width:800px){.app{margin:24px auto;min-height:calc(100vh - 48px);border-radius:30px}.bottom-nav{bottom:24px;border-radius:0 0 30px 30px}.login-wrap{min-height:calc(100vh - 48px)}}
+.lang-switch{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.lang-switch button{border:1px solid var(--border);background:#fff;border-radius:999px;padding:7px 12px;cursor:pointer}
+.hidden{display:none}
+.filebox{border:2px dashed var(--border);border-radius:14px;padding:18px;text-align:center;color:var(--muted);margin-top:10px}
+.timeline{border-inline-start:3px solid #dce8e7;padding-inline-start:14px}
+.timeline .step{margin-bottom:14px;position:relative}
+.timeline .step:before{content:"";position:absolute;inset-inline-start:-21px;top:4px;width:10px;height:10px;background:var(--primary);border-radius:50%}
+.notice{background:#eef8f6;border:1px solid #cce9e5;padding:10px;border-radius:12px;font-size:12px}
+.location-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}.location-row .btn{width:auto;white-space:nowrap;padding-inline:14px}.filebox{position:relative;cursor:pointer}.filebox input{position:absolute;inset:0;opacity:0;cursor:pointer}.attachment-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}.attachment-chip{background:#eef8f6;border:1px solid #cce9e5;border-radius:10px;padding:7px 9px;font-size:11px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.preview-img{width:62px;height:62px;object-fit:cover;border-radius:10px;border:1px solid var(--border);cursor:zoom-in}.image-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:9999;align-items:center;justify-content:center;padding:24px}.image-modal.open{display:flex}.image-modal img{max-width:min(92vw,900px);max-height:86vh;border-radius:14px;background:white;box-shadow:0 18px 60px rgba(0,0,0,.35)}.image-modal .close-preview{position:absolute;top:18px;right:22px;width:44px;height:44px;border:0;border-radius:50%;font-size:26px;cursor:pointer;background:#fff;color:#222}.preview-wrap{display:flex;flex-direction:column;gap:4px;align-items:center}.preview-note{font-size:10px;color:var(--muted)}.notice.success{background:#e8f7ef;border-color:#bfe6cf;color:#17633d}.notice.warn{background:#fff7e5;border-color:#f0d9a8;color:#815a0d}.clickable{cursor:pointer}.empty{text-align:center;color:var(--muted);padding:20px 8px}
+
+.availability-box{margin-top:10px;padding:10px 12px;border-radius:12px;background:#eef7f5;border:1px solid var(--border);font-size:12px;line-height:1.7}
+.availability-box.available{color:var(--success);background:#ecf8f1}
+.availability-box.booked{color:#8a5b00;background:#fff7e6}
+.availability-box.leave{color:var(--danger);background:#fff0ef}
+.avatar-placeholder{width:58px;height:58px;border-radius:16px;background:#e8f5f3;display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;border:1px solid var(--border)}
+.avatar-placeholder img{width:100%;height:100%;object-fit:cover}
+.rating-stars{display:flex;gap:8px;direction:ltr;margin:14px 0}
+.rating-stars button{border:none;background:transparent;font-size:34px;color:#cbd5d1;cursor:pointer;padding:0}
+.rating-stars button.active{color:#f4a62a}
+.inline-action{margin-top:8px;padding:7px 10px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--primary);cursor:pointer;font-size:12px}
+
+
+.test-note{background:#fff8e6;border:1px solid #f0d58a;color:#765a11;padding:10px 12px;border-radius:12px;font-size:12px;margin:10px 0}
+.blocked-row{border-right:5px solid #c83b3b!important;background:#fff4f4!important}.blocked-text{color:#b42318;font-weight:800}
+.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric{padding:14px;border:1px solid var(--border);border-radius:14px;background:#fff}.metric b{font-size:22px;color:var(--primary)}
+.contact-card{border:1px solid #b8d9d5;background:#f3fbfa}.public-comment{padding:12px;border-bottom:1px solid var(--border)}
+.admin-actions{display:flex;gap:7px;flex-wrap:wrap}.danger-btn{background:#fff1f1;color:#b42318;border:1px solid #efb3b3;border-radius:9px;padding:7px 10px;cursor:pointer}.ok-btn{background:#eefaf6;color:#08745f;border:1px solid #a9ddcf;border-radius:9px;padding:7px 10px;cursor:pointer}
+
+/* Contractor welcome photo gallery */
+.gallery-card{padding:12px;overflow:hidden}
+.gallery-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.gallery-head h3{font-size:16px;margin:0}.gallery-head span{font-size:11px;color:var(--muted)}
+.gallery-wrap{position:relative;border-radius:16px;overflow:hidden;background:#dfe9e8;touch-action:pan-y}
+.gallery-track{display:flex;direction:ltr;transition:transform .32s ease;width:100%}
+.gallery-slide{min-width:100%;position:relative;cursor:pointer}
+.gallery-slide img{display:block;width:100%;height:220px;object-fit:cover}
+.gallery-caption{position:absolute;left:0;right:0;bottom:0;padding:30px 12px 11px;color:white;font-weight:700;font-size:13px;text-align:right;direction:rtl;background:linear-gradient(transparent,rgba(0,0,0,.72))}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:var(--primary-dark);font-size:22px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+.gallery-prev{left:9px}.gallery-next{right:9px}
+.gallery-dots{display:flex;direction:ltr;justify-content:center;gap:6px;margin-top:10px}
+.gallery-dot{width:7px;height:7px;border-radius:50%;border:none;padding:0;background:#c7d7d5;cursor:pointer}.gallery-dot.active{background:var(--primary);width:20px;border-radius:10px}
+.gallery-tip{text-align:center;color:var(--muted);font-size:11px;margin-top:7px}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:99;align-items:center;justify-content:center;padding:20px}
+.lightbox.active{display:flex}.lightbox img{max-width:min(100%,1000px);max-height:86vh;object-fit:contain;border-radius:12px}.lightbox-close{position:absolute;top:18px;right:18px;border:0;background:#fff;color:#111;width:42px;height:42px;border-radius:50%;font-size:23px;cursor:pointer}.lightbox-title{position:absolute;bottom:18px;left:20px;right:20px;color:#fff;text-align:center;font-weight:600}
+
+/* V7 polished contractor registration */
+.register-screen{padding-top:4px}
+.register-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.register-back{border:0;background:#edf7f5;color:var(--primary-dark);width:40px;height:40px;border-radius:13px;font-size:20px;cursor:pointer}
+.register-lang{display:flex;gap:6px}
+.register-lang button{border:1px solid var(--border);background:#fff;color:var(--primary-dark);border-radius:999px;padding:6px 10px;font-size:11px;cursor:pointer}
+.register-brand{text-align:center;margin:2px 0 18px}
+.register-logo{width:70px;height:70px;border-radius:21px;background:linear-gradient(145deg,#07534d,#0b7c71);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:0 12px 26px rgba(7,79,74,.2)}
+.register-logo .road-logo{transform:scale(.86) perspective(40px) rotateX(8deg)}
+.register-brand h2{margin:0;color:#073f3b;font-size:24px}
+.register-brand .en{font-size:12px;letter-spacing:1.5px;color:#73817f;margin-top:3px}
+.register-brand .welcome{font-weight:800;margin-top:12px;font-size:18px;color:#182c2a}
+.register-brand .hint{color:var(--muted);font-size:12px;margin-top:4px}
+.register-card{padding:18px!important;border-radius:24px!important;box-shadow:0 12px 32px rgba(7,79,74,.09)!important}
+.form-field{margin-top:12px}
+.form-label{display:flex;align-items:center;justify-content:space-between;margin:0 2px 6px;color:#344745;font-size:12px;font-weight:700}
+.required{color:#b42318}
+.input-shell{display:flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:14px;background:#fff;padding:0 12px;transition:.2s}
+.input-shell:focus-within{border-color:#72b9b0;box-shadow:0 0 0 3px rgba(31,143,131,.11)}
+.input-shell .field-ico{font-size:17px;opacity:.78}
+.input-shell input{border:0!important;outline:0!important;padding:13px 0!important;background:transparent!important;border-radius:0!important}
+.register-terms{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--muted);margin:14px 2px 5px;line-height:1.7}
+.register-terms input{width:auto;margin-top:4px}
+.register-submit{height:49px;border-radius:14px!important;font-size:15px}
+.login-link{text-align:center;margin-top:14px;font-size:12px;color:var(--muted)}
+.login-link button{border:0;background:none;color:var(--primary);font-weight:800;cursor:pointer}
+.register-note{background:#eef8f6;border:1px solid #cae8e3;color:#3a625e;padding:9px 11px;border-radius:12px;font-size:11px;margin-bottom:12px}
+
+
+/* V8 — premium registration inspired by the approved Traffic Connect visual direction */
+#register{
+  min-height:100vh;
+  margin:-16px;
+  padding:0 0 34px;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(116,214,198,.35), transparent 25%),
+    radial-gradient(circle at 92% 4%, rgba(255,255,255,.18), transparent 24%),
+    linear-gradient(180deg,#075f58 0,#08756c 34%,#edf6f5 34.2%,#f7fbfa 100%);
+  position:relative;
+  overflow:hidden;
+}
+#register:before{
+  content:"";
+  position:absolute;
+  width:260px;height:260px;border-radius:50%;
+  top:-145px;right:-95px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 0 0 34px rgba(255,255,255,.035),0 0 0 68px rgba(255,255,255,.025);
+}
+#register:after{
+  content:"";
+  position:absolute;left:-40px;right:-40px;top:27%;
+  height:120px;
+  background:#edf6f5;
+  border-radius:50% 50% 0 0 / 34% 34% 0 0;
+  transform:translateY(46px);
+  z-index:0;
+}
+.premium-reg-top{
+  position:relative;z-index:3;
+  padding:16px 18px 0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.premium-round{
+  width:42px;height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.12);backdrop-filter:blur(10px);
+  color:#fff;font-size:21px;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18)
+}
+.premium-lang{
+  display:flex;padding:4px;border-radius:999px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(10px)
+}
+.premium-lang button{
+  border:0;background:transparent;color:#dff6f2;padding:7px 11px;border-radius:999px;
+  font-size:11px;font-weight:700;cursor:pointer
+}
+.premium-lang button:first-child{background:#fff;color:#075f58;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.premium-reg-hero{
+  position:relative;z-index:2;text-align:center;color:#fff;
+  padding:16px 24px 54px
+}
+.premium-reg-logo{
+  width:78px;height:78px;border-radius:24px;margin:0 auto 11px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,rgba(255,255,255,.19),rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.27);
+  box-shadow:0 14px 38px rgba(1,53,49,.28),inset 0 1px rgba(255,255,255,.25);
+  backdrop-filter:blur(12px)
+}
+.premium-reg-logo .road-logo{transform:scale(.92) perspective(40px) rotateX(8deg)}
+.premium-reg-hero h1{font-size:27px;margin:0;font-weight:800;letter-spacing:-.3px}
+.premium-reg-hero .brand-en{font-size:10px;letter-spacing:3px;opacity:.8;margin-top:4px}
+.premium-reg-hero .hero-kicker{
+  display:inline-flex;align-items:center;gap:7px;margin-top:15px;
+  padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.11);
+  border:1px solid rgba(255,255,255,.16);font-size:11px
+}
+.premium-reg-card{
+  position:relative;z-index:4;margin:-20px 14px 0!important;
+  padding:22px 18px 18px!important;border:none!important;border-radius:28px!important;
+  background:rgba(255,255,255,.97)!important;
+  box-shadow:0 24px 55px rgba(12,78,71,.16),0 3px 10px rgba(12,78,71,.06)!important
+}
+.premium-reg-title{text-align:center;margin-bottom:17px}
+.premium-reg-title h2{font-size:21px;color:#123a36;margin:0 0 5px}
+.premium-reg-title p{font-size:11px;color:#7d8d8a;margin:0;line-height:1.7}
+.premium-step{
+  display:flex;align-items:center;justify-content:center;gap:6px;margin:14px 0 18px
+}
+.premium-step span{height:5px;border-radius:10px;background:#dceae8;width:23px}
+.premium-step span.active{width:42px;background:linear-gradient(90deg,#08756c,#35a99c)}
+.premium-fields{display:grid;gap:11px}
+.premium-field label{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;font-weight:800;color:#3c5350;margin:0 3px 6px
+}
+.premium-input{
+  display:flex;align-items:center;gap:10px;min-height:51px;
+  border:1px solid #dfeae8;border-radius:16px;background:#fbfdfd;padding:0 13px;
+  transition:.2s;box-shadow:inset 0 1px 2px rgba(18,58,54,.02)
+}
+.premium-input:focus-within{
+  background:#fff;border-color:#61b9af;box-shadow:0 0 0 4px rgba(42,157,145,.10)
+}
+.premium-input .ico{
+  width:31px;height:31px;border-radius:10px;background:#eaf6f4;color:#08756c;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 auto
+}
+.premium-input input{
+  flex:1;border:0!important;background:transparent!important;outline:0!important;
+  padding:13px 0!important;font-size:13px!important;min-width:0
+}
+.premium-required{color:#ca3d3d;font-size:12px}
+.premium-privacy{
+  margin:13px 2px 0;padding:11px 12px;border-radius:14px;
+  background:#f0f8f7;border:1px solid #d8ece9;
+  display:flex;align-items:flex-start;gap:9px;color:#647774;font-size:10.5px;line-height:1.7
+}
+.premium-privacy input{width:auto!important;margin:4px 0 0}
+.premium-submit{
+  width:100%;height:53px;border:0;border-radius:16px;margin-top:15px;
+  background:linear-gradient(135deg,#08756c,#0a625b);color:#fff;font-size:14px;font-weight:800;
+  cursor:pointer;box-shadow:0 12px 24px rgba(8,117,108,.22);
+  display:flex;align-items:center;justify-content:center;gap:9px
+}
+.premium-submit:active{transform:translateY(1px)}
+.premium-login{text-align:center;color:#7b8b89;font-size:11px;margin-top:15px}
+.premium-login button{border:0;background:none;color:#08756c;font-weight:800;cursor:pointer}
+.premium-benefits{
+  position:relative;z-index:3;margin:13px 18px 0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:7px
+}
+.premium-benefit{
+  border-radius:15px;background:rgba(255,255,255,.76);border:1px solid #e0ecea;
+  padding:9px 4px;text-align:center;color:#617471;font-size:9.5px;line-height:1.5
+}
+.premium-benefit b{display:block;color:#08756c;font-size:15px;margin-bottom:3px}
+@media(max-width:360px){
+  .premium-reg-card{margin-inline:9px!important;padding-inline:14px!important}
+  .premium-reg-hero{padding-inline:15px}
+}
+
+
+/* V9 unified premium direction */
+:root{
+  --tc-teal:#0b746c;
+  --tc-teal-dark:#07584f;
+  --tc-bg:#f6f8f8;
+  --tc-card:#ffffff;
+  --tc-border:#dfe7e6;
+  --tc-text:#172423;
+  --tc-muted:#6f7d7b;
+  --tc-success:#2e9b63;
+  --tc-warning:#ef9d32;
+  --tc-danger:#d93434;
+}
+body{background:var(--tc-bg)}
+.premium-shell{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh;background:#f7f9f9}
+.premium-side{background:#fff;border-inline-end:1px solid #e7eded;padding:22px 16px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:100vh}
+.premium-side-brand{display:flex;align-items:center;gap:12px;padding:8px 4px 18px;border-bottom:1px solid #eef2f2}
+.premium-side-logo{width:54px;height:54px;border-radius:16px;background:linear-gradient(145deg,#0b746c,#0a5f58);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;box-shadow:0 10px 24px rgba(10,94,87,.18)}
+.premium-side-brand strong{font-size:18px;color:#0b4a45}
+.premium-side-brand small{display:block;color:#7b8886;margin-top:2px}
+.premium-nav{display:grid;gap:8px}
+.premium-nav button{display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;border-radius:13px;padding:12px 13px;color:#2f403e;text-align:right;font-weight:700;cursor:pointer}
+.premium-nav button.active,.premium-nav button:hover{background:linear-gradient(135deg,#0b746c,#087268);color:#fff}
+.premium-nav .ico{width:26px;text-align:center}
+.premium-side-spacer{flex:1}
+.premium-main{min-width:0}
+.premium-topbar{height:78px;background:#fff;border-bottom:1px solid #edf1f1;display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;z-index:20}
+.premium-topbar .hello strong{display:block;color:#1b302d}
+.premium-topbar .hello small{color:#778583}
+.premium-tools{display:flex;align-items:center;gap:10px}
+.tool-pill{border:1px solid #e2e9e8;background:#fff;border-radius:999px;padding:8px 12px;font-size:12px}
+.premium-content{padding:24px}
+.dashboard-hero{background:linear-gradient(135deg,#0b746c,#0a5b54);border-radius:24px;color:#fff;padding:25px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 16px 36px rgba(8,87,81,.18)}
+.dashboard-hero h2{margin:0 0 7px;font-size:26px}
+.dashboard-hero p{margin:0;opacity:.85}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.stat-card{background:#fff;border:1px solid #e3eae9;border-radius:18px;padding:17px;box-shadow:0 7px 20px rgba(0,0,0,.03)}
+.stat-card b{display:block;font-size:26px;color:#0a625b}
+.stat-card span{color:#74827f;font-size:12px}
+.service-grid-v9{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.service-tile{background:#fff;border:1px solid #e2e9e8;border-radius:18px;padding:18px;cursor:pointer;transition:.2s;min-height:112px}
+.service-tile:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(10,95,88,.08);border-color:#b7dcd7}
+.service-tile .sico{width:42px;height:42px;border-radius:13px;background:#eaf6f4;color:#0b746c;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px}
+.service-tile h4{margin:0 0 4px;color:#20312f}
+.service-tile p{margin:0;font-size:11px;color:#7d8987;line-height:1.6}
+.section-card{margin-top:18px;background:#fff;border:1px solid #e3eae9;border-radius:20px;padding:18px}
+.section-card h3{margin:0 0 14px}
+.region-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.region-card{border:1px solid #e2e9e8;border-radius:16px;padding:15px;background:#fbfdfd}
+.region-card strong{display:block;color:#0a625b;margin-bottom:4px}
+.region-card small{color:#71807d}
+.photo-strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.photo-card{flex:0 0 280px;scroll-snap-align:start;border-radius:18px;overflow:hidden;border:1px solid #e1e8e7;background:#fff}
+.photo-card img{width:100%;height:170px;object-fit:cover;display:block}
+.photo-card div{padding:10px 12px;font-size:12px;color:#384845}
+.request-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid #edf1f0}
+.request-row:last-child{border-bottom:0}
+.status-chip{padding:6px 9px;border-radius:999px;font-size:10px;font-weight:800}
+.status-ok{background:#e3f5ea;color:#2b7f50}.status-review{background:#eaf0ff;color:#4b65b4}.status-warn{background:#fff0d8;color:#a96c16}
+.diversion-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(360px,.9fr);gap:18px}
+.map-card-v9{background:#fff;border:1px solid #e2e9e8;border-radius:22px;overflow:hidden;min-height:720px;position:relative}
+.map-canvas{position:absolute;inset:0;background:
+linear-gradient(135deg,rgba(161,216,232,.42),transparent 32%),
+linear-gradient(#edf2f2 1px,transparent 1px),linear-gradient(90deg,#edf2f2 1px,transparent 1px);
+background-size:auto,38px 38px,38px 38px}
+.map-road{position:absolute;height:34px;background:#7e9eb7;border-radius:25px;box-shadow:inset 0 0 0 5px #637f94}
+.road1{width:75%;left:8%;top:28%;transform:rotate(-26deg)}
+.road2{width:70%;left:25%;top:58%;transform:rotate(31deg)}
+.road3{width:45%;left:45%;top:14%;transform:rotate(50deg)}
+.mosque{position:absolute;left:45%;top:38%;transform:translate(-50%,-50%);text-align:center;color:#203b38;font-weight:800}
+.mosque .dome{font-size:60px;filter:grayscale(1)}
+.route-red,.route-green{position:absolute;border-radius:999px;height:9px;transform-origin:left center}
+.route-red{background:#e73333;box-shadow:0 0 0 4px rgba(231,51,51,.12);width:42%;left:21%;top:54%;transform:rotate(22deg)}
+.route-green{background:#0aa08f;box-shadow:0 0 0 4px rgba(10,160,143,.12);width:48%;left:25%;top:61%;transform:rotate(14deg)}
+.map-label{position:absolute;background:#fff;border:1px solid #e1e8e7;border-radius:13px;padding:10px 12px;box-shadow:0 8px 20px rgba(0,0,0,.07);font-size:11px}
+.map-loc{top:20px;left:20px;font-weight:800;font-size:15px}
+.map-legend{bottom:20px;right:20px;min-width:160px}
+.legend-line{display:flex;align-items:center;gap:8px;margin-top:8px}
+.legend-swatch{width:34px;height:5px;border-radius:999px}
+.map-photo{bottom:20px;left:20px;width:250px}
+.map-photo img{width:100%;height:135px;object-fit:cover;border-radius:12px;margin-bottom:8px}
+.form-card-v9{background:#fff;border:1px solid #e2e9e8;border-radius:22px;padding:20px;box-shadow:0 10px 24px rgba(0,0,0,.035)}
+.steps-v9{display:flex;justify-content:space-between;position:relative;margin:18px 0 24px}
+.steps-v9:before{content:"";position:absolute;top:15px;left:8%;right:8%;height:2px;background:#dfe8e7}
+.step-v9{position:relative;z-index:2;text-align:center;font-size:10px;color:#7a8885}
+.step-v9 span{width:32px;height:32px;border-radius:50%;border:2px solid #d7e3e1;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 5px}
+.step-v9.active span{background:#0b746c;border-color:#0b746c;color:#fff}
+.step-v9.active{color:#0b746c;font-weight:800}
+.field-v9{margin-top:15px}
+.field-v9 label{display:block;font-size:11px;font-weight:800;margin-bottom:7px;color:#354542}
+.field-v9 input,.field-v9 select,.field-v9 textarea{width:100%;border:1px solid #dfe7e6;border-radius:13px;padding:12px;background:#fff}
+.success-note{background:#e9f7ef;color:#2e8052;border:1px solid #cdebd9;border-radius:12px;padding:11px;margin-top:12px;font-size:11px}
+.type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.type-option{border:1px solid #dfe7e6;border-radius:13px;padding:13px 8px;text-align:center;font-size:10px;background:#fff;cursor:pointer}
+.type-option.active{border-color:#0b746c;background:#eef8f7;color:#0b746c;font-weight:800}
+.btn-next-v9{margin-top:18px;width:100%;height:48px;border:0;border-radius:14px;background:linear-gradient(135deg,#0b746c,#0a625b);color:#fff;font-weight:800;font-size:14px;cursor:pointer}
+@media(max-width:1050px){
+  .premium-shell{grid-template-columns:1fr}.premium-side{display:none}.diversion-layout{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}.service-grid-v9{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .premium-content{padding:12px}.premium-topbar{padding:0 14px}.stat-grid,.service-grid-v9,.region-cards{grid-template-columns:1fr}.type-grid{grid-template-columns:repeat(2,1fr)}.map-card-v9{min-height:540px}.map-photo{width:210px}
+}
+
+
+/* V10 precise premium responsive login */
+:root{
+  --v10-teal:#0b746c;--v10-teal-dark:#064f49;--v10-ink:#132422;--v10-muted:#6f7f7c;
+  --v10-bg:#f4f7f7;--v10-card:#fff;--v10-border:#dde7e5;--v10-soft:#eaf5f3;
+}
+.app{max-width:none!important;margin:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}
+#login{min-height:100vh;padding:0!important;max-width:none!important}
+.v10-login-shell{min-height:100vh;display:grid;grid-template-columns:minmax(380px,.92fr) minmax(560px,1.28fr);background:#f5f8f7}
+.v10-brand-panel{position:relative;overflow:hidden;background:linear-gradient(160deg,#07594f,#0b746c 58%,#0b665f);color:#fff;padding:38px 42px 30px;display:flex;flex-direction:column}
+.v10-brand-panel:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-270px;top:-240px;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 0 55px rgba(255,255,255,.025),0 0 0 110px rgba(255,255,255,.018)}
+.v10-brand-head{position:relative;z-index:2;display:flex;align-items:center;gap:14px}
+.v10-logo-box{width:74px;height:74px;border-radius:22px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;box-shadow:0 16px 34px rgba(0,0,0,.18)}
+.v10-logo-box .road-logo{transform:scale(.95) perspective(40px) rotateX(7deg)}
+.v10-brand-title strong{display:block;font-size:27px}.v10-brand-title span{font-size:11px;letter-spacing:3px;opacity:.8}
+.v10-brand-copy{position:relative;z-index:2;margin-top:62px;max-width:540px}
+.v10-kicker{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);font-size:12px}
+.v10-brand-copy h1{font-size:42px;line-height:1.18;margin:17px 0 12px;letter-spacing:-.6px}
+.v10-brand-copy p{color:#dcefed;line-height:1.9;font-size:15px;margin:0}
+.v10-benefits{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+.v10-benefit{border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:15px 13px}
+.v10-benefit b{display:block;font-size:20px;margin-bottom:6px}.v10-benefit strong{display:block;font-size:13px}.v10-benefit small{display:block;color:#d3e9e6;margin-top:4px;line-height:1.5}
+.v10-brand-photo{position:relative;z-index:2;margin-top:auto;padding-top:28px}
+.v10-photo-frame{position:relative;border-radius:24px;overflow:hidden;height:230px;border:1px solid rgba(255,255,255,.18);box-shadow:0 18px 44px rgba(0,0,0,.24)}
+.v10-photo-frame img{width:100%;height:100%;object-fit:cover;display:block}.v10-photo-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(4,54,50,.72))}
+.v10-photo-caption{position:absolute;bottom:15px;right:16px;left:16px;display:flex;justify-content:space-between;align-items:end;gap:12px}.v10-photo-caption strong{font-size:15px}.v10-photo-caption span{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.17);font-size:10px}
+.v10-login-panel{display:flex;align-items:center;justify-content:center;padding:36px 52px;background:radial-gradient(circle at 88% 8%,rgba(35,166,151,.08),transparent 23%),#f8faf9}
+.v10-login-wrap{width:min(100%,620px)}
+.v10-login-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.v10-lang{display:flex;gap:5px;padding:4px;background:#eef4f3;border:1px solid #dfe8e6;border-radius:999px}.v10-lang button{border:0;background:transparent;padding:7px 12px;border-radius:999px;font-size:11px;color:#60716e;cursor:pointer}.v10-lang button.active{background:#fff;color:#0b746c;font-weight:800;box-shadow:0 3px 10px rgba(0,0,0,.05)}
+.v10-secure{display:flex;align-items:center;gap:7px;font-size:11px;color:#60716e}.v10-secure i{font-style:normal;width:31px;height:31px;border-radius:10px;background:#e9f6f3;color:#0b746c;display:flex;align-items:center;justify-content:center}
+.v10-login-card{background:#fff;border:1px solid #e2e9e8;border-radius:28px;padding:31px 34px 27px;box-shadow:0 28px 60px rgba(14,67,62,.10),0 3px 10px rgba(14,67,62,.03)}
+.v10-eyebrow{color:#0b746c;font-size:11px;font-weight:800;margin-bottom:6px}.v10-login-card h2{margin:0;font-size:28px;color:#132422}.v10-sub{margin:7px 0 22px;color:#6f7f7c;font-size:12px}
+.v10-role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:17px}.v10-role{border:1px solid #dfe7e6;background:#fff;border-radius:14px;padding:11px 7px;text-align:center;cursor:pointer;font-size:10px;color:#536461}.v10-role b{display:block;font-size:18px;margin-bottom:4px}.v10-role.active{border-color:#62b9ae;background:#edf8f6;color:#075f58;font-weight:800}
+.v10-field{margin-top:13px}.v10-field label{display:block;margin:0 3px 7px;font-size:11px;font-weight:800;color:#374845}
+.v10-input{display:flex;align-items:center;gap:10px;border:1px solid #dce6e4;background:#fbfdfd;border-radius:15px;min-height:53px;padding:0 13px;transition:.2s}.v10-input:focus-within{background:#fff;border-color:#61b9af;box-shadow:0 0 0 4px rgba(37,159,145,.09)}
+.v10-ico{width:32px;height:32px;border-radius:10px;background:#e9f5f3;color:#0b746c;display:flex;align-items:center;justify-content:center;font-size:15px}.v10-input input{flex:1;border:0!important;outline:0!important;background:transparent!important;padding:13px 0!important;border-radius:0!important;min-width:0}
+.v10-actions{display:flex;align-items:center;justify-content:space-between;margin:12px 1px 0;font-size:11px}.v10-actions a{color:#0b746c;font-weight:800;cursor:pointer}
+.v10-primary{width:100%;height:53px;border:0;border-radius:15px;margin-top:16px;background:linear-gradient(135deg,#0b746c,#08635b);color:#fff;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 13px 28px rgba(10,116,108,.22)}
+.v10-secondary{width:100%;height:47px;border-radius:15px;margin-top:10px;background:#edf6f5;color:#075f58;border:1px solid #d8ebe8;font-weight:800;cursor:pointer}
+.v10-divider{display:flex;align-items:center;gap:10px;margin:18px 0;color:#9aa6a4;font-size:10px}.v10-divider:before,.v10-divider:after{content:"";height:1px;background:#e7eded;flex:1}
+.v10-new{text-align:center;color:#7c8a87;font-size:11px}.v10-new button{border:0;background:none;color:#0b746c;font-weight:800;cursor:pointer}
+.v10-foot{margin-top:15px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.v10-foot div{border:1px solid #e1e9e7;background:#fff;border-radius:14px;padding:10px;text-align:center;font-size:9.5px;color:#71817e}.v10-foot b{display:block;color:#0b746c;font-size:15px;margin-bottom:4px}
+@media(max-width:900px){.v10-login-shell{grid-template-columns:1fr}.v10-brand-panel{display:none}.v10-login-panel{padding:18px 13px;min-height:100vh}.v10-login-card{padding:24px 18px;border-radius:22px}.v10-role-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+/* =========================================================
+   V11 — registration page closely matching approved concept
+   ========================================================= */
+#register{
+  min-height:100vh!important;
+  padding:0!important;
+  max-width:none!important;
+  background:#f5f8f7!important;
+}
+.v11-register-shell{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:minmax(350px,.78fr) minmax(620px,1.55fr);
+  background:#f5f8f7;
+  overflow:hidden;
+}
+.v11-left{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(58,189,173,.25),transparent 24%),
+    linear-gradient(180deg,#ffffff 0 58%,#f7fbfa 100%);
+  border-inline-end:1px solid #dbe8e6;
+  padding:44px 34px 30px;
+  display:flex;
+  flex-direction:column;
+}
+.v11-left:after{
+  content:"";
+  position:absolute;
+  width:210px;height:115%;
+  top:-7%;right:-108px;
+  background:linear-gradient(180deg,#0e9c8f,#078479 55%,#05665f);
+  border-radius:50% 0 0 50%/12% 0 0 12%;
+  transform:rotate(2deg);
+  box-shadow:-16px 0 42px rgba(5,102,95,.12);
+}
+.v11-brand{
+  position:relative;z-index:2;
+  text-align:center;
+}
+.v11-logo{
+  width:108px;height:108px;
+  margin:0 auto 13px;
+  border-radius:28px;
+  background:linear-gradient(145deg,#0b746c,#08635b);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 16px 34px rgba(7,95,88,.18);
+}
+.v11-logo .road-logo{transform:scale(1.22) perspective(50px) rotateX(7deg)}
+.v11-brand h1{
+  margin:0;color:#173033;font-size:34px;line-height:1;
+  letter-spacing:2px;font-weight:800
+}
+.v11-brand .brand-en{
+  color:#173033;font-size:18px;letter-spacing:7px;margin-top:3px;font-weight:700
+}
+.v11-brand .brand-ar{
+  margin-top:16px;color:#0c5f59;font-size:24px;font-weight:800
+}
+.v11-left-copy{
+  position:relative;z-index:2;
+  margin:42px auto 0;
+  max-width:330px;
+  text-align:center;
+}
+.v11-left-copy h2{
+  margin:0;color:#153135;font-size:31px;line-height:1.32;
+}
+.v11-left-copy h2 span{color:#0b8d82}
+.v11-left-copy p{
+  margin:16px 0 0;color:#425654;font-size:14px;line-height:1.9
+}
+.v11-city{
+  position:relative;z-index:2;
+  margin:22px -34px 0;
+  height:315px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,transparent 0 54%,rgba(255,255,255,.22)),
+    linear-gradient(180deg,#dff1f4,#f7fbfb 60%,#d5e5df 61%,#d5e5df 100%);
+}
+.v11-skyline{
+  position:absolute;left:0;right:0;bottom:94px;height:145px;
+  background:
+    linear-gradient(90deg,
+      transparent 2%, #b7d4da 2% 5%, transparent 5% 8%, #9fc9d2 8% 13%,
+      transparent 13% 18%,#b1d2d9 18% 21%,transparent 21% 25%,#8ebdc8 25% 31%,
+      transparent 31% 36%,#a8ced5 36% 40%,transparent 40% 45%,#93c0c9 45% 52%,
+      transparent 52% 59%,#a8ced6 59% 63%,transparent 63% 70%,#8fbcc6 70% 76%,
+      transparent 76% 81%,#a8ced4 81% 85%,transparent 85% 90%,#9fc7cf 90% 96%,transparent 96%);
+  opacity:.75;
+  clip-path:polygon(0 100%,0 65%,4% 65%,4% 35%,7% 35%,7% 70%,11% 70%,11% 45%,15% 45%,15% 62%,18% 62%,18% 22%,22% 22%,22% 70%,27% 70%,27% 50%,31% 50%,31% 34%,35% 34%,35% 75%,41% 75%,41% 52%,46% 52%,46% 25%,50% 25%,50% 68%,55% 68%,55% 40%,60% 40%,60% 17%,64% 17%,64% 70%,69% 70%,69% 44%,74% 44%,74% 30%,79% 30%,79% 74%,84% 74%,84% 55%,88% 55%,88% 38%,93% 38%,93% 66%,100% 66%,100% 100%);
+}
+.v11-road{
+  position:absolute;left:-8%;right:-8%;bottom:-10px;height:145px;
+  background:linear-gradient(180deg,#778a91,#586a70);
+  transform:perspective(280px) rotateX(42deg);
+  border-radius:36% 36% 0 0/18% 18% 0 0;
+}
+.v11-road:before{
+  content:"";
+  position:absolute;left:50%;top:0;bottom:0;width:5px;
+  background:repeating-linear-gradient(180deg,#fff 0 20px,transparent 20px 39px);
+  transform:translateX(-50%);
+  opacity:.88;
+}
+.v11-car{
+  position:absolute;bottom:48px;width:56px;height:26px;border-radius:8px 8px 5px 5px;background:#eceff0;box-shadow:0 6px 10px rgba(0,0,0,.18)
+}
+.v11-car:before,.v11-car:after{content:"";position:absolute;bottom:-4px;width:10px;height:10px;background:#233;border-radius:50%}
+.v11-car:before{left:7px}.v11-car:after{right:7px}
+.v11-car.c1{left:22%;transform:scale(.86)}.v11-car.c2{left:48%;bottom:32px;transform:scale(1.12)}.v11-car.c3{right:18%;bottom:57px;transform:scale(.78)}
+.v11-features{
+  position:relative;z-index:3;
+  margin:-10px auto 0;
+  width:min(100%,310px);
+  background:rgba(255,255,255,.95);
+  border:1px solid #e1e8e7;
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 15px 34px rgba(8,86,79,.10);
+}
+.v11-feature{
+  display:grid;grid-template-columns:42px 1fr;gap:11px;align-items:center;
+  padding:10px 2px
+}
+.v11-feature + .v11-feature{border-top:1px solid #edf1f0}
+.v11-feature .fi{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:#0b746c;background:#eaf6f4;font-size:18px
+}
+.v11-feature strong{display:block;color:#163331;font-size:13px}
+.v11-feature small{display:block;color:#6e7d7a;font-size:10.5px;margin-top:3px}
+.v11-language{
+  position:relative;z-index:3;
+  margin-top:auto;padding-top:18px;
+  display:flex;justify-content:center;gap:9px
+}
+.v11-language button{
+  border:1px solid #dce6e4;background:#fff;color:#344845;
+  border-radius:999px;padding:9px 16px;cursor:pointer;font-weight:700
+}
+.v11-language button.active{background:#0b746c;color:#fff;border-color:#0b746c}
+.v11-right{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+  padding:34px 48px;
+  background:
+    radial-gradient(circle at 90% 8%,rgba(35,166,151,.10),transparent 23%),
+    linear-gradient(180deg,#f9fbfa,#f4f8f7);
+}
+.v11-right:before{
+  content:"";
+  position:absolute;top:-120px;left:-160px;width:360px;height:360px;
+  background:#0b8c82;border-radius:50%;
+  opacity:.94
+}
+.v11-secure{
+  position:absolute;top:30px;right:48px;
+  display:flex;align-items:center;gap:8px;
+  padding:9px 13px;border-radius:999px;
+  border:1px solid #dfe8e6;background:rgba(255,255,255,.82);
+  color:#5c6d6a;font-size:11px;backdrop-filter:blur(12px)
+}
+.v11-secure b{color:#0b746c;font-size:16px}
+.v11-card{
+  width:min(100%,650px);
+  background:rgba(255,255,255,.98);
+  border:1px solid #e0e8e6;
+  border-radius:32px;
+  padding:34px 38px 30px;
+  box-shadow:0 30px 70px rgba(11,79,73,.12),0 4px 12px rgba(11,79,73,.04);
+  position:relative;z-index:2
+}
+.v11-user-icon{
+  width:86px;height:86px;border-radius:50%;
+  margin:0 auto 15px;
+  background:linear-gradient(145deg,#0f988d,#0b746c);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:37px;
+  border:7px solid #eef8f6;
+  box-shadow:0 14px 30px rgba(10,120,110,.17)
+}
+.v11-title{text-align:center;margin-bottom:20px}
+.v11-title h2{margin:0;color:#0d2130;font-size:30px}
+.v11-title p{margin:7px 0 0;color:#7c8a87;font-size:13px}
+.v11-field{margin-top:14px}
+.v11-label{
+  display:flex;justify-content:flex-start;align-items:center;gap:5px;
+  margin:0 3px 7px;
+  color:#1e2d3a;font-size:12px;font-weight:800
+}
+.v11-label .req{color:#d72e2e}
+.v11-input{
+  min-height:56px;border:1px solid #dfe6e9;border-radius:13px;
+  display:flex;align-items:center;gap:11px;padding:0 13px;
+  background:#fff;transition:.2s
+}
+.v11-input:focus-within{border-color:#5ab8ae;box-shadow:0 0 0 4px rgba(47,159,147,.09)}
+.v11-input .ico{font-size:22px;color:#11263a;width:34px;text-align:center}
+.v11-input input{
+  flex:1;border:0!important;background:transparent!important;outline:0!important;
+  padding:14px 0!important;border-radius:0!important;font-size:13px!important
+}
+.v11-password-rules{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px
+}
+.v11-rule{
+  border:1px solid #e2e8e7;background:#fbfcfc;
+  border-radius:12px;padding:8px 6px;
+  text-align:center;font-size:9.5px;color:#445653
+}
+.v11-rule b{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#38a15b;color:#fff;margin-inline-start:4px}
+.v11-terms{
+  display:flex;align-items:flex-start;gap:9px;margin-top:14px;
+  font-size:11px;line-height:1.8;color:#526562
+}
+.v11-terms input{width:auto!important;margin-top:5px}
+.v11-terms a{color:#0b746c;font-weight:800}
+.v11-submit{
+  width:100%;height:56px;margin-top:15px;border:0;border-radius:14px;
+  background:linear-gradient(135deg,#0e978c,#08736a);
+  color:#fff;font-size:15px;font-weight:800;cursor:pointer;
+  box-shadow:0 13px 28px rgba(9,119,109,.22)
+}
+.v11-divider{display:flex;align-items:center;gap:11px;margin:18px 0;color:#889692;font-size:11px}
+.v11-divider:before,.v11-divider:after{content:"";height:1px;background:#e2e9e7;flex:1}
+.v11-login-link{text-align:center;color:#687874;font-size:12px}
+.v11-login-link button{border:0;background:none;color:#0b746c;font-weight:800;cursor:pointer}
+.v11-bottom{
+  position:absolute;left:34px;right:34px;bottom:22px;z-index:3;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+  background:rgba(255,255,255,.92);border:1px solid #e1e8e6;
+  border-radius:22px;padding:13px 10px;box-shadow:0 14px 34px rgba(9,77,71,.08)
+}
+.v11-bottom div{text-align:center;padding:0 8px;font-size:9.5px;color:#657672}
+.v11-bottom div + div{border-inline-start:1px solid #e7eceb}
+.v11-bottom b{display:block;color:#0b746c;font-size:18px;margin-bottom:4px}
+@media(max-width:1100px){
+  .v11-register-shell{grid-template-columns:1fr}
+  .v11-left{display:none}
+  .v11-right{padding:60px 18px 120px}
+  .v11-bottom{left:18px;right:18px}
+}
+@media(max-width:650px){
+  .v11-right{padding:72px 12px 138px}
+  .v11-secure{right:14px;top:18px}
+  .v11-card{padding:26px 18px 24px;border-radius:24px}
+  .v11-title h2{font-size:25px}
+  .v11-password-rules{grid-template-columns:repeat(2,1fr)}
+  .v11-bottom{grid-template-columns:repeat(2,1fr);gap:8px}
+  .v11-bottom div{border:0!important}
+  .v11-bottom div:last-child{grid-column:1/-1}
+}
+
+
+/* V14 — corrected contractor home layout */
+.app.wide-mode{max-width:1180px}
+.app.wide-mode #shell main{padding:0}
+.app.wide-mode #home{max-width:1080px!important;padding:28px!important}
+.app.wide-mode .bottom-nav{width:min(1180px,100%)}
+#home .hero{margin:0 0 18px;padding:22px 24px;border-radius:22px;background:linear-gradient(135deg,#e3f5f2,#fff)}
+#home .service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#home .service-grid .service{appearance:none;border:1px solid #dce9e7;border-radius:18px;background:#fff;min-height:126px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#173b37;box-shadow:0 6px 18px rgba(7,79,74,.05);cursor:pointer;font-family:inherit}
+#home .service-grid .service:hover{border-color:#83c7bf;transform:translateY(-2px);box-shadow:0 10px 24px rgba(7,79,74,.10)}
+#home .service-grid .service span{width:52px;height:52px;border-radius:16px;background:#e9f6f4;display:flex;align-items:center;justify-content:center;font-size:25px;color:var(--primary)}
+#home .service-grid .service b{font-size:14px}
+#home .gallery-card{padding:16px}
+#home .gallery-slide img{height:360px}
+@media(max-width:700px){.app.wide-mode{max-width:430px}.app.wide-mode #home{padding:16px!important}.app.wide-mode .bottom-nav{width:min(430px,100%)}#home .service-grid{grid-template-columns:repeat(3,1fr);gap:8px}#home .service-grid .service{min-height:105px;padding:12px 6px}#home .service-grid .service span{width:44px;height:44px;font-size:21px}#home .service-grid .service b{font-size:12px}#home .gallery-slide img{height:230px}}
+
+
+/* V15 booking workflow */
+.booking-page{max-width:1080px;margin:0 auto;padding:22px}
+.booking-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
+.booking-head .title h2{margin:0 0 5px;font-size:26px;color:#17312f}
+.booking-head .title p{margin:0;color:#72817e;font-size:12px}
+.booking-back{border:1px solid #dce7e5;background:#fff;color:#0b746c;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:800}
+.booking-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:18px}
+.booking-panel{background:#fff;border:1px solid #e0e8e6;border-radius:22px;padding:20px;box-shadow:0 12px 28px rgba(10,83,76,.05)}
+.booking-panel h3{margin:0 0 14px;color:#19312f}
+.booking-field{margin-top:14px}
+.booking-field label{display:block;font-size:11px;font-weight:800;color:#374845;margin:0 3px 7px}
+.booking-field select,.booking-field input,.booking-field textarea{
+  width:100%;border:1px solid #dce6e4;border-radius:13px;background:#fbfdfd;
+  padding:12px 13px;font:inherit;outline:none
+}
+.booking-field textarea{min-height:92px;resize:vertical}
+.booking-field select:focus,.booking-field input:focus,.booking-field textarea:focus{
+  border-color:#63b8ae;box-shadow:0 0 0 4px rgba(43,157,144,.08);background:#fff
+}
+.availability-box{margin-top:12px;border-radius:13px;padding:12px;background:#f6f9f8;border:1px solid #e1e9e7;color:#5b6e6a;font-size:11px;line-height:1.7}
+.availability-box.available{background:#eaf7ef;border-color:#cce9d7;color:#267249}
+.availability-box.booked{background:#fff6e7;border-color:#f3dfba;color:#95631b}
+.availability-box.leave{background:#f2f3f5;border-color:#e0e3e7;color:#626c73}
+.booking-email{font-size:10px;color:#73827f;margin-top:5px}
+.booking-times{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.booking-time{border:1px solid #dfe7e5;background:#fff;border-radius:11px;padding:10px;text-align:center;font-size:11px;cursor:pointer}
+.booking-time:hover{border-color:#66b9af;background:#eef8f6;color:#0b746c}
+.booking-summary{background:linear-gradient(145deg,#0b746c,#08645d);color:#fff;border-radius:20px;padding:18px}
+.booking-summary h3{color:#fff;margin-top:0}
+.summary-line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:11px}
+.summary-line:last-child{border-bottom:0}
+.summary-line span{opacity:.76}
+.booking-tip{margin-top:14px;background:#edf7f5;border:1px solid #d5ebe7;border-radius:14px;padding:12px;color:#43625e;font-size:11px;line-height:1.7}
+.booking-submit{width:100%;height:50px;margin-top:15px;border:0;border-radius:14px;background:linear-gradient(135deg,#0d8a7f,#0a655e);color:#fff;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 12px 24px rgba(10,111,102,.18)}
+.requests-page{max-width:920px;margin:0 auto;padding:22px}
+.request-card{background:#fff;border:1px solid #e0e8e6;border-radius:18px;padding:16px;margin-top:11px}
+@media(max-width:850px){.booking-grid{grid-template-columns:1fr}.booking-page,.requests-page{padding:13px}.booking-times{grid-template-columns:repeat(2,1fr)}}
+
+
+/* V16 richer contractor home + missing services */
+.home16{
+  max-width:1180px;
+  margin:0 auto;
+  padding:24px 24px 96px;
+}
+.home16-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+}
+.home16-greeting small{display:block;color:#71817e;font-size:12px;margin-bottom:4px}
+.home16-greeting h2{margin:0;color:#173330;font-size:28px}
+.home16-tools{display:flex;gap:8px}
+.home16-tool{
+  width:42px;height:42px;border:1px solid #dce7e5;background:#fff;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative
+}
+.home16-tool .count{
+  position:absolute;top:-5px;right:-5px;background:#d92f3b;color:#fff;
+  min-width:18px;height:18px;border-radius:999px;font-size:9px;display:flex;align-items:center;justify-content:center
+}
+.home16-hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0b746c,#075a53);
+  border-radius:26px;padding:28px;color:#fff;
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:20px;
+  box-shadow:0 18px 40px rgba(7,91,84,.16)
+}
+.home16-hero:after{
+  content:"";position:absolute;width:360px;height:360px;border-radius:50%;
+  left:-140px;top:-220px;border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 48px rgba(255,255,255,.025),0 0 0 96px rgba(255,255,255,.018)
+}
+.home16-copy{position:relative;z-index:2}
+.home16-copy .tag{
+  display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.14);font-size:11px
+}
+.home16-copy h1{margin:14px 0 8px;font-size:31px;line-height:1.25}
+.home16-copy p{margin:0;color:#dcefed;line-height:1.8;font-size:13px;max-width:610px}
+.home16-quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;position:relative;z-index:2}
+.home16-quick button{
+  min-height:84px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.09);
+  color:#fff;border-radius:18px;padding:14px;text-align:right;cursor:pointer
+}
+.home16-quick button:hover{background:rgba(255,255,255,.14)}
+.home16-quick b{display:block;font-size:18px;margin-bottom:7px}
+.home16-quick span{font-size:11px;opacity:.88}
+.home16-section{margin-top:22px}
+.home16-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.home16-section-head h3{margin:0;color:#173330;font-size:20px}
+.home16-section-head button{border:0;background:none;color:#0b746c;font-weight:800;cursor:pointer}
+.home16-services{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.home16-service{
+  background:#fff;border:1px solid #e0e8e6;border-radius:19px;padding:17px;
+  min-height:140px;cursor:pointer;transition:.2s;box-shadow:0 7px 20px rgba(9,74,68,.025);
+  text-align:right
+}
+.home16-service:hover{transform:translateY(-2px);border-color:#b9ddd8;box-shadow:0 14px 30px rgba(9,86,78,.08)}
+.home16-service .ico{
+  width:44px;height:44px;border-radius:14px;background:#eaf6f4;color:#0b746c;
+  display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px
+}
+.home16-service h4{margin:0 0 5px;color:#203532;font-size:14px}
+.home16-service p{margin:0;color:#778683;font-size:10.5px;line-height:1.65}
+.home16-two{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,.7fr);gap:16px}
+.home16-card{background:#fff;border:1px solid #e0e8e6;border-radius:21px;padding:17px}
+.home16-card h3{margin:0 0 12px}
+.home16-request{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 0;border-bottom:1px solid #edf1f0
+}
+.home16-request:last-child{border-bottom:0}
+.home16-request b{display:block;color:#263936;font-size:12px}
+.home16-request small{color:#7a8885}
+.home16-status{padding:5px 8px;border-radius:999px;font-size:9px;font-weight:800}
+.home16-status.ok{background:#e4f5ea;color:#2f8051}.home16-status.review{background:#edf1ff;color:#516ab4}.home16-status.warn{background:#fff0dc;color:#a66a18}
+.home16-contact{
+  background:linear-gradient(145deg,#f0f8f7,#fff);
+  border:1px solid #dceae7;border-radius:18px;padding:15px;margin-top:10px
+}
+.home16-contact strong{display:block;color:#0b746c;margin-bottom:4px}
+.home16-contact small{color:#6f807d;line-height:1.6}
+.home16-nav{
+  position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
+  width:min(760px,calc(100% - 28px));background:rgba(255,255,255,.94);
+  border:1px solid #dfe8e6;border-radius:18px;padding:8px;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:4px;z-index:60;
+  box-shadow:0 16px 40px rgba(7,64,59,.12);backdrop-filter:blur(14px)
+}
+.home16-nav button{
+  border:0;background:transparent;border-radius:12px;padding:8px 5px;color:#6b7b78;cursor:pointer;font-size:9px
+}
+.home16-nav button b{display:block;font-size:17px;margin-bottom:2px}
+.home16-nav button.active{background:#eaf6f4;color:#0b746c;font-weight:800}
+
+/* General service pages */
+.service16-page{max-width:900px;margin:0 auto;padding:24px 18px 95px}
+.service16-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px}
+.service16-head h2{margin:0;color:#183330}.service16-head p{margin:4px 0 0;color:#74837f;font-size:11px}
+.service16-back{border:1px solid #dce6e4;background:#fff;color:#0b746c;border-radius:12px;padding:10px 13px;cursor:pointer;font-weight:800}
+.service16-card{background:#fff;border:1px solid #e0e8e6;border-radius:22px;padding:20px}
+.service16-field{margin-top:14px}
+.service16-field label{display:block;font-size:11px;font-weight:800;color:#364945;margin:0 3px 7px}
+.service16-field input,.service16-field select,.service16-field textarea{
+  width:100%;border:1px solid #dce6e4;border-radius:13px;background:#fbfdfd;padding:12px 13px;font:inherit;outline:none
+}
+.service16-field textarea{min-height:120px;resize:vertical}
+.service16-field input:focus,.service16-field select:focus,.service16-field textarea:focus{
+  border-color:#63b8ae;box-shadow:0 0 0 4px rgba(43,157,144,.08);background:#fff
+}
+.service16-submit{
+  width:100%;height:50px;border:0;border-radius:14px;background:linear-gradient(135deg,#0d8a7f,#0a655e);
+  color:#fff;font-weight:800;font-size:14px;margin-top:16px;cursor:pointer
+}
+.service16-note{margin-top:11px;padding:11px;border-radius:12px;background:#eef8f6;border:1px solid #d7ece8;color:#496560;font-size:10.5px;line-height:1.7}
+.notification16{
+  display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid #e2e9e8;border-radius:16px;background:#fff;margin-top:10px
+}
+.notification16 .ni{width:38px;height:38px;border-radius:12px;background:#eaf6f4;display:flex;align-items:center;justify-content:center}
+.notification16 b{display:block;margin-bottom:3px}.notification16 small{color:#758481;line-height:1.55}
+@media(max-width:980px){
+  .home16-services{grid-template-columns:repeat(2,1fr)}
+  .home16-two,.home16-hero{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .home16{padding:14px 12px 95px}
+  .home16-services{grid-template-columns:1fr 1fr;gap:9px}
+  .home16-service{min-height:120px;padding:13px}
+  .home16-quick{grid-template-columns:1fr 1fr}
+  .home16-copy h1{font-size:25px}
+  .home16-top h2{font-size:22px}
+}
+
+
+/* ===== Traffic Connect V19 Admin ===== */
+.admin19-page{max-width:1180px;margin:0 auto;padding:22px 18px 100px}
+.admin19-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px}
+.admin19-head h2{margin:0;color:#173532;font-size:26px}
+.admin19-head p{margin:4px 0 0;color:#778682;font-size:11px}
+.admin19-back{border:1px solid #dce7e5;background:#fff;color:#0b746c;border-radius:12px;padding:10px 13px;font-weight:800;cursor:pointer}
+.admin19-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.admin19-stat{background:#fff;border:1px solid #e0e8e6;border-radius:17px;padding:15px;text-align:center}
+.admin19-stat b{display:block;font-size:25px;color:#0b746c}.admin19-stat span{font-size:10px;color:#75847f}
+.admin19-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.admin19-card{background:#fff;border:1px solid #e0e8e6;border-radius:20px;padding:17px;box-shadow:0 7px 22px rgba(8,73,66,.04)}
+.admin19-card h3{margin:0 0 12px;color:#1b3734;font-size:17px}
+.admin19-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #edf1f0}
+.admin19-row:last-child{border-bottom:0}.admin19-row small{display:block;color:#7b8985;margin-top:3px}
+.admin19-toggle{appearance:none;width:44px;height:24px;background:#cbd6d4;border-radius:999px;position:relative;cursor:pointer}
+.admin19-toggle:checked{background:#0b746c}.admin19-toggle:before{content:"";position:absolute;width:18px;height:18px;top:3px;left:3px;border-radius:50%;background:white;transition:.2s}
+.admin19-toggle:checked:before{left:23px}
+.admin19-input,.admin19-select,.admin19-textarea{width:100%;border:1px solid #dce6e4;background:#fbfdfd;border-radius:12px;padding:11px 12px;font:inherit;outline:none}
+.admin19-textarea{min-height:88px;resize:vertical}
+.admin19-btn{border:0;border-radius:12px;background:#0b746c;color:#fff;padding:11px 14px;font-weight:800;cursor:pointer}
+.admin19-btn.secondary{background:#edf7f5;color:#0b746c;border:1px solid #d7ebe7}
+.admin19-table{width:100%;border-collapse:collapse;font-size:11px}.admin19-table th,.admin19-table td{padding:9px;border-bottom:1px solid #edf1f0;text-align:right;white-space:nowrap}
+.admin19-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:9px;font-weight:800}
+.admin19-badge.active{background:#e7f5ec;color:#2d7c4d}.admin19-badge.blocked{background:#ffe7e7;color:#ae3030}
+.admin19-note{background:#eef8f6;border:1px solid #d7ebe7;border-radius:13px;padding:11px;color:#496660;font-size:10.5px;line-height:1.7}
+.admin19-home-btn{position:fixed;left:16px;bottom:92px;z-index:70;border:0;border-radius:14px;background:#173b37;color:#fff;padding:11px 14px;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.15);cursor:pointer}
+.admin2610-toolbar{position:sticky;top:0;z-index:120;display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:rgba(247,251,250,.96);backdrop-filter:blur(10px);padding:10px 0 12px;margin-bottom:12px;border-bottom:1px solid #dce7e5}
+.admin2610-toolbar button{border:1px solid #cfe0dc;background:#fff;color:#0b746c;border-radius:11px;padding:9px 11px;font-weight:800;cursor:pointer}
+.admin2610-toolbar .danger{background:#fff1f1;color:#b42318;border-color:#efb3b3;margin-inline-start:auto}
+.admin2610-save-state{font-size:10px;color:#0b746c;min-height:18px;margin-top:6px}
+.admin2610-card-anchor{scroll-margin-top:84px}
+
+.admin2611-preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.admin2611-preview-grid button{border:1px solid #cfe0dc;background:#f7fbfa;color:#0b746c;border-radius:12px;padding:11px 8px;font-weight:800;cursor:pointer}
+#tcAdminPreviewBar{position:fixed;left:12px;right:12px;top:10px;z-index:9999;background:#123f3a;color:#fff;border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 8px 26px rgba(0,0,0,.18);direction:rtl}
+#tcAdminPreviewBar button{border:0;background:#fff;color:#0b746c;border-radius:10px;padding:8px 12px;font-weight:900}
+body.tc-admin-preview .screen.active{padding-top:66px}
+@media(max-width:760px){.admin2611-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.admin19-head{align-items:flex-start}.admin19-head>div{max-width:70%}.admin2610-toolbar{top:0;padding-top:8px}.admin2610-toolbar button{font-size:11px;padding:8px 9px}.admin2610-toolbar .danger{margin-inline-start:0}.admin19-page{padding-top:10px}}
+@media(max-width:820px){.admin19-grid{grid-template-columns:1fr}.admin19-stats{grid-template-columns:repeat(2,1fr)}}
+
+
+/* V25 Engineer role workflow */
+.v25-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.v25-stat{background:#f4faf9;border:1px solid #d7e7e4;border-radius:18px;padding:16px;text-align:center}.v25-stat b{display:block;font-size:26px;color:#0d746d}.v25-booking{border:1px solid #dbe5e4;border-radius:18px;padding:16px;margin:12px 0;background:#fff}.v25-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.v25-actions button{border:0;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}.v25-accept{background:#0d746d;color:white}.v25-reject{background:#fff0f0;color:#9d2525}.v25-propose{background:#eef5ff;color:#24568f}.v25-engineer-nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.v25-engineer-nav button{border:1px solid #d8e3e2;background:white;border-radius:12px;padding:10px 14px}.v25-empty{padding:28px;text-align:center;color:#6d7b7a;background:#f7faf9;border-radius:16px}@media(max-width:700px){.v25-grid{grid-template-columns:1fr}.v25-actions button{flex:1}}
+.v263-engineer-card{display:flex;align-items:center;gap:14px;padding:16px;margin:4px 0 14px;background:linear-gradient(135deg,#eef9f7,#fff);border:1px solid #cfe5e1;border-radius:20px}.v263-engineer-avatar{width:62px;height:62px;border-radius:18px;background:#d8eeea;color:#0d746d;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;overflow:hidden;flex:0 0 62px}.v263-engineer-avatar img{width:100%;height:100%;object-fit:cover}.v263-engineer-info{min-width:0;flex:1}.v263-engineer-name{font-size:18px;font-weight:800;color:#15423f;white-space:normal}.v263-engineer-meta{font-size:12px;color:#6d7b7a;margin-top:4px;line-height:1.7}.v263-engineer-state{display:inline-block;margin-top:7px;padding:5px 10px;border-radius:999px;background:#dcf6ed;color:#116d52;font-size:11px;font-weight:800}.v263-engineer-warning{background:#fff5e6;color:#8b5a00;border:1px solid #f0d59a;padding:10px 12px;border-radius:12px;margin:8px 0;font-size:12px}.v263-sync{font-size:11px;color:#758583;margin-top:6px}
+
+/* V26.4 admin engineer avatar controls */
+.a264-avatar{width:54px;height:54px;border-radius:14px;overflow:hidden;background:#e7f4f2;display:flex;align-items:center;justify-content:center;margin:auto;border:1px solid #d5e9e6;position:relative}
+.a264-avatar-img{width:100%;height:100%;object-fit:cover;display:block}
+.a264-avatar-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.a265-avatar-label{display:inline-flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;color:#0b7c71;font-size:9px;font-weight:800;min-width:66px}
+.a265-avatar-label:active .a264-avatar{transform:scale(.97)}
+.a265-avatar-label .a265-photo-hint{line-height:1.2;white-space:normal;text-align:center}
+.a265-photo-cell{position:sticky;right:0;background:#fff;z-index:2;min-width:78px}
+.a265-booking-avatar{width:44px;height:44px;border-radius:13px;object-fit:cover;border:1px solid #d5e9e6;display:block;margin:0 0 7px auto}
+@media(max-width:760px){.admin19-table th,.admin19-table td{padding:8px 7px}.a264-upload-btn{padding:7px 8px;font-size:10px}.a264-remove-btn{font-size:10px}.a265-photo-cell{box-shadow:-5px 0 10px rgba(0,0,0,.04)}}
+.a264-upload-btn{display:inline-block;padding:8px 10px;border-radius:10px;background:#0b7c71;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;margin:0}
+.a264-remove-btn{display:inline-block;padding:7px 9px;border-radius:10px;border:1px solid #efb3b3;background:#fff1f1;color:#b42318;font-size:11px;cursor:pointer;margin-inline-start:5px}
+.a264-upload-msg{font-size:10px;margin-top:5px;max-width:160px;white-space:normal}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="app">
+  <section id="login" class="screen active">
+<div class="v10-login-shell">
+  <aside class="v10-brand-panel">
+    <div class="v10-brand-head">
+      <div class="v10-logo-box"><div class="road-logo"></div></div>
+      <div class="v10-brand-title"><strong>تواصل مروري</strong><span>TRAFFIC CONNECT</span></div>
+    </div>
+    <div class="v10-brand-copy">
+      <div class="v10-kicker">✦ منصة موحدة لخدمات الحركة المرورية</div>
+      <h1>تواصل أسهل.<br>خدمة أسرع.</h1>
+      <p>احجز مواعيدك، تابع الطلبات، تواصل مع المهندسين والمسؤولين، وارفع الشكاوى والاستفسارات من مكان واحد.</p>
+      <div class="v10-benefits">
+        <div class="v10-benefit"><b>◷</b><strong>حجز أسرع</strong><small>اختر الخدمة والمهندس والموعد المناسب.</small></div>
+        <div class="v10-benefit"><b>✓</b><strong>متابعة واضحة</strong><small>اعرف حالة طلبك خطوة بخطوة.</small></div>
+        <div class="v10-benefit"><b>⌁</b><strong>تواصل مباشر</strong><small>قنوات منظمة للدعم والاستفسارات.</small></div>
+      </div>
+    </div>
+    <div class="v10-brand-photo">
+      <div class="v10-photo-frame">
+        <img src="assets/traffic-centre-front.jpeg" alt="مركز إدارة المرور">
+        <div class="v10-photo-overlay"></div>
+        <div class="v10-photo-caption"><strong>مركز إدارة المرور — أبوظبي</strong><span>صور تعريفية داخل التطبيق</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="v10-login-panel">
+    <div class="v10-login-wrap">
+      <div class="v10-login-top">
+        <div class="v10-lang"><button class="active" onclick="setLang('ar')">العربية</button><button onclick="setLang('en')">English</button></div>
+        <div class="v10-secure"><span>تسجيل دخول آمن</span><i>✓</i></div>
+      </div>
+
+      <div class="v10-login-card">
+        <div class="v10-eyebrow">Traffic Connect · تواصل مروري</div>
+        <h2>تسجيل الدخول</h2>
+        <p class="v10-sub">أدخل بيانات حسابك. سيتم فتح الواجهة المناسبة تلقائيًا حسب صلاحية الحساب.</p>
+
+        <div class="v10-sub" style="margin:0 0 14px">يتم تحديد نوع الحساب والصلاحيات تلقائيًا بعد تسجيل الدخول.</div>
+        <input id="loginRole" type="hidden" value="contractor">
+
+        <div class="v10-field"><label>البريد الإلكتروني أو رقم الهاتف</label><div class="v10-input"><span class="v10-ico">✉</span><input id="loginEmail" autocomplete="email" placeholder="name@company.com"></div></div>
+        <div class="v10-field"><label>كلمة المرور</label><div class="v10-input"><span class="v10-ico">⌑</span><input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div></div>
+
+        <div class="v10-actions">
+          <label style="display:flex;align-items:center;gap:6px;color:#788683"><input type="checkbox" style="width:auto"> تذكرني</label>
+          <a onclick="showScreen('forgotPassword')">نسيت كلمة المرور؟</a>
+        </div>
+        <button class="v10-primary" onclick="v10Login()">تسجيل الدخول</button>
+        <button class="v10-secondary" onclick="showScreen('register')">إنشاء حساب مقاول جديد</button>
+        <button class="v10-secondary" onclick="showScreen('staffRegister')">تفعيل حساب موظف ITC لأول مرة</button>
+      </div>
+
+      <div class="v10-foot"><div><b>🛡</b>آمن وموثوق</div><div><b>🔔</b>إشعارات فورية</div><div><b>🎧</b>دعم واستفسارات</div></div>
+    </div>
+  </main>
+</div>
+</section>
+<section id="register" class="screen">
+  <div class="v11-register-shell">
+    <aside class="v11-left">
+      <div class="v11-brand">
+        <div class="v11-logo"><div class="road-logo"></div></div>
+        <h1>TRAFFIC</h1>
+        <div class="brand-en">CONNECT</div>
+        <div class="brand-ar">تواصل مروري</div>
+      </div>
+
+      <div class="v11-left-copy">
+        <h2><span>تواصل أسهل..</span><br>خدمة أسرع</h2>
+        <p>منصة لحجز ومتابعة المواعيد مع مهندسي الحركة المرورية والمسؤولين والشكاوى.</p>
+      </div>
+
+      <div class="v11-city">
+        <div class="v11-skyline"></div>
+        <div class="v11-road"></div>
+        <div class="v11-car c1"></div><div class="v11-car c2"></div><div class="v11-car c3"></div>
+      </div>
+
+      <div class="v11-features">
+        <div class="v11-feature"><div class="fi">▣</div><div><strong>حجز أسرع</strong><small>احجز موعدك خلال دقائق</small></div></div>
+        <div class="v11-feature"><div class="fi">▤</div><div><strong>متابعة واضحة</strong><small>تابع حالة طلباتك لحظة بلحظة</small></div></div>
+        <div class="v11-feature"><div class="fi">🎧</div><div><strong>تواصل مباشر</strong><small>فريق دعم جاهز لمساعدتك</small></div></div>
+      </div>
+
+      <div class="v11-language">
+        <button type="button" onclick="setLang('en')">🌐 English</button>
+        <button class="active" type="button" onclick="setLang('ar')">العربية</button>
+      </div>
+    </aside>
+
+    <main class="v11-right">
+      <div class="v11-secure"><span>بياناتك آمنة ومشفرة</span><b>🛡</b></div>
+
+      <div class="v11-card">
+        <div class="v11-user-icon">♙+</div>
+        <div class="v11-title">
+          <h2>إنشاء حساب مقاول جديد</h2>
+          <p>يرجى تعبئة البيانات التالية لإنشاء حسابك</p>
+        </div>
+
+        <div class="v11-field">
+          <div class="v11-label"><span class="req">*</span> الاسم الكامل</div>
+          <div class="v11-input"><span class="ico">♙</span><input id="regName" autocomplete="name" placeholder="مثال: محمد أحمد الكتبي"></div>
+        </div>
+
+        <div class="v11-field">
+          <div class="v11-label"><span class="req">*</span> اسم الشركة</div>
+          <div class="v11-input"><span class="ico">▦</span><input id="regCompany" autocomplete="organization" placeholder="أدخل اسم الشركة"></div>
+        </div>
+
+        <div class="v11-field">
+          <div class="v11-label"><span class="req">*</span> رقم التواصل</div>
+          <div class="v11-input"><span class="ico">☎</span><input id="regPhone" type="tel" autocomplete="tel" placeholder="05XXXXXXXX"></div>
+        </div>
+
+        <div class="v11-field">
+          <div class="v11-label"><span class="req">*</span> البريد الإلكتروني</div>
+          <div class="v11-input"><span class="ico">✉</span><input id="regEmail" type="email" autocomplete="email" placeholder="example@company.com"></div>
+        </div>
+
+        <div class="v11-field">
+          <div class="v11-label"><span class="req">*</span> كلمة المرور</div>
+          <div class="v11-input"><span class="ico">⌑</span><input id="regPassword" type="password" autocomplete="new-password" placeholder="أدخل كلمة المرور"></div>
+          <div class="v11-password-rules">
+            <div class="v11-rule">8 أحرف على الأقل <b>✓</b></div>
+            <div class="v11-rule">حرف كبير <b>✓</b></div>
+            <div class="v11-rule">رقم <b>✓</b></div>
+            <div class="v11-rule">رمز خاص <b>✓</b></div>
+          </div>
+        </div>
+
+        <label class="v11-terms">
+          <input id="regTerms" type="checkbox">
+          <span>أوافق على <a>الشروط والأحكام</a> و <a>سياسة الخصوصية</a></span>
+        </label>
+
+        <button type="button" id="regSubmitBtn" class="v11-submit" onclick="saveContractorRegistration()">♙+ &nbsp; إنشاء الحساب</button>
+        <div class="v11-divider">أو</div>
+        <div class="v11-login-link">لديك حساب بالفعل؟ <button onclick="returnToLogin()">تسجيل الدخول</button></div>
+      </div>
+
+      <div class="v11-bottom">
+        <div><b>🛡</b>آمن وموثوق</div>
+        <div><b>🔔</b>إشعارات فورية</div>
+        <div><b>▤</b>تتبع سهل وشفاف</div>
+        <div><b>🎧</b>دعم فني متواصل</div>
+        <div><b>▯</b>من أي مكان</div>
+      </div>
+    </main>
+  </div>
+</section>
+<section id="staffRegister" class="screen">
+  <div class="v11-register-shell">
+    <aside class="v11-left">
+      <div class="v11-brand"><div class="v11-logo"><div class="road-logo"></div></div><h1>TRAFFIC</h1><div class="brand-en">CONNECT</div><div class="brand-ar">تواصل مروري</div></div>
+      <div class="v11-left-copy"><h2><span>حساب الموظف</span><br>Staff Access</h2><p>تفعيل آمن لموظفي ITC المعتمدين في النظام. يتم تحديد الصلاحية تلقائيًا من البريد الرسمي.</p></div>
+      <div class="v11-language"><button type="button" onclick="setLang('en')">🌐 English</button><button class="active" type="button" onclick="setLang('ar')">العربية</button></div>
+    </aside>
+    <main class="v11-right">
+      <div class="v11-secure"><span>الحساب متاح فقط للبريد الرسمي المعتمد</span><b>🛡</b></div>
+      <div class="v11-card">
+        <div class="v11-user-icon">♙+</div>
+        <div class="v11-title"><h2>تفعيل حساب الموظف</h2><p>استخدم بريد ITC الرسمي وحدد كلمة مرور خاصة بك.</p></div>
+        <div class="v11-field"><div class="v11-label"><span class="req">*</span> البريد الإلكتروني الرسمي</div><div class="v11-input"><span class="ico">✉</span><input id="staffEmail" type="email" autocomplete="email" placeholder="name@itc.gov.ae"></div></div>
+        <div class="v11-field"><div class="v11-label"><span class="req">*</span> كلمة المرور</div><div class="v11-input"><span class="ico">⌑</span><input id="staffPassword" type="password" autocomplete="new-password" placeholder="8 أحرف أو أكثر"></div></div>
+        <div class="v11-field"><div class="v11-label"><span class="req">*</span> تأكيد كلمة المرور</div><div class="v11-input"><span class="ico">⌑</span><input id="staffPassword2" type="password" autocomplete="new-password" placeholder="أعد إدخال كلمة المرور"></div></div>
+        <div class="v11-password-rules"><div class="v11-rule">8 أحرف على الأقل <b>✓</b></div><div class="v11-rule">حرف كبير <b>✓</b></div><div class="v11-rule">رقم <b>✓</b></div><div class="v11-rule">رمز خاص <b>✓</b></div></div>
+        <button type="button" id="staffSubmitBtn" class="v11-submit" onclick="saveStaffRegistration()">تفعيل الحساب</button>
+        <div class="v11-divider">أو</div>
+        <div class="v11-login-link">تم تفعيل حسابك مسبقًا؟ <button onclick="returnToLogin()">تسجيل الدخول</button></div>
+      </div>
+    </main>
+  </div>
+</section>
+<section id="shell" class="hidden">
+<main>
+<section id="home" class="screen">
+  <div class="home16">
+    <div class="home16-top">
+      <div class="home16-greeting">
+        <small>تواصل مروري — خدمات المقاولين</small>
+        <h2 id="welcome">مرحباً بك</h2>
+      </div>
+      <div class="home16-tools"><button class="home16-tool" title="تسجيل الخروج" onclick="tcLogout()">🚪</button><button class="home16-tool" title="لوحة التحكم" onclick="openAdmin19()">⚙️</button>
+        <button class="home16-tool" onclick="showScreen('notifications')">🔔</button>
+        <button class="home16-tool" onclick="showScreen('requests')">☰</button>
+      </div>
+    </div>
+
+    <div class="home16-hero">
+      <div class="home16-copy">
+        <div class="tag">✦ كل خدماتك المرورية في مكان واحد</div>
+        <h1>أنجز معاملاتك بسهولة ووضوح</h1>
+        <p>احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.</p>
+      </div>
+      <div class="home16-quick">
+        <button onclick="openBookingScreen()"><b>📅 حجز موعد</b><span>اختر المهندس والوقت المناسب</span></button>
+        <button onclick="showScreen('requests')"><b>📋 طلباتي</b><span>تابع آخر حالة لكل طلب</span></button>
+        <button onclick="showScreen('complaints')"><b>⚠️ شكوى جديدة</b><span>أرسل شكوى مع الموقع والمرفقات</span></button>
+      </div>
+    </div>
+
+    <div class="home16-section">
+      <div class="home16-section-head"><h3>الخدمات الرئيسية</h3><button onclick="showScreen('requests')">عرض طلباتي</button></div>
+      <div class="home16-services">
+        <button class="home16-service" onclick="openBookingScreen()"><div class="ico">📅</div><h4>حجز موعد</h4><p>حجز موعد مع مهندس أو اجتماع مع المسؤول.</p></button>
+        <button class="home16-service" onclick="showScreen('requests')"><div class="ico">📋</div><h4>متابعة الطلبات</h4><p>شاهد حالة الحجوزات والطلبات السابقة.</p></button>
+        <button class="home16-service" onclick="showScreen('complaints')"><div class="ico">⚠️</div><h4>الشكاوى</h4><p>إرسال شكوى مع موقع وصور أو ملفات.</p></button>
+
+        <button class="home16-service" onclick="showScreen('inquiries')"><div class="ico">💬</div><h4>الاستفسارات</h4><p>أرسل استفسارًا عامًا وتابع الرد.</p></button>
+        <button class="home16-service" onclick="showScreen('officialAppIssue')"><div class="ico">📱</div><h4>مشكلة في التطبيق</h4><p>بلاغ فني يصل إلى مسؤولي الدعم.</p></button>
+        <button class="home16-service" onclick="showScreen('notifications')"><div class="ico">🔔</div><h4>الإشعارات</h4><p>آخر التحديثات والتنبيهات على طلباتك.</p></button>
+        <button class="home16-service" onclick="showScreen('publicFeedback')"><div class="ico">⭐</div><h4>التقييم والتعليق</h4><p>شارك رأيك واقتراحاتك لتحسين الخدمة.</p></button>
+      </div>
+    </div>
+
+    <div class="home16-section home16-two">
+      <div class="home16-card">
+        <div class="home16-section-head"><h3>أحدث الطلبات</h3><button onclick="showScreen('requests')">عرض الكل</button></div>
+        <div class="home16-request"><div><b>طلباتك تظهر هنا بعد تسجيل الدخول</b><small>استخدم صفحة «طلباتي» لعرض البيانات الفعلية من النظام.</small></div><span class="home16-status review">مباشر</span></div>
+      </div>
+
+      <div class="home16-card">
+        <h3>الدعم والتواصل</h3>
+        <div class="home16-contact"><strong>ساعات التواصل</strong><small>من 9:00 صباحًا إلى 2:30 ظهرًا</small></div>
+        <div class="home16-contact"><strong>الدعم الفني</strong><small>Mohamed AL Meraikhi<br>Ahmed El Sanadidy</small></div>
+        <button class="service16-submit" onclick="showScreen('officialAppIssue')">فتح بلاغ دعم</button>
+      </div>
+    </div>
+
+    <div class="home16-section">
+      <div class="card gallery-card" id="contractorGallery">
+        <div class="gallery-head"><h3>تعرف على مركز إدارة المرور</h3><span>اسحب يميناً أو يساراً</span></div>
+        <div class="gallery-wrap">
+          <div class="gallery-track" id="galleryTrack">
+            <div class="gallery-slide" onclick="openGalleryImage(0)"><img src="assets/traffic-centre-front.jpeg"><div class="gallery-caption">مبنى مركز إدارة المرور — أبوظبي</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(1)"><img src="assets/traffic-centre-wide.jpeg"><div class="gallery-caption">مركز إدارة المرور — الواجهة الخارجية</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(2)"><img src="assets/elevators.jpeg"><div class="gallery-caption">المدخل والمصاعد</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(3)"><img src="assets/meeting-room.jpeg"><div class="gallery-caption">قاعة الاجتماعات</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(4)"><img src="assets/zayed-hall-new.jpeg"><div class="gallery-caption">قاعة زايد</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(5)"><img src="assets/waiting-area.jpeg"><div class="gallery-caption">منطقة الانتظار — الطابق الأول</div></div>
+          </div>
+          <button class="gallery-arrow gallery-prev" onclick="moveGallery(-1);event.stopPropagation()">‹</button>
+          <button class="gallery-arrow gallery-next" onclick="moveGallery(1);event.stopPropagation()">›</button>
+        </div>
+        <div class="gallery-dots" id="galleryDots"></div>
+        <div class="gallery-tip">اضغط على أي صورة لفتحها بالحجم الكامل</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="home16-nav">
+    <button class="active" onclick="showScreen('home')"><b>🏠</b>الرئيسية</button>
+    <button onclick="showScreen('requests')"><b>📋</b>طلباتي</button>
+    <button onclick="openBookingScreen()"><b>📅</b>حجز</button>
+    <button onclick="showScreen('notifications')"><b>🔔</b>الإشعارات</button>
+    <button onclick="showScreen('inquiries')"><b>💬</b>استفسار</button>
+  </nav>
+</section>
+
+<section id="engineerDashboard" class="screen">
+  <div class="service16-page">
+    <div class="service16-head"><div><h2>لوحة المهندس</h2><p>مراجعة طلبات المواعيد واتخاذ الإجراء المناسب.</p></div><button class="service16-back" onclick="logout()">تسجيل الخروج</button></div>
+    <div class="v263-engineer-card" id="v263EngineerCard">
+      <div class="v263-engineer-avatar" id="v263EngineerAvatar">🦺</div>
+      <div class="v263-engineer-info">
+        <div class="v263-engineer-name" id="v263EngineerName">جاري تحميل بيانات المهندس…</div>
+        <div class="v263-engineer-meta" id="v263EngineerMeta">يرجى الانتظار</div>
+        <span class="v263-engineer-state" id="v263EngineerState">متصل</span>
+        <div class="v263-sync" id="v263EngineerSync">Traffic Connect · متصل</div>
+      </div>
+    </div>
+    <div id="v263EngineerWarning"></div>
+    <div class="v25-grid"><div class="v25-stat"><b id="v25PendingCount">0</b><span>بانتظار الرد</span></div><div class="v25-stat"><b id="v25AcceptedCount">0</b><span>مواعيد مقبولة</span></div><div class="v25-stat"><b id="v25RejectedCount">0</b><span>مرفوضة</span></div></div>
+    <div class="v25-engineer-nav"><button onclick="v25RenderEngineerBookings('pending')">طلبات جديدة</button><button onclick="v25RenderEngineerBookings('accepted')">المواعيد المقبولة</button><button onclick="v25RenderEngineerBookings('all')">جميع الطلبات</button></div>
+    <div id="v25EngineerBookings"></div>
+  </div>
+</section>
+<section id="responsibleDashboard" class="screen">
+  <div class="service16-page">
+    <div class="service16-head"><div><h2>لوحة المسؤول</h2><p>متابعة الحجوزات والبلاغات والاستفسارات الواردة.</p></div><button class="service16-back" onclick="tcLogout()">تسجيل الخروج</button></div>
+    <div class="v25-grid"><div class="v25-stat"><b id="v26RespBookings">0</b><span>حجوزات</span></div><div class="v25-stat"><b id="v26RespComplaints">0</b><span>شكاوى</span></div><div class="v25-stat"><b id="v26RespInquiries">0</b><span>استفسارات</span></div></div>
+    <div id="v26ResponsibleList" style="margin-top:14px"></div>
+  </div>
+</section>
+<section id="forgotPassword" class="screen">
+        <button class="back" onclick="returnToLogin()">← رجوع</button><h2>استعادة كلمة المرور</h2>
+        <div class="card"><label>البريد الإلكتروني للمقاول</label><input id="forgotEmail" type="email" placeholder="name@company.com" />
+        <button class="btn" onclick="simulatePasswordReset()">إرسال رابط الاستعادة</button><div class="test-note">سيتم إرسال رابط آمن إلى بريدك الإلكتروني المسجل.</div></div>
+      </section>
+      <section id="companyAdmin" class="screen"><button class="back" onclick="showScreen('adminDashboard')">← رجوع</button><h2>إدارة الشركات</h2><div id="companyAdminList" class="card"></div></section>
+      <section id="usageStats" class="screen"><button class="back" onclick="showScreen('adminDashboard')">← رجوع</button><h2>الزوار ونشاط الشركات</h2><div id="usageMetrics" class="metric-grid"></div><div id="companyUsageList" class="card" style="margin-top:12px"></div></section>
+      <section id="engineerAdmin" class="screen"><button class="back" onclick="showScreen('adminDashboard')">← رجوع</button><h2>المهندسون والحالة</h2><div id="engineerAdminList" class="card"></div></section>
+      <section id="publicFeedback" class="screen"><button class="back" onclick="showScreen('home')">← رجوع</button><h2>تعليق عام على التطبيق</h2><div class="card"><label>التقييم</label><select id="appRating"><option value="5">5 - ممتاز</option><option value="4">4 - جيد جدًا</option><option value="3">3 - جيد</option><option value="2">2</option><option value="1">1</option></select><label>التعليق</label><textarea id="appComment" placeholder="اكتب رأيك أو اقتراحك..."></textarea><button class="btn" onclick="saveAppFeedback()">إرسال التعليق</button></div><div id="feedbackList" class="card"></div></section>
+
+      <div class="lightbox" id="galleryLightbox" onclick="closeGalleryImage(event)">
+        <button class="lightbox-close" onclick="closeGalleryImage(event,true)" aria-label="إغلاق">×</button>
+        <img id="galleryLightboxImg" alt="معاينة الصورة" />
+        <div class="lightbox-title" id="galleryLightboxTitle"></div>
+      </div>
+    
+
+
+<section id="complaints" class="screen">
+  <div class="service16-page">
+    <div class="service16-head"><div><h2>شكوى جديدة</h2><p>أرسل تفاصيل المشكلة والموقع والمرفقات.</p></div><button class="service16-back" onclick="showScreen('home')">← الرئيسية</button></div>
+    <div class="service16-card">
+      <div class="service16-field"><label>نوع الشكوى *</label><select id="complaintType"><option>إغلاق طريق</option><option>تحويلة مرورية</option><option>مشكلة في التصريح</option><option>تأخير طلب</option><option>أخرى</option></select></div>
+      <div class="service16-field"><label>وصف المشكلة *</label><textarea id="complaintDesc" placeholder="اكتب تفاصيل المشكلة..."></textarea></div>
+      <div class="service16-field"><label>الموقع</label><input id="complaintLocation" placeholder="اكتب الموقع أو اسم الشارع"></div>
+      <div class="service16-field"><label>رقم التصريح أو الطلب</label><input id="complaintPermit" placeholder="إن وجد"></div>
+      <div class="service16-field"><label>صور أو مرفقات</label><input id="complaintFiles" type="file" multiple accept="image/*,.pdf" onchange="showSelectedFiles(this,'complaintFilesList')"><div id="complaintFilesList" class="attachment-list"></div></div>
+      <button class="service16-submit" onclick="submitService16('CMP','complaintDesc','تم إرسال الشكوى بنجاح')">إرسال الشكوى</button>
+      <div class="service16-note">يمكنك متابعة حالة الشكوى لاحقًا من صفحة «طلباتي».</div>
+    </div>
+  </div>
+</section>
+
+<section id="inquiries" class="screen">
+  <div class="service16-page">
+    <div class="service16-head"><div><h2>الاستفسارات</h2><p>أرسل سؤالك إلى الفريق المختص.</p></div><button class="service16-back" onclick="showScreen('home')">← الرئيسية</button></div>
+    <div class="service16-card">
+      <div class="service16-field"><label>موضوع الاستفسار *</label><select id="inquiryTopic"><option>تصاريح وتحويلات مرورية</option><option>حجز موعد</option><option>متابعة طلب</option><option>موقع أو مركز خدمة</option><option>استفسار عام</option></select></div>
+      <div class="service16-field"><label>الاستفسار *</label><textarea id="inquiryDesc" placeholder="اكتب استفسارك بالتفصيل..."></textarea></div>
+      <div class="service16-field"><label>رقم الطلب أو التصريح</label><input id="inquiryRef" placeholder="اختياري"></div>
+      <button class="service16-submit" onclick="submitService16('INQ','inquiryDesc','تم إرسال الاستفسار بنجاح')">إرسال الاستفسار</button>
+      <div class="service16-note">سيظهر الرد في الإشعارات وطلباتي في النسخة المتكاملة.</div>
+    </div>
+  </div>
+</section>
+
+<section id="officialAppIssue" class="screen">
+  <div class="service16-page">
+    <div class="service16-head"><div><h2>مشكلة في التطبيق</h2><p>بلاغات الدخول والأخطاء والمرفقات والمشاكل التقنية.</p></div><button class="service16-back" onclick="showScreen('home')">← الرئيسية</button></div>
+    <div class="service16-card">
+      <div class="service16-note"><b>الدعم:</b> Mohamed AL Meraikhi و Ahmed El Sanadidy</div>
+      <div class="service16-field"><label>نوع المشكلة *</label><select id="issueType"><option>مشكلة تسجيل الدخول</option><option>مشكلة رفع المرفقات</option><option>خطأ في البيانات</option><option>زر أو صفحة لا تعمل</option><option>أخرى</option></select></div>
+      <div class="service16-field"><label>وصف المشكلة *</label><textarea id="issueDesc" placeholder="اشرح ما حدث والخطوات التي قمت بها..."></textarea></div>
+      <div class="service16-field"><label>لقطة شاشة أو ملف</label><input id="issueFiles" type="file" multiple accept="image/*,.pdf" onchange="showSelectedFiles(this,'issueFilesList')"><div id="issueFilesList"></div></div>
+      <button class="service16-submit" onclick="submitService16('APP','issueDesc','تم إرسال البلاغ الفني بنجاح')">إرسال البلاغ</button>
+    </div>
+  </div>
+</section>
+
+<section id="notifications" class="screen">
+  <div class="service16-page">
+    <div class="service16-head"><div><h2>الإشعارات</h2><p>آخر التنبيهات والتحديثات على حسابك.</p></div><button class="service16-back" onclick="showScreen('home')">← الرئيسية</button></div>
+    <div id="tcNotificationsList" class="notification16"><div class="ni">🔔</div><div><b>لا توجد إشعارات جديدة</b><small>ستظهر هنا التنبيهات الفعلية المرتبطة بحسابك.</small></div></div>
+  </div>
+</section>
+<section id="booking" class="screen">
+  <div class="booking-page">
+    <div class="booking-head">
+      <div class="title">
+        <h2>حجز موعد</h2>
+        <p>اختر الخدمة والمنطقة والمهندس ثم حدد الموعد المناسب.</p>
+      </div>
+      <button class="booking-back" onclick="showScreen('home')">← رجوع للرئيسية</button>
+    </div>
+
+    <div class="booking-grid">
+      <div class="booking-panel">
+        <h3>بيانات الحجز</h3>
+
+        <div class="booking-field">
+          <label>نوع الخدمة *</label>
+          <select id="bookingService" onchange="refreshBookingAreas();refreshBookingEngineers();updateBookingSummary()">
+            <option value="permit">حجز موعد مع مهندس — مراجعة التصاريح</option>
+            <option value="field">حجز موعد مع مهندس — مناقشة/متابعة ميدانية</option>
+            <option value="responsible_meeting">حجز اجتماع مع المسؤول</option>
+          </select>
+        </div>
+
+        <div class="booking-field">
+          <label>المنطقة / المركز *</label>
+          <select id="bookingArea" onchange="refreshBookingEngineers();updateBookingSummary()">
+            <option value="abu_dhabi">أبوظبي — مركز إدارة المرور</option>
+            <option value="al_ain">العين — مركز النقل</option>
+            <option value="al_dhafra_traffic">الظفرة — محطة الباصات</option>
+          </select>
+        </div>
+
+        <div class="booking-field">
+          <label>المهندس / المسؤول *</label>
+          <select id="bookingEngineer" onchange="updateEngineerBookingInfo();updateBookingSummary()"></select>
+          <div class="booking-email" id="engineerEmailHint"></div>
+          <div id="engineerAvailability" class="availability-box"></div>
+        </div>
+
+        <div class="booking-field">
+          <label>التاريخ *</label>
+          <input id="bookingDate" type="date" onchange="updateBookingSummary()">
+        </div>
+
+        <div class="booking-field">
+          <label>الوقت المتاح *</label>
+          <select id="bookingTime" onchange="updateBookingSummary()">
+            <option value="09:00 AM">09:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="01:00 PM">01:00 PM</option>
+            <option value="02:00 PM">02:00 PM</option>
+          </select>
+        </div>
+
+        <div class="booking-field">
+          <label>رقم التصريح أو الطلب</label>
+          <input id="bookingPermit" placeholder="مثال: TCP-2026-1045" oninput="updateBookingSummary()">
+        </div>
+
+        <div class="booking-field">
+          <label>ملاحظات</label>
+          <textarea id="bookingNotes" placeholder="أضف أي معلومات تساعد المهندس قبل الموعد..."></textarea>
+        </div>
+
+        <div class="booking-field">
+          <label>المرفقات</label>
+          <input id="bookingFiles" type="file" multiple accept="image/*,.pdf" onchange="showSelectedFiles(this,'bookingFilesList')">
+          <div id="bookingFilesList"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="booking-summary">
+          <h3>ملخص الموعد</h3>
+          <div class="summary-line"><span>الخدمة</span><b id="sumService">—</b></div>
+          <div class="summary-line"><span>الموقع</span><b id="sumArea">—</b></div>
+          <div class="summary-line"><span>المهندس</span><b id="sumEngineer">—</b></div>
+          <div class="summary-line"><span>التاريخ</span><b id="sumDate">—</b></div>
+          <div class="summary-line"><span>الوقت</span><b id="sumTime">—</b></div>
+        </div>
+        <div class="booking-tip">سيظهر للمقاول إذا كان المهندس متاحًا أو محجوزًا أو في إجازة. لا يمكن تأكيد الحجز مع مهندس غير متاح.</div>
+        <button class="booking-submit" onclick="confirmBooking()">تأكيد الحجز</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="requests" class="screen">
+  <div class="requests-page">
+    <div class="booking-head">
+      <div class="title"><h2>طلباتي</h2><p>متابعة الحجوزات والاستفسارات والشكاوى.</p></div>
+      <button class="booking-back" onclick="showScreen('home')">← الرئيسية</button>
+    </div>
+    <div id="requestsList"></div>
+  </div>
+</section>
+
+<section id="requestStatus" class="screen">
+  <div class="requests-page">
+    <div class="booking-head"><div class="title"><h2>تفاصيل الطلب</h2><p>عرض حالة الطلب وآخر التحديثات.</p></div><button class="booking-back" onclick="showScreen('requests')">← طلباتي</button></div>
+    <div class="request-card">
+      <h3>حالة الطلب</h3>
+      <p>تم تسجيل الطلب بنجاح. يمكنك متابعة حالة الطلب من هذه الشاشة.</p>
+      <div class="availability-box available">✓ الطلب مسجل في النظام</div>
+    </div>
+  </div>
+</section>
+
+<section id="rating" class="screen">
+  <div class="requests-page">
+    <div class="booking-head"><div class="title"><h2>تقييم المهندس</h2><p id="ratingEngineerName"></p></div><button class="booking-back" onclick="showScreen('requests')">← رجوع</button></div>
+    <div class="booking-panel">
+      <div id="ratingRequestId" class="small"></div>
+      <div id="ratingStars" style="display:flex;gap:8px;margin:18px 0">
+        <button onclick="setRating(1)">★</button><button onclick="setRating(2)">★</button><button onclick="setRating(3)">★</button><button onclick="setRating(4)">★</button><button onclick="setRating(5)">★</button>
+      </div>
+      <div class="booking-field"><label>تعليقك</label><textarea id="ratingComment" placeholder="اكتب ملاحظتك..."></textarea></div>
+      <button class="booking-submit" onclick="saveRating()">حفظ التقييم</button>
+    </div>
+  </div>
+</section>
+
+<section id="adminConsole" class="screen">
+  <div class="admin19-page">
+    <div class="admin19-head">
+      <div><h2>لوحة تحكم Traffic Connect</h2><p>تحكم Admin متزامن مع Supabase.</p></div>
+      <button class="admin19-back" onclick="tcLogout()">🚪 تسجيل الخروج</button>
+    </div>
+    <div class="admin2610-toolbar">
+      <button onclick="document.getElementById('a2610Services').scrollIntoView({behavior:'smooth'})">الخدمات</button>
+      <button onclick="document.getElementById('a2610Engineers').scrollIntoView({behavior:'smooth'})">المهندسون</button>
+      <button onclick="document.getElementById('a2610Announcement').scrollIntoView({behavior:'smooth'})">الإعلان</button>
+      <button onclick="document.getElementById('a2610Support').scrollIntoView({behavior:'smooth'})">الدعم</button>
+      <button onclick="tcAdmin2610Reload()">↻ تحديث</button>
+      <button onclick="document.getElementById('a2611Preview').scrollIntoView({behavior:'smooth'})">👁 معاينة الصفحات</button>
+    </div>
+
+    <div class="admin19-card" style="margin-bottom:14px"><h3>☁️ Supabase — قاعدة البيانات المشتركة</h3><div id="v26AdminCloudStatus" class="admin19-note">جاري الاتصال...</div><div id="a2610SaveState" class="admin2610-save-state"></div></div>
+
+    <div id="a2611Preview" class="admin19-card admin2610-card-anchor" style="margin-bottom:14px">
+      <h3>👁 معاينة صفحات التطبيق</h3>
+      <div class="admin2611-preview-grid">
+        <button onclick="tcAdminPreview('home')">الرئيسية</button>
+        <button onclick="tcAdminPreview('booking')">حجز موعد</button>
+        <button onclick="tcAdminPreview('requests')">الطلبات</button>
+        <button onclick="tcAdminPreview('complaints')">الشكاوى</button>
+        <button onclick="tcAdminPreview('inquiries')">الاستفسارات</button>
+        <button onclick="tcAdminPreview('officialAppIssue')">مشكلة التطبيق</button>
+        <button onclick="tcAdminPreview('notifications')">الإشعارات</button>
+      </div>
+      <div class="admin19-note" style="margin-top:10px">المعاينة لا تغيّر صلاحية حساب Admin. استخدم زر «العودة إلى لوحة Admin» للرجوع إلى التحكم.</div>
+    </div>
+
+    <div id="a2611Content" class="admin19-card admin2610-card-anchor" style="margin-bottom:14px">
+      <h3>✏️ تعديل محتوى الصفحة الرئيسية</h3>
+      <label class="small">العنوان الرئيسي</label>
+      <input id="a2611HeroTitle" class="admin19-input" placeholder="أنجز معاملاتك بسهولة ووضوح">
+      <label class="small" style="display:block;margin-top:8px">الوصف</label>
+      <textarea id="a2611HeroSubtitle" class="admin19-textarea" placeholder="وصف الصفحة الرئيسية..."></textarea>
+      <label class="small" style="display:block;margin-top:8px">عنوان قسم الخدمات</label>
+      <input id="a2611ServicesTitle" class="admin19-input" placeholder="الخدمات الرئيسية">
+      <button class="admin19-btn" style="width:100%;margin-top:10px" onclick="tcAdmin2611SaveContent()">حفظ محتوى الصفحة</button>
+      <div class="admin19-note" style="margin-top:10px">التعديلات تُحفظ في Supabase وتظهر لجميع المستخدمين والأجهزة.</div>
+    </div>
+
+    <div class="admin19-stats">
+      <div class="admin19-stat"><b id="a19Visits">0</b><span>زيارات التطبيق</span></div>
+      <div class="admin19-stat"><b id="a19Companies">0</b><span>الشركات المسجلة</span></div>
+      <div class="admin19-stat"><b id="a19Requests">0</b><span>الطلبات</span></div>
+      <div class="admin19-stat"><b id="a19Complaints">0</b><span>الشكاوى</span></div>
+    </div>
+
+    <div class="admin19-grid">
+      <div id="a2610Services" class="admin19-card admin2610-card-anchor">
+        <h3>الخدمات الظاهرة للمقاولين</h3>
+        <div class="admin19-row"><div><b>حجز موعد</b><small>إظهار أو إخفاء الخدمة</small></div><input id="a19SvcBooking" class="admin19-toggle" type="checkbox" onchange="admin19SaveServices()"></div>
+        <div class="admin19-row"><div><b>التحويلات المرورية</b><small>إظهار أو إخفاء الخدمة</small></div><input id="a19SvcDiversion" class="admin19-toggle" type="checkbox" onchange="admin19SaveServices()"></div>
+        <div class="admin19-row"><div><b>الشكاوى</b><small>إظهار أو إخفاء الخدمة</small></div><input id="a19SvcComplaints" class="admin19-toggle" type="checkbox" onchange="admin19SaveServices()"></div>
+        <div class="admin19-row"><div><b>الاستفسارات</b><small>إظهار أو إخفاء الخدمة</small></div><input id="a19SvcInquiries" class="admin19-toggle" type="checkbox" onchange="admin19SaveServices()"></div>
+        <div class="admin19-row"><div><b>مشكلة في التطبيق</b><small>إظهار أو إخفاء الخدمة</small></div><input id="a19SvcSupport" class="admin19-toggle" type="checkbox" onchange="admin19SaveServices()"></div>
+      </div>
+
+      <div id="a2610Announcement" class="admin19-card admin2610-card-anchor">
+        <h3>إعلان الصفحة الرئيسية</h3>
+        <input id="a19AnnouncementTitle" class="admin19-input" placeholder="عنوان الإعلان">
+        <textarea id="a19AnnouncementBody" class="admin19-textarea" style="margin-top:8px" placeholder="نص الإعلان..."></textarea>
+        <button class="admin19-btn" style="width:100%;margin-top:10px" onclick="admin19SaveAnnouncement()">حفظ الإعلان</button>
+        <div class="admin19-note" style="margin-top:10px">يتم حفظ التعديلات وتطبيقها على إعدادات التطبيق.</div>
+      </div>
+
+      <div id="a2610Support" class="admin19-card admin2610-card-anchor">
+        <h3>الدعم والتواصل</h3>
+        <input id="a19SupportPhone" class="admin19-input" placeholder="رقم التواصل">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+          <input id="a19SupportFrom" class="admin19-input" type="time">
+          <input id="a19SupportTo" class="admin19-input" type="time">
+        </div>
+        <button class="admin19-btn" style="width:100%;margin-top:10px" onclick="admin19SaveSupport()">حفظ بيانات التواصل</button>
+      </div>
+
+      <div class="admin19-card">
+        <h3>إشعار</h3>
+        <input id="a19NotifTitle" class="admin19-input" placeholder="عنوان الإشعار">
+        <textarea id="a19NotifBody" class="admin19-textarea" style="margin-top:8px" placeholder="نص الإشعار..."></textarea>
+        <button class="admin19-btn" style="width:100%;margin-top:10px" onclick="admin19AddNotification()">إضافة الإشعار</button>
+      </div>
+
+      <div class="admin19-card" style="grid-column:1/-1">
+        <h3>الشركات المسجلة</h3>
+        <div style="overflow:auto"><table class="admin19-table"><thead><tr><th>الشركة</th><th>البريد</th><th>الزيارات</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="a19CompaniesBody"></tbody></table></div>
+      </div>
+
+      <div id="a2610Engineers" class="admin19-card admin2610-card-anchor" style="grid-column:1/-1">
+        <h3>المهندسون والمسؤولون</h3>
+        <div style="overflow:auto"><table class="admin19-table"><thead><tr><th>الصورة</th><th>الاسم</th><th>الدور</th><th>الحالة</th><th>تعديل الحالة</th><th>إدارة الصورة</th></tr></thead><tbody id="a19EngineersBody"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+</div>
+
+<div id="imagePreviewModal" class="image-modal" onclick="closeImagePreview(event)">
+  <button class="close-preview" type="button" onclick="closeImagePreview(event,true)">×</button>
+  <img id="imagePreviewFull" alt="معاينة المرفق" />
+</div>
+
+<script>
+
+/* ===== V19 safe admin module ===== */
+function admin19Load(key,fallback){
+  try{
+    var raw=localStorage.getItem(key);
+    return raw?JSON.parse(raw):fallback;
+  }catch(e){ return fallback; }
+}
+function admin19Save(key,val){
+  try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}
+}
+function admin19Defaults(){
+  return {
+    services:{booking:true,diversion:true,complaints:true,inquiries:true,support:true},
+    announcement:{title:'',body:''},
+    support:{phone:'',from:'09:00',to:'14:30'}
+  };
+}
+function admin19Settings(){
+  var d=admin19Defaults();
+  var s=admin19Load('trafficAdmin19',d);
+  if(!s.services)s.services=d.services;
+  if(!s.announcement)s.announcement=d.announcement;
+  if(!s.support)s.support=d.support;
+  return s;
+}
+function admin19TrackVisit(){
+  var n=parseInt(localStorage.getItem('trafficVisitCount19')||'0',10);
+  if(!isFinite(n))n=0;
+  localStorage.setItem('trafficVisitCount19',String(n+1));
+}
+function admin19RegisterCompany(){
+  var current=admin19Load('trafficCurrentContractor',null);
+  var email='';
+  var emailEl=document.getElementById('loginIdentity');
+  if(emailEl)email=(emailEl.value||'').trim();
+  var arr=admin19Load('trafficCompanies19',[]);
+  var companyName=(current&&current.company)?current.company:'غير محدد';
+  var name=(current&&current.name)?current.name:'مقاول';
+  var key=email || ((current&&current.email)?current.email:'unknown@company.local');
+  var row=arr.find(function(x){return x.email===key;});
+  if(row){row.visits=(row.visits||0)+1;}
+  else{arr.unshift({company:companyName,name:name,email:key,visits:1,blocked:false});}
+  admin19Save('trafficCompanies19',arr);
+}
+function admin19Apply(){
+  var s=admin19Settings();
+  var mappings=[
+    ['حجز موعد',s.services.booking],
+    ['التحويلات المرورية',s.services.diversion],
+    ['الشكاوى',s.services.complaints],
+    ['الاستفسارات',s.services.inquiries],
+    ['مشكلة في التطبيق',s.services.support]
+  ];
+  mappings.forEach(function(m){
+    document.querySelectorAll('.home16-service').forEach(function(el){
+      var txt=(el.textContent||'').trim();
+      if(txt.indexOf(m[0])!==-1)el.style.display=m[1]===false?'none':'';
+    });
+  });
+  var box=document.getElementById('admin19HomeAnnouncement');
+  if(s.announcement.title || s.announcement.body){
+    if(!box){
+      var home=document.getElementById('home');
+      var host=home?home.querySelector('.home16'):null;
+      if(host){
+        box=document.createElement('div');
+        box.id='admin19HomeAnnouncement';
+        box.style.cssText='margin:0 0 16px;padding:14px 16px;background:#eef8f6;border:1px solid #d7ebe7;border-radius:16px;color:#254b46';
+        host.insertBefore(box,host.firstChild);
+      }
+    }
+    if(box){
+      box.innerHTML='<b>'+escapeHtml(s.announcement.title||'إعلان')+'</b><div style="font-size:11px;margin-top:4px">'+escapeHtml(s.announcement.body||'')+'</div>';
+      box.style.display='';
+    }
+  }else if(box){box.style.display='none';}
+}
+function openAdmin19(){
+  if(!tcProfile || tcProfile.role!=='admin'){alert('لوحة الإدارة متاحة لحسابات Admin فقط.');return;}
+  showScreen('adminConsole');
+  admin19Render();
+}
+function admin19Render(){
+  var s=admin19Settings();
+  var ids={
+    a19SvcBooking:s.services.booking!==false,
+    a19SvcDiversion:s.services.diversion!==false,
+    a19SvcComplaints:s.services.complaints!==false,
+    a19SvcInquiries:s.services.inquiries!==false,
+    a19SvcSupport:s.services.support!==false
+  };
+  Object.keys(ids).forEach(function(id){var el=document.getElementById(id);if(el)el.checked=ids[id];});
+  var t=document.getElementById('a19AnnouncementTitle');if(t)t.value=s.announcement.title||'';
+  var b=document.getElementById('a19AnnouncementBody');if(b)b.value=s.announcement.body||'';
+  var p=document.getElementById('a19SupportPhone');if(p)p.value=s.support.phone||'';
+  var f=document.getElementById('a19SupportFrom');if(f)f.value=s.support.from||'09:00';
+  var to=document.getElementById('a19SupportTo');if(to)to.value=s.support.to||'14:30';
+
+  var companies=admin19Load('trafficCompanies19',[]);
+  var added=admin19Load('trafficAddedRequests',[]);
+  var defaults=(typeof DEFAULT_REQUESTS!=='undefined' && Array.isArray(DEFAULT_REQUESTS))?DEFAULT_REQUESTS:[];
+  var requests=added.concat(defaults);
+  var v=document.getElementById('a19Visits');if(v)v.textContent=localStorage.getItem('trafficVisitCount19')||'0';
+  var c=document.getElementById('a19Companies');if(c)c.textContent=String(companies.length);
+  var r=document.getElementById('a19Requests');if(r)r.textContent=String(requests.length);
+  var cc=document.getElementById('a19Complaints');if(cc)cc.textContent=String(requests.filter(function(x){return String(x.id||'').indexOf('CMP')===0 || x.kind==='complaint';}).length);
+
+  var body=document.getElementById('a19CompaniesBody');
+  if(body){
+    if(!companies.length){body.innerHTML='<tr><td colspan="5">لا توجد شركات مسجلة حتى الآن.</td></tr>';}
+    else{
+      body.innerHTML=companies.map(function(x,i){
+        return '<tr><td>'+escapeHtml(x.company||'شركة')+'</td><td>'+escapeHtml(x.email||'')+'</td><td>'+String(x.visits||1)+'</td><td><span class="admin19-badge '+(x.blocked?'blocked':'active')+'">'+(x.blocked?'محظورة':'نشطة')+'</span></td><td><button class="admin19-btn secondary" onclick="admin19ToggleCompany('+i+')">'+(x.blocked?'إلغاء الحظر':'حظر')+'</button></td></tr>';
+      }).join('');
+    }
+  }
+
+  var eb=document.getElementById('a19EngineersBody');
+  if(eb){
+    eb.innerHTML='<tr><td colspan="6">جاري تحميل المهندسين من Supabase...</td></tr>';
+    admin19RenderEngineersRemote();
+  }
+}
+
+async function admin19RenderEngineersRemote(){
+  var eb=document.getElementById('a19EngineersBody');
+  if(!eb)return;
+  try{
+    if(!tcSupabase){eb.innerHTML='<tr><td colspan="6">تعذر الاتصال بـ Supabase.</td></tr>';return;}
+    if(!tcSession)await tcGetSession();
+    const {data,error}=await tcSupabase.from('engineers').select('id,user_id,display_name,specialization,region,availability,avatar_url,is_active').order('display_name');
+    if(error)throw error;
+    const rows=data||[];
+    if(!rows.length){eb.innerHTML='<tr><td colspan="6">لا توجد سجلات مهندسين.</td></tr>';return;}
+    const statusMap={available:'متاح',busy:'محجوز / لديه موعد',leave:'في إجازة'};
+    eb.innerHTML=rows.map(function(e){
+      const img=e.avatar_url
+        ? '<img src="'+tcEsc(e.avatar_url)+'" alt="صورة '+tcEsc(e.display_name||'المهندس')+'" class="a264-avatar-img" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+          +'<span class="a264-avatar-fallback" style="display:none">🦺</span>'
+        : '<span class="a264-avatar-fallback">🦺</span>';
+      const st=e.availability||'available';
+      return '<tr>'+
+        '<td class="a265-photo-cell"><label class="a265-avatar-label" title="اضغط لتغيير صورة المهندس"><div class="a264-avatar">'+img+'</div><span class="a265-photo-hint">'+(e.avatar_url?'تغيير الصورة':'إضافة صورة')+'</span><input type="file" accept="image/*" hidden onchange="admin19UploadEngineerAvatar(\''+tcEsc(e.id)+'\',this)"></label></td>'+
+        '<td><b>'+tcEsc(e.display_name||'مهندس')+'</b><div class="small">'+tcEsc(e.region||'')+'</div></td>'+
+        '<td>'+tcEsc(String(e.specialization||'').includes('responsible_meeting')?'responsible':'engineer')+'</td>'+
+        '<td>'+tcEsc(statusMap[st]||st)+'</td>'+
+        '<td><select class="admin19-select" onchange="admin264EngineerStatus(\''+tcEsc(e.id)+'\',this.value)">'+
+          '<option value="available" '+(st==='available'?'selected':'')+'>متاح</option>'+
+          '<option value="busy" '+(st==='busy'?'selected':'')+'>محجوز</option>'+
+          '<option value="leave" '+(st==='leave'?'selected':'')+'>في إجازة</option>'+
+        '</select></td>'+
+        '<td>'+(e.avatar_url?'<button class="a264-remove-btn" onclick="admin19RemoveEngineerAvatar(\''+tcEsc(e.id)+'\')">حذف الصورة</button>':'<span class="small">اضغط الصورة للإضافة</span>')+
+        '<div id="a264msg-'+tcEsc(e.id)+'" class="a264-upload-msg"></div></td>'+
+      '</tr>';
+    }).join('');
+  }catch(e){
+    console.error('admin engineers',e);
+    eb.innerHTML='<tr><td colspan="6">تعذر تحميل المهندسين: '+tcEsc(e.message||String(e))+'</td></tr>';
+  }
+}
+
+async function admin264EngineerStatus(id,status){
+  try{
+    const {error}=await tcSupabase.from('engineers').update({availability:status}).eq('id',id);
+    if(error)throw error;
+    await admin19RenderEngineersRemote();
+    await refreshBookingEngineers();
+  }catch(e){alert('تعذر تحديث حالة المهندس: '+(e.message||e));}
+}
+
+function admin264AvatarMessage(id,text,isError){
+  const el=document.getElementById('a264msg-'+id);
+  if(el){el.textContent=text||'';el.style.color=isError?'#b42318':'#08745f';}
+}
+
+function admin265PrepareImage(file){
+  return new Promise(function(resolve,reject){
+    if(!file || !String(file.type||'').startsWith('image/')){reject(new Error('اختر صورة من ألبوم الصور.'));return}
+    if(file.size>20*1024*1024){reject(new Error('الصورة كبيرة جدًا. اختر صورة أقل من 20 MB.'));return}
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=function(){
+      try{
+        const maxSide=1200, scale=Math.min(1,maxSide/Math.max(img.naturalWidth||1,img.naturalHeight||1));
+        const w=Math.max(1,Math.round((img.naturalWidth||1)*scale)),h=Math.max(1,Math.round((img.naturalHeight||1)*scale));
+        const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+        const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);
+        canvas.toBlob(function(blob){URL.revokeObjectURL(url);if(blob)resolve(blob);else reject(new Error('تعذر تجهيز الصورة للرفع.'));},'image/jpeg',0.86);
+      }catch(err){URL.revokeObjectURL(url);reject(err)}
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('تعذر قراءة صيغة الصورة. جرّب صورة JPG أو PNG.'));};
+    img.src=url;
+  });
+}
+
+async function admin19UploadEngineerAvatar(engineerId,input){
+  const file=input&&input.files&&input.files[0];
+  if(!file)return;
+  try{
+    if(!tcSession)await tcGetSession();
+    if(!tcSession)throw new Error('انتهت جلسة الدخول. سجّل الدخول كـ Admin مرة أخرى.');
+    if((tcProfile&&tcProfile.role)!=='admin')throw new Error('رفع صور المهندسين متاح للـ Admin فقط.');
+    admin264AvatarMessage(engineerId,'جاري تجهيز الصورة...',false);
+    const prepared=await admin265PrepareImage(file);
+    admin264AvatarMessage(engineerId,'جاري رفع الصورة...',false);
+    const path='admin/'+engineerId+'/'+Date.now()+'.jpg';
+    const up=await tcSupabase.storage.from('engineer-avatars').upload(path,prepared,{cacheControl:'3600',upsert:false,contentType:'image/jpeg'});
+    if(up.error)throw up.error;
+    const pub=tcSupabase.storage.from('engineer-avatars').getPublicUrl(path);
+    const url=pub&&pub.data&&pub.data.publicUrl;
+    if(!url)throw new Error('تعذر إنشاء رابط الصورة.');
+    const {error}=await tcSupabase.from('engineers').update({avatar_url:url}).eq('id',engineerId);
+    if(error)throw error;
+    admin264AvatarMessage(engineerId,'تم حفظ الصورة ✓',false);
+    await admin19RenderEngineersRemote();
+    await refreshBookingEngineers();
+  }catch(e){
+    console.error('avatar upload',e);
+    admin264AvatarMessage(engineerId,e.message||String(e),true);
+    alert('تعذر رفع الصورة: '+(e.message||e));
+  }finally{if(input)input.value='';}
+}
+
+async function admin19RemoveEngineerAvatar(engineerId){
+  if(!confirm('حذف صورة هذا المهندس؟'))return;
+  try{
+    const {error}=await tcSupabase.from('engineers').update({avatar_url:null}).eq('id',engineerId);
+    if(error)throw error;
+    await admin19RenderEngineersRemote();
+    await refreshBookingEngineers();
+  }catch(e){alert('تعذر حذف الصورة: '+(e.message||e));}
+}
+
+function admin19SaveServices(){
+  var s=admin19Settings();
+  s.services={
+    booking:!!document.getElementById('a19SvcBooking').checked,
+    diversion:!!document.getElementById('a19SvcDiversion').checked,
+    complaints:!!document.getElementById('a19SvcComplaints').checked,
+    inquiries:!!document.getElementById('a19SvcInquiries').checked,
+    support:!!document.getElementById('a19SvcSupport').checked
+  };
+  admin19Save('trafficAdmin19',s);admin19Apply();
+}
+function admin19SaveAnnouncement(){
+  var s=admin19Settings();
+  s.announcement={title:(document.getElementById('a19AnnouncementTitle').value||'').trim(),body:(document.getElementById('a19AnnouncementBody').value||'').trim()};
+  admin19Save('trafficAdmin19',s);admin19Apply();alert('تم حفظ الإعلان.');
+}
+function admin19SaveSupport(){
+  var s=admin19Settings();
+  s.support={phone:document.getElementById('a19SupportPhone').value||'',from:document.getElementById('a19SupportFrom').value||'09:00',to:document.getElementById('a19SupportTo').value||'14:30'};
+  admin19Save('trafficAdmin19',s);alert('تم حفظ بيانات التواصل.');
+}
+function admin19AddNotification(){
+  var title=(document.getElementById('a19NotifTitle').value||'').trim();
+  var body=(document.getElementById('a19NotifBody').value||'').trim();
+  if(!title && !body){alert('اكتب عنوان أو نص الإشعار.');return;}
+  var arr=admin19Load('trafficNotifications19',[]);
+  arr.unshift({title:title||'إشعار',body:body,date:new Date().toLocaleString('ar-AE')});
+  admin19Save('trafficNotifications19',arr);alert('تمت إضافة الإشعار.');
+}
+function admin19ToggleCompany(i){
+  var arr=admin19Load('trafficCompanies19',[]);
+  if(!arr[i])return;
+  arr[i].blocked=!arr[i].blocked;
+  admin19Save('trafficCompanies19',arr);admin19Render();
+}
+function admin19EngineerStatus(id,status){
+  var map=admin19Load('trafficEngineerStatuses',{});
+  map[id]=status;admin19Save('trafficEngineerStatuses',map);
+  admin19Render();
+}
+
+
+
+function submitService16(prefix,descId,message){
+  try{
+    const field=document.getElementById(descId);
+    const desc=(field?.value||'').trim();
+    if(!desc){alert('يرجى كتابة التفاصيل قبل الإرسال.');field?.focus();return}
+    if(desc.length<5){alert('يرجى كتابة تفاصيل أوضح.');field?.focus();return}
+
+    const id=prefix+'-2026-'+Math.floor(1000+Math.random()*8999);
+    const arr=loadJSON('trafficAddedRequests',[]);
+    let title='بلاغ فني',kind='issue',status='قيد المراجعة',statusClass='review';
+    if(prefix==='CMP'){title='شكوى جديدة';kind='complaint';status='مفتوحة';statusClass='pending'}
+    if(prefix==='INQ'){title='استفسار جديد';kind='inquiry'}
+
+    const rec={id,kind,title,status,statusClass,date:'تم الإرسال الآن',screen:'requestStatus',description:desc};
+
+    if(prefix==='CMP'){
+      rec.type=document.getElementById('complaintType')?.value||'أخرى';
+      rec.location=(document.getElementById('complaintLocation')?.value||'').trim();
+      rec.permit=(document.getElementById('complaintPermit')?.value||'').trim();
+      rec.attachments=[...(document.getElementById('complaintFiles')?.files||[])].map(f=>({name:f.name,size:f.size,type:f.type}));
+      const complaints=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);
+      complaints.unshift({id,type:rec.type,description:desc,location:rec.location,permit:rec.permit,status:'مفتوحة',createdAt:new Date().toLocaleString('ar-AE'),attachments:rec.attachments});
+      saveJSON('trafficComplaints',complaints);
+    }
+    if(prefix==='INQ'){
+      rec.topic=document.getElementById('inquiryTopic')?.value||'استفسار عام';
+      rec.permit=(document.getElementById('inquiryRef')?.value||'').trim();
+    }
+
+    arr.unshift(rec);saveJSON('trafficAddedRequests',arr);
+    if(field)field.value='';
+    renderAll();
+    alert(message+'\nرقم الطلب: '+id);
+    showScreen('requests');
+  }catch(err){
+    console.error('submitService16',err);
+    alert('تعذر إرسال الطلب. يرجى المحاولة مرة أخرى.');
+  }
+}
+
+
+
+function openBookingScreen(){
+  showScreen('booking');
+  const d=document.getElementById('bookingDate');
+  if(d){
+    const now=new Date();
+    const localToday=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const fmt=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');
+    d.min=fmt(localToday);
+    if(!d.value){const dt=new Date(localToday);dt.setDate(dt.getDate()+1);d.value=fmt(dt);}
+  }
+  refreshBookingAreas();
+  refreshBookingEngineers();
+  updateBookingSummary();
+}
+function refreshBookingAreas(){
+  const service=document.getElementById('bookingService')?.value;
+  const area=document.getElementById('bookingArea');
+  if(!area)return;
+  if(service==='responsible_meeting'){
+    area.innerHTML='<option value="abu_dhabi">أبوظبي — مركز إدارة المرور</option>';
+  }else{
+    const previous=area.value;
+    area.innerHTML='<option value="abu_dhabi">أبوظبي — مركز إدارة المرور</option><option value="al_ain">العين — مركز النقل</option><option value="al_dhafra_traffic">الظفرة — محطة الباصات</option>';
+    if([...area.options].some(o=>o.value===previous)) area.value=previous;
+  }
+}
+function bookingText(id){
+  const el=document.getElementById(id);
+  if(!el)return '—';
+  if(el.tagName==='SELECT') return el.options[el.selectedIndex]?.text||'—';
+  return el.value||'—';
+}
+function updateBookingSummary(){
+  const map={sumService:'bookingService',sumArea:'bookingArea',sumDate:'bookingDate',sumTime:'bookingTime'};
+  Object.entries(map).forEach(([out,src])=>{const e=document.getElementById(out);if(e)e.textContent=bookingText(src)});
+  const eng=document.getElementById('sumEngineer');
+  const sel=document.getElementById('bookingEngineer');
+  if(eng)eng.textContent=sel?.options[sel.selectedIndex]?.text?.split(' — ')[0]||'—';
+}
+
+
+let currentRole='contractor';
+const ENGINEERS=[
+  {id:'zarooni',name:'Ahmed Al Zarooni',email:'ahmed.alzarooni@itc.gov.ae',role:'responsible',services:['responsible_meeting'],areas:['abu_dhabi','traffic_center_ad','traffic_movement','itc_ad'],status:'available'},
+  {id:'aly',name:'Aly Meleis',email:'c.aly.mohamed@itc.gov.ae',role:'engineer',services:['permit','field'],areas:['abu_dhabi','traffic_center_ad','traffic_movement','itc_ad','al_ain'],status:'available'},
+  {id:'alsaedi',name:'Mohammed Shuhail Al Saedi',email:'mohammed.alsaedi@itc.gov.ae',role:'engineer',services:['permit','field'],areas:['al_ain'],status:'available'},
+  {id:'shammar',name:'Mahmood Mohammad Ali Al Shammar',email:'mahmood.alshammar@itc.gov.ae',role:'engineer',services:['permit','field'],areas:['al_ain'],status:'available'},
+  {id:'maitha',name:'Maitha Salem Alwheibi',email:'maitha.alwheibi@itc.gov.ae',role:'engineer',services:['permit','field'],areas:['al_ain'],status:'available'},
+  {id:'dhafra_mohamed',name:'Mohamed Ahmed Abdelsalam',email:'mohamed.ahmed@itc.gov.ae',role:'engineer',services:['permit','field'],areas:['al_dhafra_traffic','al_dhafra_itc'],status:'available'}
+];
+const SUPPORT_TEAM=[
+  {id:'almeraikhi',name:'Mohamed AL Meraikhi',email:'Mohamed.almeraikhi@itc.gov.ae',role:'مسؤول دعم / Admin'},
+  {id:'sanadidy',name:'Ahmed El Sanadidy',email:'ahmed.elsanadidy@itc.gov.ae',role:'مسؤول دعم / Admin'}
+];
+const STATUS_LABELS={available:'متاح',booked:'محجوز / لديه موعد',leave:'في إجازة',blocked:'محظور'};
+function engineerStatus(e){const m=loadJSON('trafficEngineerStatuses',{});return m[e.id]||e.status}
+function isEngineerBlocked(e){return engineerStatus(e)==='blocked'}
+const DEFAULT_REQUESTS=[];
+const DEFAULT_COMPLAINTS=[];
+function loadJSON(key,fallback){try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){return fallback}}
+function saveJSON(key,val){localStorage.setItem(key,JSON.stringify(val))}
+function escapeHtml(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function login(){
+  try{
+    currentRole=document.getElementById('role')?document.getElementById('role').value:'contractor';
+    var app=document.querySelector('.app');if(app)app.classList.add('wide-mode');
+    var loginEl=document.getElementById('login');if(loginEl){loginEl.classList.remove('active');loginEl.style.display='none';}
+    var shell=document.getElementById('shell');if(shell){shell.classList.remove('hidden');shell.style.display='block';}
+    var stats=loadJSON('trafficGlobalStats',{visits:0,logins:0,contacts:0});stats.logins=(stats.logins||0)+1;saveJSON('trafficGlobalStats',stats);
+    if(currentRole==='contractor'){
+      admin19RegisterCompany();
+      var current=loadJSON('trafficCurrentContractor',null);
+      var welcome=document.getElementById('welcome');
+      if(welcome && current && current.name)welcome.textContent='مرحباً بك، '+current.name;
+      showScreen('home');
+      admin19Apply();
+    }else if(currentRole==='admin'){
+      showScreen('adminConsole');
+      admin19Render();
+    }else if(currentRole==='engineer' && document.getElementById('engineerDashboard')){
+      showScreen('engineerDashboard');v25RenderEngineerBookings('pending');
+    }else if(currentRole==='officer' && document.getElementById('officerDashboard')){
+      showScreen('officerDashboard');
+    }else{
+      showScreen('home');
+    }
+  }catch(err){
+    console.error('Login error',err);
+    var shell2=document.getElementById('shell');if(shell2){shell2.classList.remove('hidden');shell2.style.display='block';}
+    showScreen('home');
+  }
+}
+function logout(){var app=document.querySelector('.app');if(app)app.classList.remove('wide-mode');var shell=document.getElementById('shell');if(shell){shell.classList.add('hidden');shell.style.display='';}var loginEl=document.getElementById('login');if(loginEl){loginEl.style.display='block';loginEl.classList.add('active');}window.scrollTo(0,0)}
+function goDashboard(){
+  if(currentRole==='admin' && document.getElementById('adminConsole')){showScreen('adminConsole');return}
+  if(currentRole==='engineer' && document.getElementById('engineerDashboard')){showScreen('engineerDashboard');return}
+  if(currentRole==='officer' && document.getElementById('officerDashboard')){showScreen('officerDashboard');return}
+  showScreen('home');
+}
+function nextId(prefix){const n=String(Math.floor(1000+Math.random()*8999));return `${prefix}-2026-${n}`}
+function showSelectedFiles(input,listId){
+  const list=document.getElementById(listId); list.innerHTML='';
+  [...input.files].forEach(file=>{
+    if(file.type.startsWith('image/')){
+      const url=URL.createObjectURL(file);
+      const wrap=document.createElement('div');wrap.className='preview-wrap';
+      const img=document.createElement('img');img.className='preview-img';img.alt=file.name;img.src=url;img.title='اضغط لمراجعة الصورة بالحجم الكامل';img.onclick=()=>openImagePreview(url);
+      const note=document.createElement('div');note.className='preview-note';note.textContent='اضغط للمعاينة';
+      wrap.appendChild(img);wrap.appendChild(note);list.appendChild(wrap)
+    }
+    const chip=document.createElement('div');chip.className='attachment-chip';chip.textContent=`${file.name} · ${(file.size/1024).toFixed(0)} KB`;list.appendChild(chip)
+  });
+}
+function openImagePreview(src){document.getElementById('imagePreviewFull').src=src;document.getElementById('imagePreviewModal').classList.add('open')}
+function closeImagePreview(e,force=false){if(force||e.target.id==='imagePreviewModal'){document.getElementById('imagePreviewModal').classList.remove('open');document.getElementById('imagePreviewFull').src=''}}
+
+function populateSupportSelects(){
+  ['inquiryOwner','issueOwner'].forEach(id=>{
+    const sel=document.getElementById(id); if(!sel)return;
+    sel.innerHTML=SUPPORT_TEAM.map(p=>`<option value="${escapeHtml(p.email)}">${escapeHtml(p.name)} — ${escapeHtml(p.role)}</option>`).join('');
+  });
+  updateSupportHints();
+}
+function updateSupportHints(){
+  const pairs=[['inquiryOwner','inquiryOwnerEmail'],['issueOwner','issueOwnerEmail']];
+  pairs.forEach(([sid,hid])=>{const s=document.getElementById(sid),h=document.getElementById(hid);if(s&&h)h.textContent=s.value?'البريد: '+s.value:''});
+}
+function refreshBookingEngineers(){
+  const service=document.getElementById('bookingService')?.value;
+  const area=document.getElementById('bookingArea')?.value;
+  const sel=document.getElementById('bookingEngineer');
+  if(!sel)return;
+  const matches=ENGINEERS.filter(e=>e.services.includes(service)&&e.areas.includes(area));
+  sel.innerHTML=matches.length?matches.map(e=>{
+    const disabled=engineerStatus(e)!=='available'?' disabled':'';
+    return `<option value="${escapeHtml(e.id)}"${disabled}>${escapeHtml(e.name)} — ${STATUS_LABELS[engineerStatus(e)]}</option>`;
+  }).join(''):`<option value="">لا يوجد مهندس/مسؤول متاح لهذه الخدمة والمنطقة</option>`;
+  if(matches.length && !matches.some(e=>engineerStatus(e)==='available')){
+    sel.innerHTML += '<option value="">لا توجد مواعيد متاحة حاليًا</option>';
+  }
+  const firstAvailable=matches.find(e=>engineerStatus(e)==='available');
+  if(firstAvailable) sel.value=firstAvailable.id;
+  updateEngineerBookingInfo();
+}
+function updateEngineerBookingInfo(){
+  const sel=document.getElementById('bookingEngineer');
+  const hint=document.getElementById('engineerEmailHint');
+  const box=document.getElementById('engineerAvailability');
+  if(!sel||!hint||!box)return;
+  const e=ENGINEERS.find(x=>x.id===sel.value);
+  if(!e){hint.textContent='';box.className='availability-box';box.textContent='لا يوجد اختيار متاح حاليًا.';return}
+  hint.textContent='البريد: '+e.email;
+  box.className='availability-box '+engineerStatus(e);
+  if(engineerStatus(e)==='available') box.innerHTML=`✅ <b>متاح للحجز</b><br>يمكن للمقاول اختيار التاريخ والوقت المتاح.`;
+  if(engineerStatus(e)==='booked') box.innerHTML=`🕒 <b>محجوز حاليًا</b><br>لدى المهندس موعد قائم مع مقاول آخر، لذلك لا يمكن اختياره الآن.`;
+  if(engineerStatus(e)==='leave') box.innerHTML=`🏖️ <b>في إجازة</b><br>يظهر للمقاول أن المهندس غير متاح خلال فترة الإجازة.`;
+  if(e.avatar_url){box.innerHTML='<img class="a265-booking-avatar" src="'+escapeHtml(e.avatar_url)+'" alt="صورة المهندس" onerror="this.remove()">'+box.innerHTML;}
+}
+function selectedEngineer(){
+  return ENGINEERS.find(x=>x.id===document.getElementById('bookingEngineer')?.value);
+}
+function submitInquiry(){
+  const owner=document.getElementById('inquiryOwner');
+  const title=document.getElementById('inquiryTitle').value.trim();
+  const desc=document.getElementById('inquiryDescription').value.trim();
+  if(!title||!desc){alert('يرجى كتابة عنوان الاستفسار والوصف.');return}
+  const id=nextId('INQ');
+  const reqs=loadJSON('trafficAddedRequests',[]);
+  reqs.unshift({id,kind:'inquiry',title,status:'قيد المراجعة',statusClass:'review',date:'تم الإرسال الآن'});
+  saveJSON('trafficAddedRequests',reqs);
+  const email=owner.value, name=owner.options[owner.selectedIndex].text;
+  const subject=encodeURIComponent(`Traffic Connect - استفسار جديد ${id}`);
+  const body=encodeURIComponent(`استفسار جديد عبر تواصل مروري\nرقم الاستفسار: ${id}\nالعنوان: ${title}\nالوصف: ${desc}\nرقم التصريح/الطلب: ${document.getElementById('inquiryPermit').value||'غير مذكور'}`);
+  renderAll();showScreen('requests');
+  if(confirm(`تم حفظ الاستفسار ${id}.\nالمسؤول: ${name}\nهل تريد فتح البريد لإرسال الإشعار؟`)) window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
+}
+function submitOfficialIssue(){
+  const desc=document.getElementById('issueDescription').value.trim();
+  if(!desc){alert('يرجى كتابة وصف المشكلة.');return}
+  const owner=document.getElementById('issueOwner');
+  const id=nextId('APP');
+  const reqs=loadJSON('trafficAddedRequests',[]);
+  reqs.unshift({id,kind:'issue',title:'مشكلة في التطبيق الرسمي',status:'قيد المراجعة',statusClass:'review',date:'تم الإرسال الآن'});
+  saveJSON('trafficAddedRequests',reqs);
+  const email=owner.value, name=owner.options[owner.selectedIndex].text;
+  const subject=encodeURIComponent(`Traffic Connect - بلاغ مشكلة تطبيق ${id}`);
+  const body=encodeURIComponent(`بلاغ جديد عن مشكلة في التطبيق الرسمي\nرقم البلاغ: ${id}\nالنوع: ${document.getElementById('issueType').value}\nالوصف: ${desc}\nالصفحة: ${document.getElementById('issuePage').value||'غير مذكورة'}\nرقم التصريح/الطلب: ${document.getElementById('issuePermit').value||'غير مذكور'}`);
+  renderAll();showScreen('requests');
+  if(confirm(`تم حفظ البلاغ ${id}.\nمسؤول الدعم: ${name}\nهل تريد فتح البريد لإرسال الإشعار؟`)) window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
+}
+let activeRatingRequest=null, selectedRating=0;
+function openRating(id,engineer){
+  activeRatingRequest={id,engineer};
+  selectedRating=0;
+  document.getElementById('ratingEngineerName').textContent='المهندس: '+engineer;
+  document.getElementById('ratingRequestId').textContent='رقم الموعد: '+id;
+  document.getElementById('ratingComment').value='';
+  paintRatingStars();
+  showScreen('rating');
+}
+function setRating(n){selectedRating=n;paintRatingStars()}
+function paintRatingStars(){document.querySelectorAll('#ratingStars button').forEach((b,i)=>b.classList.toggle('active',i<selectedRating))}
+function saveRating(){
+  if(!activeRatingRequest||!selectedRating){alert('اختر التقييم من 1 إلى 5 نجوم.');return}
+  const ratings=loadJSON('trafficEngineerRatings',[]);
+  const existing=ratings.findIndex(r=>r.requestId===activeRatingRequest.id);
+  const rec={requestId:activeRatingRequest.id,engineer:activeRatingRequest.engineer,rating:selectedRating,comment:document.getElementById('ratingComment').value.trim(),createdAt:new Date().toISOString()};
+  if(existing>=0)ratings[existing]=rec;else ratings.unshift(rec);
+  saveJSON('trafficEngineerRatings',ratings);
+  alert('تم حفظ تقييمك بنجاح. شكرًا لك.');
+  showScreen('requests');
+}
+function saveEngineerProfilePhoto(input){
+  const file=input.files&&input.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{localStorage.setItem('trafficEngineerProfilePhoto',reader.result);renderEngineerProfilePhoto()};
+  reader.readAsDataURL(file);
+}
+function renderEngineerProfilePhoto(){
+  const src=localStorage.getItem('trafficEngineerProfilePhoto');
+  const avatar=document.getElementById('engineerProfileAvatar');
+  const preview=document.getElementById('engineerProfilePhotoPreview');
+  if(!avatar)return;
+  avatar.innerHTML=src?`<img src="${src}" alt="صورة المهندس">`:'👤';
+  if(preview)preview.innerHTML=src?'<div class="small">تم حفظ الصورة محليًا على هذا الجهاز ✓</div>':'';
+}
+function saveEngineerSelfAvailability(v){localStorage.setItem('trafficEngineerSelfAvailability',v)}
+function loadEngineerSelfAvailability(){
+  const s=document.getElementById('engineerSelfAvailability');
+  if(s)s.value=localStorage.getItem('trafficEngineerSelfAvailability')||'available';
+}
+
+function confirmBooking(){
+  try{
+    const eng=selectedEngineer();
+    if(!eng){alert('لا يوجد مهندس أو مسؤول متاح لهذه الخدمة والمنطقة.');return}
+    const liveStatus=engineerStatus(eng);
+    if(liveStatus!=='available'){alert((STATUS_LABELS[liveStatus]||liveStatus)+' — اختر مهندسًا متاحًا.');return}
+    const dateEl=document.getElementById('bookingDate');
+    const timeEl=document.getElementById('bookingTime');
+    const date=(dateEl?.value||'').trim();
+    const time=(timeEl?.value||'').trim();
+    if(!date){alert('يرجى اختيار تاريخ الموعد.');dateEl?.focus();return}
+    if(!time){alert('يرجى اختيار وقت الموعد.');timeEl?.focus();return}
+    const chosen=new Date(date+'T00:00:00');
+    const today=new Date();today.setHours(0,0,0,0);
+    if(isNaN(chosen.getTime())||chosen<today){alert('يرجى اختيار تاريخ صحيح، ولا يمكن الحجز بتاريخ سابق.');dateEl?.focus();return}
+
+    const added=loadJSON('trafficAddedRequests',[]);
+    const duplicate=added.some(r=>r.kind==='booking' && r.engineer===eng.name && r.date===date && r.time===time && r.status!=='ملغي');
+    if(duplicate){alert('هذا الموعد محفوظ مسبقًا لنفس المهندس والوقت. اختر وقتًا آخر.');return}
+
+    const id=nextId('TCP');
+    const serviceText=bookingText('bookingService');
+    const areaText=bookingText('bookingArea');
+    const req={
+      id,kind:'booking',title:serviceText,status:'مؤكد',statusClass:'confirmed',
+      date,screen:'requestStatus',engineer:eng.name,engineerEmail:eng.email,
+      area:areaText,time,
+      permit:(document.getElementById('bookingPermit')?.value||'').trim(),
+      notes:(document.getElementById('bookingNotes')?.value||'').trim(),
+      attachments:[...(document.getElementById('bookingFiles')?.files||[])].map(f=>({name:f.name,size:f.size,type:f.type}))
+    };
+    added.unshift(req);saveJSON('trafficAddedRequests',added);
+    const cc=loadJSON('trafficCurrentContractor',null);if(cc)trackCompany(cc.company,'bookings');
+    renderAll();
+    alert('تم تأكيد الحجز بنجاح.\nرقم الطلب: '+id);
+    showScreen('requests');
+  }catch(err){
+    console.error('confirmBooking',err);
+    alert('تعذر إتمام الحجز. يرجى المحاولة مرة أخرى.');
+  }
+}
+function getComplaintLocation(){
+  const st=document.getElementById('locationStatus');
+  if(!navigator.geolocation){st.textContent='المتصفح لا يدعم تحديد الموقع. يمكنك كتابة الموقع يدويًا.';return}
+  st.textContent='جاري تحديد الموقع...';
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat=pos.coords.latitude.toFixed(6),lng=pos.coords.longitude.toFixed(6);
+    document.getElementById('complaintLocation').value=`${lat}, ${lng}`;
+    st.innerHTML=`تم تحديد الموقع ✓ — <a target="_blank" rel="noopener" href="https://www.google.com/maps?q=${lat},${lng}">فتح على الخريطة</a>`;
+  },err=>{st.textContent='تعذر تحديد الموقع تلقائيًا. اسمح للموقع من إعدادات المتصفح أو اكتب الموقع يدويًا.'},{enableHighAccuracy:true,timeout:10000,maximumAge:30000});
+}
+function saveComplaint(){
+  const desc=document.getElementById('complaintDescription').value.trim();
+  if(!desc){alert('اكتب وصف المشكلة أولاً.');document.getElementById('complaintDescription').focus();return}
+  const id=nextId('CMP'); const files=[...document.getElementById('complaintFiles').files];
+  const rec={id,type:document.getElementById('complaintType').value,description:desc,location:document.getElementById('complaintLocation').value.trim(),permit:document.getElementById('complaintPermit').value.trim(),status:'مفتوحة',createdAt:new Date().toLocaleString('ar-AE'),attachments:files.map(f=>({name:f.name,size:f.size,type:f.type}))};
+  const arr=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);arr.unshift(rec);saveJSON('trafficComplaints',arr);
+  const reqs=loadJSON('trafficAddedRequests',[]);reqs.unshift({id,kind:'complaint',title:desc,status:'مفتوحة',statusClass:'pending',date:'تم الإرسال الآن'});saveJSON('trafficAddedRequests',reqs);
+  alert(`تم إرسال الشكوى وحفظها محليًا\nرقم الشكوى: ${id}`);
+  document.getElementById('complaintDescription').value='';document.getElementById('complaintLocation').value='';document.getElementById('complaintPermit').value='';document.getElementById('complaintFiles').value='';document.getElementById('complaintAttachmentList').innerHTML='';
+  renderAll();showScreen('complaints');
+}
+function renderComplaints(){
+  const el=document.getElementById('complaintsList');if(!el)return;const arr=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);
+  if(!arr.length){el.innerHTML='<div class="empty">لا توجد شكاوى حتى الآن.</div>';return}
+  el.innerHTML=arr.map(c=>`<div class="item clickable" onclick="showComplaintDetails('${escapeHtml(c.id)}')"><div class="row"><b>${escapeHtml(c.description)}</b><span class="badge pending">${escapeHtml(c.status||'مفتوحة')}</span></div><div class="small">${escapeHtml(c.id)}${c.location?' · '+escapeHtml(c.location):''}</div>${c.attachments&&c.attachments.length?`<div class="small">📎 ${c.attachments.length} مرفق</div>`:''}</div>`).join('');
+}
+function showComplaintDetails(id){const arr=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);const c=arr.find(x=>x.id===id);if(!c)return;alert(`رقم الشكوى: ${c.id}\nالنوع: ${c.type}\nالوصف: ${c.description}\nالموقع: ${c.location||'غير محدد'}\nالمرفقات: ${(c.attachments||[]).map(a=>a.name).join(', ')||'لا يوجد'}`)}
+function renderRequests(){
+  const el=document.getElementById('requestsList');if(!el)return;
+  const arr=[...loadJSON('trafficAddedRequests',[]),...DEFAULT_REQUESTS];
+  const ratings=loadJSON('trafficEngineerRatings',[]);
+  el.innerHTML=arr.map(r=>{
+    const rated=ratings.some(x=>x.requestId===r.id);
+    const rateBtn=r.canRate?`<button class="inline-action" onclick="event.stopPropagation();openRating('${escapeHtml(r.id)}','${escapeHtml(r.engineer||'المهندس')}')">${rated?'تعديل التقييم':'⭐ تقييم المهندس'}</button>`:'';
+    return `<div class="item ${r.screen?'clickable':''}" ${r.screen?`onclick="showScreen('${r.screen}')"`:''}><div class="row"><b>${escapeHtml(r.id)}</b><span class="badge ${escapeHtml(r.statusClass||'pending')}">${escapeHtml(r.status)}</span></div><div class="small">${escapeHtml(r.title)}${r.date?' — '+escapeHtml(r.date):''}</div>${r.engineer?`<div class="small">المهندس: ${escapeHtml(r.engineer)}</div>`:''}${rateBtn}</div>`;
+  }).join('');
+}
+function renderRecent(){/* reserved for future dynamic home list */}
+function renderAll(){renderComplaints();renderRequests();renderRecent();checkCurrentCompanyBlock()}
+function saved(msg){alert(msg);showScreen('home')}
+function setLang(lang){if(lang==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';document.getElementById('brand').textContent='Traffic Connect'}else{document.documentElement.lang='ar';document.documentElement.dir='rtl';document.getElementById('brand').textContent='تواصل مروري'}}
+
+function showRegister(){document.getElementById('login').style.display='none';document.getElementById('shell').classList.remove('hidden');showScreen('register')}
+function showForgotPassword(){document.getElementById('login').style.display='none';document.getElementById('shell').classList.remove('hidden');showScreen('forgotPassword')}
+function returnToLogin(){
+  const shell=document.getElementById('shell');
+  if(shell){shell.classList.add('hidden');shell.style.display='none';}
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const login=document.getElementById('login');
+  if(login){login.style.display='block';login.classList.add('active');}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function saveContractorRegistration(){ return false; }
+function simulatePasswordReset(){ return tcPasswordReset(); }
+function trackCompany(company,field){if(!company)return;const arr=loadJSON('trafficCompanies',[]);let c=arr.find(x=>x.name===company);if(!c){c={id:'CO-'+Date.now(),name:company,blocked:false,createdAt:new Date().toISOString(),logins:0,bookings:0,contacts:0};arr.unshift(c)}c[field]=(c[field]||0)+1;saveJSON('trafficCompanies',arr)}
+function renderCompanyAdmin(){const el=document.getElementById('companyAdminList');if(!el)return;const arr=loadJSON('trafficCompanies',[]);if(!arr.length){el.innerHTML='<div class="empty">لا توجد شركات مسجلة حتى الآن.</div>';return}el.innerHTML=arr.map(c=>`<div class="item ${c.blocked?'blocked-row':''}"><div class="row"><b>${escapeHtml(c.name)}</b><span class="${c.blocked?'blocked-text':''}">${c.blocked?'محظورة':'نشطة'}</span></div><div class="small">دخول: ${c.logins||0} · حجوزات: ${c.bookings||0} · تواصل: ${c.contacts||0}</div><div class="admin-actions"><button class="${c.blocked?'ok-btn':'danger-btn'}" onclick="toggleCompanyBlock('${c.id}')">${c.blocked?'إلغاء الحظر':'حظر الشركة'}</button></div></div>`).join('')}
+function toggleCompanyBlock(id){const arr=loadJSON('trafficCompanies',[]),c=arr.find(x=>x.id===id);if(!c)return;c.blocked=!c.blocked;saveJSON('trafficCompanies',arr);renderCompanyAdmin()}
+function renderUsageStats(){const stats=loadJSON('trafficGlobalStats',{visits:0,logins:0,contacts:0}),arr=loadJSON('trafficCompanies',[]);const m=document.getElementById('usageMetrics');if(m)m.innerHTML=`<div class="metric"><b>${stats.visits||0}</b><div class="small">زيارات التطبيق</div></div><div class="metric"><b>${stats.logins||0}</b><div class="small">مرات تسجيل الدخول</div></div><div class="metric"><b>${arr.length}</b><div class="small">الشركات المسجلة</div></div><div class="metric"><b>${arr.reduce((a,c)=>a+(c.bookings||0),0)}</b><div class="small">حجوزات الشركات</div></div>`;const l=document.getElementById('companyUsageList');if(l)l.innerHTML=arr.map(c=>`<div class="item ${c.blocked?'blocked-row':''}"><b>${escapeHtml(c.name)}</b><div class="small">دخول ${c.logins||0} · حجوزات ${c.bookings||0} · تواصل ${c.contacts||0}</div></div>`).join('')||'<div class="empty">لا توجد شركات مسجلة.</div>'}
+function renderEngineerAdmin(){const el=document.getElementById('engineerAdminList');if(!el)return;el.innerHTML=ENGINEERS.map(e=>{const st=engineerStatus(e);return `<div class="item ${st==='blocked'?'blocked-row':''}"><div class="row"><b>${escapeHtml(e.name)}</b><span class="${st==='blocked'?'blocked-text':''}">${STATUS_LABELS[st]||st}</span></div><div class="small">${escapeHtml(e.email)}</div><div class="admin-actions"><button class="ok-btn" onclick="setEngineerAdminStatus('${e.id}','available')">متاح</button><button class="ok-btn" onclick="setEngineerAdminStatus('${e.id}','leave')">إجازة</button><button class="danger-btn" onclick="setEngineerAdminStatus('${e.id}','blocked')">حظر</button></div></div>`}).join('')}
+function setEngineerAdminStatus(id,status){const m=loadJSON('trafficEngineerStatuses',{});m[id]=status;saveJSON('trafficEngineerStatuses',m);renderEngineerAdmin();refreshBookingEngineers()}
+function saveAppFeedback(){const comment=document.getElementById('appComment').value.trim();if(!comment){alert('اكتب تعليقك أولاً.');return}const arr=loadJSON('trafficAppFeedback',[]);arr.unshift({rating:Number(document.getElementById('appRating').value),comment,createdAt:new Date().toLocaleString('ar-AE')});saveJSON('trafficAppFeedback',arr);document.getElementById('appComment').value='';renderFeedback();alert('تم حفظ تعليقك. شكرًا لك.')}
+function renderFeedback(){const el=document.getElementById('feedbackList');if(!el)return;const arr=loadJSON('trafficAppFeedback',[]);el.innerHTML=arr.map(x=>`<div class="public-comment"><b>${'⭐'.repeat(x.rating)}</b><div>${escapeHtml(x.comment)}</div><div class="small">${escapeHtml(x.createdAt)}</div></div>`).join('')||'<div class="empty">لا توجد تعليقات حتى الآن.</div>'}
+function checkCurrentCompanyBlock(){const cc=loadJSON('trafficCurrentContractor',null);if(!cc)return;const c=loadJSON('trafficCompanies',[]).find(x=>x.name===cc.company);if(c&&c.blocked){const hero=document.querySelector('#home .hero');if(hero&&!document.getElementById('blockedCompanyNotice'))hero.insertAdjacentHTML('afterend',`<div id="blockedCompanyNotice" class="card blocked-row"><div class="blocked-text">شركتك محظورة حاليًا</div><div class="small">يرجى التواصل مع الدعم للاستفسار عن حالة الشركة.</div></div>`)}}
+window.addEventListener('DOMContentLoaded',()=>{
+  const gs=loadJSON('trafficGlobalStats',{visits:0,logins:0,contacts:0});gs.visits++;saveJSON('trafficGlobalStats',gs);
+  renderAll(); renderFeedback(); checkCurrentCompanyBlock();
+  // Engineer data is private; load it only after a successful sign-in.
+  populateSupportSelects();
+  document.getElementById('inquiryOwner')?.addEventListener('change',updateSupportHints);
+  document.getElementById('issueOwner')?.addEventListener('change',updateSupportHints);
+  renderEngineerProfilePhoto();
+  loadEngineerSelfAvailability();
+});
+
+// Home photo gallery: arrows + touch swipe + full-screen review.
+const GALLERY_IMAGES=[
+  {src:'assets/traffic-centre-front.jpeg',title:'مبنى مركز إدارة المرور — أبوظبي'},
+  {src:'assets/traffic-centre-wide.jpeg',title:'مركز إدارة المرور — الواجهة الخارجية'},
+  {src:'assets/elevators.jpeg',title:'المدخل والمصاعد'},
+  {src:'assets/meeting-room.jpeg',title:'قاعة الاجتماعات'},
+  {src:'assets/zayed-hall-new.jpeg',title:'قاعة زايد'},
+  {src:'assets/waiting-area.jpeg',title:'منطقة الانتظار — الطابق الأول'}
+];
+let galleryIndex=0,galleryTouchStartX=null;
+function renderGallery(){
+  const track=document.getElementById('galleryTrack'); if(!track)return;
+  track.style.transform=`translateX(-${galleryIndex*100}%)`;
+  const dots=document.getElementById('galleryDots');
+  if(dots){dots.innerHTML=GALLERY_IMAGES.map((_,i)=>`<button class="gallery-dot ${i===galleryIndex?'active':''}" onclick="goGallery(${i})" aria-label="صورة ${i+1}"></button>`).join('')}
+}
+function goGallery(i){galleryIndex=(i+GALLERY_IMAGES.length)%GALLERY_IMAGES.length;renderGallery()}
+function moveGallery(step){goGallery(galleryIndex+step)}
+function openGalleryImage(i){galleryIndex=i;renderGallery();const lb=document.getElementById('galleryLightbox');document.getElementById('galleryLightboxImg').src=GALLERY_IMAGES[i].src;document.getElementById('galleryLightboxTitle').textContent=GALLERY_IMAGES[i].title;lb.classList.add('active')}
+function closeGalleryImage(e,force=false){if(force||e.target.id==='galleryLightbox'){document.getElementById('galleryLightbox').classList.remove('active')}}
+function setupGallerySwipe(){const g=document.getElementById('contractorGallery');if(!g)return;g.addEventListener('touchstart',e=>{galleryTouchStartX=e.changedTouches[0].screenX},{passive:true});g.addEventListener('touchend',e=>{if(galleryTouchStartX===null)return;const dx=e.changedTouches[0].screenX-galleryTouchStartX;if(Math.abs(dx)>45)moveGallery(dx<0?1:-1);galleryTouchStartX=null},{passive:true});}
+document.addEventListener('DOMContentLoaded',()=>{renderGallery();setupGallerySwipe()});
+
+</script>
+
+<script>
+function tcRoleHomeScreen(){
+  if(currentRole==='admin' && document.getElementById('adminConsole')) return 'adminConsole';
+  if(currentRole==='engineer' && document.getElementById('engineerDashboard')) return 'engineerDashboard';
+  if((currentRole==='officer' || currentRole==='responsible')){
+    if(document.getElementById('responsibleDashboard')) return 'responsibleDashboard';
+    if(document.getElementById('officerDashboard')) return 'officerDashboard';
+  }
+  return 'home';
+}
+function showScreen(screenId){
+  // "الرئيسية" تعني الصفحة الرئيسية الخاصة بالدور الحالي، وليس صفحة المقاول دائماً.
+  if(screenId==='home' && currentRole!=='contractor') screenId=tcRoleHomeScreen();
+  const target=document.getElementById(screenId);
+  if(!target){
+    console.warn('Screen not found:',screenId);
+    const home=document.getElementById('home');
+    if(home){
+      document.querySelectorAll('.screen').forEach(screen=>screen.classList.remove('active'));
+      home.classList.add('active');
+    }
+    return false;
+  }
+
+  document.querySelectorAll('.screen').forEach(screen=>screen.classList.remove('active'));
+
+  const loginScreen=document.getElementById('login');
+  const shell=document.getElementById('shell');
+  if(screenId==='login'){
+    if(shell){shell.classList.add('hidden');shell.style.display='none';}
+    if(loginScreen){loginScreen.style.display='block';}
+  }else{
+    if(loginScreen){loginScreen.style.display='none';}
+    if(shell){shell.classList.remove('hidden');shell.style.display='block';}
+  }
+
+  target.classList.add('active');
+  window.scrollTo(0,0);
+
+  if(screenId==='adminConsole' && typeof admin19Render==='function')admin19Render();
+  if(typeof renderAll==='function')renderAll();
+  return true;
+}
+
+function v10SetRole(el,role){
+  document.querySelectorAll('#v10Roles .v10-role').forEach(x=>x.classList.remove('active'));
+  if(el)el.classList.add('active');
+  const roleInput=document.getElementById('loginRole');
+  if(roleInput)roleInput.value=role||'contractor';
+}
+function v10Login(){
+  const email=(document.getElementById('loginEmail')||{}).value||'';
+  const pass=(document.getElementById('loginPassword')||{}).value||'';
+  const role=(document.getElementById('loginRole')||{}).value||'contractor';
+
+  if(!email.trim() || !pass.trim()){
+    alert('يرجى إدخال البريد الإلكتروني وكلمة المرور.');
+    return;
+  }
+
+  try{
+    localStorage.setItem('tc_last_role',role);
+    localStorage.setItem('tc_last_login',new Date().toISOString());
+  }catch(e){}
+
+  const loginScreen=document.getElementById('login');
+  if(loginScreen){
+    loginScreen.classList.remove('active');
+    loginScreen.style.display='none';
+  }
+
+  const shell=document.getElementById('shell');
+  if(shell){
+    shell.classList.remove('hidden');
+    shell.style.display='block';
+  }
+
+  currentRole=role==='official'?'officer':role;
+
+  if(role==='admin' && document.getElementById('adminConsole')){
+    showScreen('adminConsole');
+  }else{
+    showScreen('home');
+  }
+}
+</script>
+
+<script>
+window.addEventListener('load',function(){
+  try{admin19TrackVisit();admin19Apply();}catch(e){console.warn('V19 init',e);}
+});
+
+function v25Bookings(){return loadJSON('trafficAddedRequests',[]).filter(r=>r.kind==='booking')}
+function v25SaveBookings(rows){saveJSON('trafficAddedRequests',rows);renderAll();}
+function v25RenderEngineerBookings(filter='pending'){
+  const el=document.getElementById('v25EngineerBookings'); if(!el)return;
+  const rows=v25Bookings();
+  const pending=rows.filter(r=>(r.engineerDecision||'pending')==='pending');
+  const accepted=rows.filter(r=>r.engineerDecision==='accepted');
+  const rejected=rows.filter(r=>r.engineerDecision==='rejected');
+  const pc=document.getElementById('v25PendingCount'),ac=document.getElementById('v25AcceptedCount'),rc=document.getElementById('v25RejectedCount');
+  if(pc)pc.textContent=pending.length;if(ac)ac.textContent=accepted.length;if(rc)rc.textContent=rejected.length;
+  let view=rows;if(filter==='pending')view=pending;if(filter==='accepted')view=accepted;
+  if(!view.length){el.innerHTML='<div class="v25-empty">لا توجد طلبات في هذه القائمة حاليًا.</div>';return}
+  el.innerHTML=view.map(r=>`<div class="v25-booking"><div class="row"><b>${escapeHtml(r.id)}</b><span class="badge ${escapeHtml(r.statusClass||'pending')}">${escapeHtml(r.status||'')}</span></div><div class="small">الخدمة: ${escapeHtml(r.title||'')}</div><div class="small">التاريخ: ${escapeHtml(r.date||'—')} — الوقت: ${escapeHtml(r.time||'—')}</div><div class="small">المنطقة: ${escapeHtml(r.area||'—')}</div><div class="small">المقاول/المرجع: ${escapeHtml(r.permit||'غير مذكور')}</div><div class="small">ملاحظات: ${escapeHtml(r.notes||'لا توجد')}</div>${(r.engineerDecision||'pending')==='pending'?`<div class="v25-actions"><button class="v25-accept" onclick="v25EngineerDecision('${r.id}','accepted')">✓ قبول الموعد</button><button class="v25-propose" onclick="v25ProposeTime('${r.id}')">◷ اقتراح موعد آخر</button><button class="v25-reject" onclick="v25EngineerDecision('${r.id}','rejected')">رفض</button></div>`:''}</div>`).join('');
+}
+function v25EngineerDecision(id,decision){
+  const all=loadJSON('trafficAddedRequests',[]);const r=all.find(x=>x.id===id);if(!r)return;
+  r.engineerDecision=decision;
+  if(decision==='accepted'){r.status='مؤكد من المهندس';r.statusClass='confirmed'}
+  else {r.status='مرفوض من المهندس';r.statusClass='pending'}
+  saveJSON('trafficAddedRequests',all);v25RenderEngineerBookings('pending');renderAll();
+}
+function v25ProposeTime(id){
+  const value=prompt('اكتب الموعد البديل المقترح (مثال: 18 أغسطس 2026 - 10:30 ص)');if(!value)return;
+  const all=loadJSON('trafficAddedRequests',[]);const r=all.find(x=>x.id===id);if(!r)return;
+  r.engineerDecision='proposed';r.proposedTime=value;r.status='المهندس اقترح موعدًا آخر: '+value;r.statusClass='review';saveJSON('trafficAddedRequests',all);v25RenderEngineerBookings('all');renderAll();
+}
+</script>
+
+<script>
+/* Traffic Connect — Supabase production integration */
+const TC_SUPABASE_URL='https://pwcptgtdgzsfflafschl.supabase.co';
+const TC_SUPABASE_KEY='sb_publishable_nV8yxSJkEt8hXCHCDtwSxg_JdEz1UG3';
+const tcSupabase=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(TC_SUPABASE_URL,TC_SUPABASE_KEY):null;
+let tcSession=null;
+let tcProfile=null;
+
+function tcArabicRole(role){return ({contractor:'مقاول',engineer:'مهندس',responsible:'مسؤول',admin:'Admin'})[role]||role}
+function tcStatusAr(s){return ({pending:'بانتظار موافقة المهندس',accepted:'مؤكد من المهندس',rejected:'مرفوض من المهندس',proposed:'تم اقتراح موعد بديل',cancelled:'ملغي',completed:'مكتمل',open:'مفتوح',in_review:'قيد المراجعة',resolved:'تم الحل',closed:'مغلق'})[s]||s}
+function tcStatusClass(s){return ['accepted','completed','resolved'].includes(s)?'confirmed':['rejected','cancelled','closed'].includes(s)?'cancelled':['proposed','in_review'].includes(s)?'review':'pending'}
+function tcFmtDate(d){if(!d)return '—';try{return new Date(d+'T00:00:00').toLocaleDateString('ar-AE')}catch(e){return d}}
+function tcEsc(v){return typeof escapeHtml==='function'?escapeHtml(String(v??'')):String(v??'')}
+
+async function tcGetSession(){
+  if(!tcSupabase)return null;
+  const {data}=await tcSupabase.auth.getSession();tcSession=data.session||null;
+  if(tcSession){const {data:p}=await tcSupabase.from('profiles').select('*').eq('id',tcSession.user.id).maybeSingle();tcProfile=p||null;}
+  return tcSession;
+}
+async function tcSetTrialRole(){
+  throw new Error('Trial role switching is disabled in production.');
+}
+async function tcRouteRole(role){
+  currentRole=role==='responsible'?'officer':role;
+  const loginScreen=document.getElementById('login');if(loginScreen){loginScreen.classList.remove('active');loginScreen.style.display='none'}
+  const shell=document.getElementById('shell');if(shell){shell.classList.remove('hidden');shell.style.display='block'}
+  if(role==='admin'){showScreen('adminConsole');await tcRenderAdminCloud();return}
+  if(role==='engineer'){showScreen('engineerDashboard');await tcRenderEngineerIdentity();await v25RenderEngineerBookings('pending');return}
+  if(role==='responsible'){showScreen('responsibleDashboard');await tcRenderResponsible();return}
+  showScreen('home');await refreshBookingEngineers();
+}
+
+async function v10Login(){
+  if(!tcSupabase){alert('تعذر الاتصال بالخدمة. تحقق من الإنترنت وحاول مرة أخرى.');return}
+  const email=(document.getElementById('loginEmail')?.value||'').trim().toLowerCase();
+  const password=(document.getElementById('loginPassword')?.value||'');
+  if(!email || !password){alert('يرجى إدخال البريد الإلكتروني وكلمة المرور.');return}
+  const {data,error}=await tcSupabase.auth.signInWithPassword({email,password});
+  if(error){alert('بيانات الدخول غير صحيحة أو الحساب غير مفعّل.');return}
+  tcSession=data.session;
+  try{await tcGetSession()}catch(e){console.warn(e)}
+  if(!tcProfile || tcProfile.is_active===false){
+    try{await tcSupabase.auth.signOut({scope:'local'})}catch(e){}
+    tcSession=null;tcProfile=null;
+    alert('الحساب غير متاح. يرجى التواصل مع الدعم.');return;
+  }
+  localStorage.setItem('tc_last_login',new Date().toISOString());
+  await tcRouteRole(tcProfile.role||'contractor');
+}
+
+async function tcLogout(){try{if(tcSupabase)await tcSupabase.auth.signOut({scope:'local'})}catch(e){console.warn('logout',e)}tcSession=null;tcProfile=null;try{localStorage.removeItem('tc_last_role');localStorage.removeItem('tc_last_login')}catch(e){}returnToLogin()}
+function logout(){tcLogout()}
+
+function tcStrongPassword(password){
+  return password.length>=8 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password);
+}
+
+let tcSignupBusy=false;
+async function saveContractorRegistration(){
+  if(tcSignupBusy)return;
+  if(!tcSupabase){alert('تعذر الاتصال بالخدمة. تحقق من الإنترنت وحاول مرة أخرى.');return}
+  const full_name=(document.getElementById('regName')?.value||'').trim();
+  const company_name=(document.getElementById('regCompany')?.value||'').trim();
+  const phone=(document.getElementById('regPhone')?.value||'').trim();
+  const email=(document.getElementById('regEmail')?.value||'').trim().toLowerCase();
+  const password=(document.getElementById('regPassword')?.value||'');
+  if(!full_name||!company_name||!phone||!email||!password){alert('جميع الحقول مطلوبة.');return}
+  if(!tcStrongPassword(password)){alert('كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير ورقم ورمز خاص.');return}
+  const btn=document.getElementById('regSubmitBtn');
+  tcSignupBusy=true;
+  if(btn){btn.disabled=true;btn.dataset.oldText=btn.innerHTML;btn.textContent='جاري إنشاء الحساب...';}
+  try{
+    const {data,error}=await tcSupabase.auth.signUp({
+      email,password,
+      options:{
+        emailRedirectTo:'https://trafficconnect.app',
+        data:{full_name,phone,company_name,account_type:'contractor'}
+      }
+    });
+    if(error){
+      const msg=String(error.message||'');
+      if(/already|registered|duplicate|exists/i.test(msg)){
+        alert('هذا البريد مسجل بالفعل. تحقق من بريدك الإلكتروني لتأكيد الحساب، أو استخدم «نسيت كلمة المرور؟».');
+      }else{
+        console.error('signup',error);
+        alert('تعذر إنشاء الحساب حاليًا. حاول مرة أخرى بعد قليل.');
+      }
+      return;
+    }
+    if(data?.session){
+      try{await tcSupabase.from('profiles').update({full_name,phone,company_name}).eq('id',data.user.id)}catch(e){console.warn('profile update',e)}
+      alert('تم إنشاء الحساب بنجاح. يمكنك تسجيل الدخول الآن.');
+      await tcSupabase.auth.signOut({scope:'local'});
+    }else{
+      alert('تم إنشاء الحساب. تحقق من بريدك الإلكتروني واضغط رابط التأكيد، ثم سجّل الدخول.');
+    }
+    returnToLogin();
+    const loginEmail=document.getElementById('loginEmail');if(loginEmail)loginEmail.value=email;
+    const loginPassword=document.getElementById('loginPassword');if(loginPassword)loginPassword.value='';
+  }finally{
+    tcSignupBusy=false;
+    if(btn){btn.disabled=false;btn.innerHTML=btn.dataset.oldText||'♙+ &nbsp; إنشاء الحساب';}
+  }
+}
+
+let tcStaffSignupBusy=false;
+async function saveStaffRegistration(){
+  if(tcStaffSignupBusy)return;
+  if(!tcSupabase){alert('تعذر الاتصال بالخدمة. تحقق من الإنترنت وحاول مرة أخرى.');return}
+  const email=(document.getElementById('staffEmail')?.value||'').trim().toLowerCase();
+  const password=(document.getElementById('staffPassword')?.value||'');
+  const password2=(document.getElementById('staffPassword2')?.value||'');
+  if(!email||!password||!password2){alert('جميع الحقول مطلوبة.');return}
+  if(!email.endsWith('@itc.gov.ae')){alert('استخدم بريد ITC الرسمي (@itc.gov.ae).');return}
+  if(password!==password2){alert('كلمتا المرور غير متطابقتين.');return}
+  if(!tcStrongPassword(password)){alert('كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير ورقم ورمز خاص.');return}
+  const btn=document.getElementById('staffSubmitBtn');
+  tcStaffSignupBusy=true;
+  if(btn){btn.disabled=true;btn.dataset.oldText=btn.textContent;btn.textContent='جاري تفعيل الحساب...';}
+  try{
+    const {data,error}=await tcSupabase.auth.signUp({
+      email,password,
+      options:{emailRedirectTo:'https://trafficconnect.app',data:{account_type:'staff'}}
+    });
+    if(error){
+      const msg=String(error.message||'');
+      if(/already|registered|duplicate|exists/i.test(msg)){
+        alert('هذا البريد لديه حساب بالفعل. استخدم تسجيل الدخول أو «نسيت كلمة المرور؟».');
+      }else{
+        console.error('staff signup',error);
+        alert('تعذر تفعيل الحساب. تأكد أن البريد موجود ضمن قائمة موظفي ITC المعتمدين ثم حاول مرة أخرى.');
+      }
+      return;
+    }
+    if(data?.session){
+      await tcSupabase.auth.signOut({scope:'local'});
+      alert('تم تفعيل الحساب. يمكنك تسجيل الدخول الآن.');
+    }else{
+      alert('تم إنشاء الحساب. افتح بريد ITC واضغط رابط التأكيد، ثم سجّل الدخول.');
+    }
+    returnToLogin();
+    const loginEmail=document.getElementById('loginEmail');if(loginEmail)loginEmail.value=email;
+  }finally{
+    tcStaffSignupBusy=false;
+    if(btn){btn.disabled=false;btn.textContent=btn.dataset.oldText||'تفعيل الحساب';}
+  }
+}
+
+async function tcPasswordReset(){
+  if(!tcSupabase){alert('تعذر الاتصال بالخدمة. تحقق من الإنترنت وحاول مرة أخرى.');return}
+  const email=(document.getElementById('forgotEmail')?.value||'').trim().toLowerCase();
+  if(!email){alert('أدخل البريد الإلكتروني.');return}
+  const {error}=await tcSupabase.auth.resetPasswordForEmail(email,{redirectTo:'https://trafficconnect.app'});
+  if(error){alert('تعذر إرسال رابط الاستعادة. حاول مرة أخرى لاحقًا.');return}
+  alert('إذا كان البريد مسجلًا، فسيصلك رابط استعادة كلمة المرور.');
+}
+
+function simulatePasswordReset(){return tcPasswordReset();}
+
+async function refreshBookingEngineers(){
+  if(!tcSupabase || !tcSession?.user)return;
+  const {data,error}=await tcSupabase.from('engineers').select('id,user_id,display_name,specialization,region,availability,avatar_url,rating,is_active').eq('is_active',true).order('display_name');
+  if(error){console.warn('engineers',error);return}
+  function tcAreasForRegion(region=''){
+    const r=String(region).toLowerCase();
+    if((r.includes('abu dhabi')||r.includes('أبوظبي')) && (r.includes('al ain')||r.includes('عين'))) return ['abu_dhabi','traffic_center_ad','traffic_movement','itc_ad','al_ain'];
+    if(r.includes('dhafra')||r.includes('ظفرة')) return ['al_dhafra_traffic','al_dhafra_itc'];
+    if(r.includes('al ain')||r.includes('عين')) return ['al_ain'];
+    return ['abu_dhabi','traffic_center_ad','traffic_movement','itc_ad'];
+  }
+  function tcServicesForEngineer(e){
+    const spec=String(e.specialization||'').toLowerCase();
+    if(spec.includes('responsible_meeting')) return ['responsible_meeting'];
+    return ['permit','field'];
+  }
+  const remote=(data||[]).map(e=>({
+    id:e.id,
+    name:e.display_name,
+    email:'',
+    role:tcServicesForEngineer(e).includes('responsible_meeting')?'responsible':'engineer',
+    services:tcServicesForEngineer(e),
+    areas:tcAreasForRegion(e.region),
+    status:e.availability==='busy'?'booked':e.availability,
+    avatar_url:e.avatar_url,
+    rating:e.rating
+  }));
+  ENGINEERS.splice(0,ENGINEERS.length,...remote);
+  const service=document.getElementById('bookingService')?.value||'permit';
+  const area=document.getElementById('bookingArea')?.value||'abu_dhabi';
+  const sel=document.getElementById('bookingEngineer');if(!sel)return;
+  const matches=ENGINEERS.filter(e=>e.services.includes(service)&&e.areas.includes(area));
+  const available=matches.filter(e=>e.status==='available');
+  if(!matches.length){
+    sel.innerHTML='<option value="">لا يوجد مهندس/مسؤول لهذه الخدمة والمنطقة</option>';
+  }else{
+    sel.innerHTML=matches.map(e=>`<option value="${tcEsc(e.id)}"${e.status!=='available'?' disabled':''}>${tcEsc(e.name)} — ${tcEsc(STATUS_LABELS[e.status]||e.status)}</option>`).join('');
+    if(available.length)sel.value=available[0].id;
+    else sel.innerHTML+='<option value="">لا توجد مواعيد متاحة حاليًا</option>';
+  }
+  updateEngineerBookingInfo();
+  updateBookingSummary();
+}
+async function confirmBooking(){
+  try{
+    if(!tcSession)await tcGetSession();if(!tcSession){alert('سجل الدخول أولاً.');return}
+    const eng=selectedEngineer();if(!eng){alert('لا يوجد مهندس أو مسؤول متاح لهذه الخدمة حاليًا.');return}
+    const date=(document.getElementById('bookingDate')?.value||'').trim(),time=(document.getElementById('bookingTime')?.value||'').trim();
+    if(!date||!time){alert('اختر التاريخ والوقت.');return}
+    const chosen=new Date(date+'T00:00:00'),today=new Date();today.setHours(0,0,0,0);if(chosen<today){alert('لا يمكن الحجز بتاريخ سابق.');return}
+    const row={contractor_id:tcSession.user.id,engineer_id:eng.id,service:bookingText('bookingService'),region:bookingText('bookingArea'),appointment_date:date,appointment_time:time,permit_reference:(document.getElementById('bookingPermit')?.value||'').trim(),notes:(document.getElementById('bookingNotes')?.value||'').trim(),status:'pending'};
+    const {data,error}=await tcSupabase.from('appointments').insert(row).select().single();if(error)throw error;
+    alert('تم إرسال الحجز للمهندس للموافقة.\nرقم الطلب: '+data.id.slice(0,8).toUpperCase());showScreen('requests');await renderRequests();
+  }catch(e){console.error(e);alert('تعذر إرسال الحجز: '+(e.message||e))}
+}
+
+async function renderRequests(){
+  const el=document.getElementById('requestsList');if(!el)return;if(!tcSession)await tcGetSession();if(!tcSession){el.innerHTML='<div class="empty">سجل الدخول لعرض الطلبات.</div>';return}
+  const [a,c,i]=await Promise.all([
+    tcSupabase.from('appointments').select('*').order('created_at',{ascending:false}),
+    tcSupabase.from('complaints').select('*').order('created_at',{ascending:false}),
+    tcSupabase.from('inquiries').select('*').order('created_at',{ascending:false})
+  ]);
+  let rows=[];
+  (a.data||[]).forEach(r=>rows.push({id:r.id.slice(0,8).toUpperCase(),fullId:r.id,title:r.service,status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),date:tcFmtDate(r.appointment_date),engineer:r.engineer_note?'ملاحظة المهندس: '+r.engineer_note:'',created:r.created_at,extra:r.status==='proposed'?`الموعد البديل: ${tcFmtDate(r.proposed_date)} ${r.proposed_time||''}`:''}));
+  (c.data||[]).forEach(r=>rows.push({id:'CMP-'+r.id.slice(0,8).toUpperCase(),title:r.category||'شكوى',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:r.response||''}));
+  (i.data||[]).forEach(r=>rows.push({id:'INQ-'+r.id.slice(0,8).toUpperCase(),title:r.topic||'استفسار',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:r.response||''}));
+  rows.sort((x,y)=>new Date(y.created)-new Date(x.created));
+  el.innerHTML=rows.length?rows.map(r=>`<div class="item"><div class="row"><b>${tcEsc(r.id)}</b><span class="badge ${tcEsc(r.statusClass)}">${tcEsc(r.status)}</span></div><div class="small">${tcEsc(r.title)}${r.date?' — '+tcEsc(r.date):''}</div>${r.engineer?`<div class="small">${tcEsc(r.engineer)}</div>`:''}${r.extra?`<div class="notice" style="margin-top:6px">${tcEsc(r.extra)}</div>`:''}</div>`).join(''):'<div class="empty">لا توجد طلبات حتى الآن.</div>';
+}
+
+async function submitService16(prefix,descId,message){
+  try{
+    if(!tcSession)await tcGetSession();if(!tcSession){alert('سجل الدخول أولاً.');return}
+    const field=document.getElementById(descId),desc=(field?.value||'').trim();if(desc.length<5){alert('يرجى كتابة تفاصيل أوضح.');return}
+    if(prefix==='INQ'){
+      const row={contractor_id:tcSession.user.id,topic:document.getElementById('inquiryTopic')?.value||'استفسار عام',question:desc,permit_reference:(document.getElementById('inquiryRef')?.value||'').trim(),status:'open'};
+      const {data,error}=await tcSupabase.from('inquiries').insert(row).select().single();if(error)throw error;alert(message+'\nرقم الطلب: INQ-'+data.id.slice(0,8).toUpperCase());
+    }else{
+      const row={contractor_id:tcSession.user.id,category:prefix==='APP'?'مشكلة في التطبيق':document.getElementById('complaintType')?.value||'أخرى',description:desc,location:(document.getElementById('complaintLocation')?.value||'').trim(),permit_reference:(document.getElementById('complaintPermit')?.value||'').trim(),status:'open'};
+      const {data,error}=await tcSupabase.from('complaints').insert(row).select().single();if(error)throw error;alert(message+'\nرقم الطلب: CMP-'+data.id.slice(0,8).toUpperCase());
+    }
+    if(field)field.value='';showScreen('requests');await renderRequests();
+  }catch(e){console.error(e);alert('تعذر الإرسال: '+(e.message||e))}
+}
+
+async function tcRenderEngineerIdentity(){
+  const nameEl=document.getElementById('v263EngineerName');
+  const metaEl=document.getElementById('v263EngineerMeta');
+  const stateEl=document.getElementById('v263EngineerState');
+  const avatarEl=document.getElementById('v263EngineerAvatar');
+  const warnEl=document.getElementById('v263EngineerWarning');
+  const syncEl=document.getElementById('v263EngineerSync');
+  if(!nameEl)return null;
+  try{
+    if(!tcSession)await tcGetSession();
+    if(!tcSession){
+      nameEl.textContent='لم يتم تسجيل الدخول';
+      metaEl.textContent='يرجى تسجيل الدخول بحساب مهندس.';
+      if(stateEl)stateEl.textContent='غير متصل';
+      if(warnEl)warnEl.innerHTML='<div class="v263-engineer-warning">تعذر العثور على جلسة تسجيل الدخول. سجّل الخروج ثم ادخل مرة أخرى.</div>';
+      return null;
+    }
+    const {data,error}=await tcSupabase.from('engineers')
+      .select('id,user_id,display_name,specialization,region,availability,avatar_url,rating,is_active')
+      .eq('user_id',tcSession.user.id).maybeSingle();
+    if(error)throw error;
+    if(!data){
+      const fallbackName=(tcProfile&&tcProfile.full_name)||tcSession.user.email||'مهندس';
+      nameEl.textContent=fallbackName;
+      metaEl.textContent='حساب مهندس · لم يتم ربط ملف مهندس بهذا الحساب';
+      if(stateEl){stateEl.textContent='يحتاج ربط';stateEl.style.background='#fff1d6';stateEl.style.color='#8b5a00'}
+      if(warnEl)warnEl.innerHTML='<div class="v263-engineer-warning">الحساب مسجل كمهندس، لكن لا يوجد سجل مهندس مربوط به. لن تظهر الحجوزات المخصصة حتى يتم الربط من الإدارة.</div>';
+      return null;
+    }
+    const statusMap={available:'متاح',busy:'مشغول',leave:'في إجازة'};
+    nameEl.textContent=data.display_name||((tcProfile&&tcProfile.full_name)||'مهندس');
+    const parts=[];
+    if(data.region)parts.push(data.region);
+    if(data.specialization)parts.push(String(data.specialization).replaceAll(',',' · '));
+    metaEl.textContent=parts.join(' · ')||'مهندس Traffic Connect';
+    if(stateEl){stateEl.textContent=statusMap[data.availability]||data.availability||'متاح';stateEl.style.background='';stateEl.style.color=''}
+    if(avatarEl){
+      if(data.avatar_url){avatarEl.innerHTML='<img src="'+tcEsc(data.avatar_url)+'" alt="صورة المهندس" onerror="this.parentElement.textContent=\'🦺\'">'}
+      else avatarEl.textContent=(data.display_name||'م').trim().charAt(0).toUpperCase()||'🦺';
+    }
+    if(warnEl)warnEl.innerHTML='';
+    if(syncEl)syncEl.textContent='Traffic Connect · متصل';
+    window.tcCurrentEngineer=data;
+    return data;
+  }catch(e){
+    console.error('engineer identity',e);
+    nameEl.textContent=(tcProfile&&tcProfile.full_name)||'مهندس';
+    metaEl.textContent='تعذر تحديث بيانات الملف الآن';
+    if(stateEl)stateEl.textContent='خطأ اتصال';
+    if(warnEl)warnEl.innerHTML='<div class="v263-engineer-warning">تعذر تحميل بيانات المهندس: '+tcEsc(e.message||String(e))+'</div>';
+    return null;
+  }
+}
+
+async function v25RenderEngineerBookings(filter='pending'){
+  const el=document.getElementById('v25EngineerBookings');if(!el)return;
+  try{
+    if(!tcSession)await tcGetSession();
+    if(!tcSession){el.innerHTML='<div class="v25-empty">انتهت جلسة الدخول. سجّل الدخول مرة أخرى.</div>';return}
+    await tcRenderEngineerIdentity();
+  }catch(e){console.warn('engineer session',e)}
+  const {data,error}=await tcSupabase.from('appointments').select('*').order('appointment_date',{ascending:true});
+  if(error){el.innerHTML='<div class="v25-empty">تعذر تحميل الحجوزات: '+tcEsc(error.message)+'</div>';return}
+  const rows=data||[],pending=rows.filter(r=>r.status==='pending'),accepted=rows.filter(r=>r.status==='accepted'),rejected=rows.filter(r=>r.status==='rejected');
+  document.getElementById('v25PendingCount').textContent=pending.length;document.getElementById('v25AcceptedCount').textContent=accepted.length;document.getElementById('v25RejectedCount').textContent=rejected.length;
+  let view=rows;if(filter==='pending')view=pending;if(filter==='accepted')view=accepted;
+  el.innerHTML=view.length?view.map(r=>`<div class="v25-booking"><div class="row"><b>${tcEsc(r.id.slice(0,8).toUpperCase())}</b><span class="badge ${tcStatusClass(r.status)}">${tcEsc(tcStatusAr(r.status))}</span></div><div class="small">الخدمة: ${tcEsc(r.service)}</div><div class="small">التاريخ: ${tcEsc(tcFmtDate(r.appointment_date))} — ${tcEsc(r.appointment_time||'')}</div><div class="small">المنطقة: ${tcEsc(r.region||'—')}</div><div class="small">المرجع: ${tcEsc(r.permit_reference||'غير مذكور')}</div><div class="small">ملاحظات: ${tcEsc(r.notes||'لا توجد')}</div>${r.status==='pending'?`<div class="v25-actions"><button class="v25-accept" onclick="v25EngineerDecision('${r.id}','accepted')">✓ قبول</button><button class="v25-propose" onclick="v25ProposeTime('${r.id}')">◷ اقتراح موعد</button><button class="v25-reject" onclick="v25EngineerDecision('${r.id}','rejected')">رفض</button></div>`:''}</div>`).join(''):'<div class="v25-empty">لا توجد طلبات في هذه القائمة.</div>';
+}
+async function v25EngineerDecision(id,decision){const note=prompt('ملاحظة للمقاول (اختياري):')||'';const {error}=await tcSupabase.from('appointments').update({status:decision,engineer_note:note}).eq('id',id);if(error){alert(error.message);return}await v25RenderEngineerBookings('pending')}
+async function v25ProposeTime(id){const d=prompt('التاريخ البديل بصيغة YYYY-MM-DD');if(!d)return;const t=prompt('الوقت البديل بصيغة HH:MM');if(!t)return;const note=prompt('ملاحظة للمقاول (اختياري):')||'';const {error}=await tcSupabase.from('appointments').update({status:'proposed',proposed_date:d,proposed_time:t,engineer_note:note}).eq('id',id);if(error){alert(error.message);return}await v25RenderEngineerBookings('all')}
+
+async function tcRenderResponsible(){
+  const el=document.getElementById('v26ResponsibleList');if(!el)return;
+  try{
+    if(!tcSession)await tcGetSession();
+    if(!tcSession){el.innerHTML='<div class="card"><div class="empty">انتهت جلسة الدخول. سجّل الدخول مرة أخرى.</div></div>';return}
+    const [me,a,c,i]=await Promise.all([
+      tcSupabase.from('engineers').select('id,user_id,display_name,specialization').eq('user_id',tcSession.user.id).maybeSingle(),
+      tcSupabase.from('appointments').select('*').order('created_at',{ascending:false}),
+      tcSupabase.from('complaints').select('*').order('created_at',{ascending:false}),
+      tcSupabase.from('inquiries').select('*').order('created_at',{ascending:false})
+    ]);
+    const err=[me,a,c,i].find(x=>x&&x.error);if(err&&err.error)throw err.error;
+    const myEngineerId=me.data&&me.data.id?me.data.id:null;
+    const allAppointments=a.data||[];
+    const myMeetings=allAppointments.filter(r=>r.service==='responsible_meeting'||(myEngineerId&&r.engineer_id===myEngineerId));
+    document.getElementById('v26RespBookings').textContent=myMeetings.length;
+    document.getElementById('v26RespComplaints').textContent=(c.data||[]).length;
+    document.getElementById('v26RespInquiries').textContent=(i.data||[]).length;
+    const tickets=[...(c.data||[]).map(r=>({...r,_type:'شكوى'})),...(i.data||[]).map(r=>({...r,_type:'استفسار'}))].sort((x,y)=>new Date(y.created_at)-new Date(x.created_at));
+    const meetingHtml=myMeetings.slice(0,20).map(r=>{
+      const canAct=(r.status==='pending'||r.status==='proposed');
+      const actions=canAct?`<div class="v25-actions"><button class="v25-accept" onclick="tcResponsibleAppointmentDecision('${r.id}','accepted')">✓ قبول</button><button class="v25-propose" onclick="tcResponsiblePropose('${r.id}')">◷ اقتراح موعد</button><button class="v25-reject" onclick="tcResponsibleAppointmentDecision('${r.id}','rejected')">رفض</button></div>`:'';
+      const proposed=(r.proposed_date||r.proposed_time)?`<div class="small">الموعد المقترح: ${tcEsc(tcFmtDate(r.proposed_date||''))} — ${tcEsc(r.proposed_time||'')}</div>`:'';
+      return `<div class="item"><div class="row"><b>${tcEsc(r.service==='responsible_meeting'?'حجز اجتماع مع المسؤول':r.service)}</b><span class="badge ${tcStatusClass(r.status)}">${tcEsc(tcStatusAr(r.status))}</span></div><div class="small">${tcEsc(tcFmtDate(r.appointment_date))} — ${tcEsc(r.appointment_time||'')}</div><div class="small">المنطقة: ${tcEsc(r.region||'—')}</div><div class="small">المرجع: ${tcEsc(r.permit_reference||'غير مذكور')}</div><div class="small">ملاحظات المقاول: ${tcEsc(r.notes||'لا توجد')}</div>${proposed}${r.engineer_note?`<div class="small">ملاحظة المسؤول: ${tcEsc(r.engineer_note)}</div>`:''}${actions}</div>`;
+    }).join('')||'<div class="empty">لا توجد حجوزات اجتماع مع المسؤول.</div>';
+    const ticketHtml=tickets.slice(0,20).map(r=>`<div class="item"><div class="row"><b>${tcEsc(r._type+' — '+(r.category||r.topic||''))}</b><span class="badge ${tcStatusClass(r.status)}">${tcEsc(tcStatusAr(r.status))}</span></div><div class="small">${tcEsc(r.description||r.question||'')}</div>${r.response?`<div class="small">الرد: ${tcEsc(r.response)}</div>`:''}<div class="v25-actions"><button class="inline-action" onclick="tcResponsibleTicketUpdate('${r._type}','${r.id}','in_review')">قيد المراجعة</button><button class="inline-action" onclick="tcResponsibleTicketUpdate('${r._type}','${r.id}','resolved')">تم الحل</button><button class="inline-action" onclick="tcResponsibleTicketUpdate('${r._type}','${r.id}','closed')">إغلاق</button></div></div>`).join('')||'<div class="empty">لا توجد طلبات</div>';
+    el.innerHTML='<div class="card"><h3>اجتماعات المسؤول — تحكم مباشر</h3>'+meetingHtml+'</div><div class="card"><h3>الشكاوى والاستفسارات</h3>'+ticketHtml+'</div>';
+  }catch(e){console.error('responsible dashboard',e);el.innerHTML='<div class="card"><div class="empty">تعذر تحميل لوحة المسؤول: '+tcEsc(e.message||String(e))+'</div></div>'}
+}
+async function tcResponsibleAppointmentDecision(id,decision){
+  const note=prompt('ملاحظة للمقاول (اختياري):')||'';
+  const {error}=await tcSupabase.from('appointments').update({status:decision,engineer_note:note}).eq('id',id);
+  if(error){alert('تعذر تحديث الحجز: '+error.message);return}
+  await tcRenderResponsible();
+}
+async function tcResponsiblePropose(id){
+  const d=prompt('التاريخ البديل بصيغة YYYY-MM-DD');if(!d)return;
+  const t=prompt('الوقت البديل بصيغة HH:MM');if(!t)return;
+  const note=prompt('ملاحظة للمقاول (اختياري):')||'';
+  const {error}=await tcSupabase.from('appointments').update({status:'proposed',proposed_date:d,proposed_time:t,engineer_note:note}).eq('id',id);
+  if(error){alert('تعذر اقتراح الموعد: '+error.message);return}
+  await tcRenderResponsible();
+}
+async function tcResponsibleTicketUpdate(type,id,status){
+  const response=prompt('اكتب الرد أو الملاحظة (اختياري):')||'';
+  const table=type==='شكوى'?'complaints':'inquiries';
+  const payload={status};if(response)payload.response=response;
+  const {error}=await tcSupabase.from(table).update(payload).eq('id',id);
+  if(error){alert('تعذر تحديث الطلب: '+error.message);return}
+  await tcRenderResponsible();
+}
+async function tcResponsibleReply(type,id){return tcResponsibleTicketUpdate(type,id,'in_review')}
+
+async function tcRenderAdminCloud(){
+  const box=document.getElementById('v26AdminCloudStatus');if(!box)return;
+  const [p,e,a,c,i]=await Promise.all([tcSupabase.from('profiles').select('id,role',{count:'exact'}),tcSupabase.from('engineers').select('id',{count:'exact'}),tcSupabase.from('appointments').select('id',{count:'exact'}),tcSupabase.from('complaints').select('id',{count:'exact'}),tcSupabase.from('inquiries').select('id',{count:'exact'})]);
+  const errs=[p,e,a,c,i].filter(x=>x&&x.error);
+  if(errs.length){box.innerHTML='⚠️ الاتصال موجود، لكن تعذر قراءة بعض الإحصاءات: '+tcEsc(errs[0].error.message||'خطأ غير معروف');return;}
+  box.innerHTML=`✅ متصل بقاعدة Traffic Connect<br>المستخدمون: <b>${p.count||0}</b> · المهندسون: <b>${e.count||0}</b> · الحجوزات: <b>${a.count||0}</b> · الشكاوى: <b>${c.count||0}</b> · الاستفسارات: <b>${i.count||0}</b>`;
+}
+
+
+/* ===== V26.10 persistent Admin controls ===== */
+function tcAdmin2610State(text,isError){
+  const el=document.getElementById('a2610SaveState');
+  if(el){el.textContent=text||'';el.style.color=isError?'#b42318':'#0b746c';}
+}
+async function tcAdmin2610Read(){
+  try{
+    if(!tcSupabase)return null;
+    if(!tcSession)await tcGetSession();
+    const {data,error}=await tcSupabase.from('app_settings').select('id,services,announcement,support,content,updated_at').eq('id','global').maybeSingle();
+    if(error)throw error;
+    if(!data)return null;
+    const settings={
+      services:Object.assign({booking:true,diversion:true,complaints:true,inquiries:true,support:true},data.services||{}),
+      announcement:Object.assign({title:'',body:''},data.announcement||{}),
+      support:Object.assign({phone:'',from:'09:00',to:'14:30'},data.support||{}),
+      content:Object.assign({
+        heroTitle:'أنجز معاملاتك بسهولة ووضوح',
+        heroSubtitle:'احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.',
+        servicesTitle:'الخدمات الرئيسية'
+      },data.content||{})
+    };
+    admin19Save('trafficAdmin19',settings); // local cache for instant rendering
+    return settings;
+  }catch(e){console.warn('admin settings read',e);return null;}
+}
+async function tcAdmin2610Write(partial){
+  try{
+    if(!tcSession)await tcGetSession();
+    if(!tcSession)throw new Error('انتهت جلسة الدخول.');
+    if(!tcProfile)await tcLoadProfile(tcSession.user.id);
+    if(!tcProfile || tcProfile.role!=='admin')throw new Error('هذه العملية متاحة للـ Admin فقط.');
+    tcAdmin2610State('جاري الحفظ في Supabase...',false);
+    const current=(await tcAdmin2610Read())||admin19Settings();
+    const merged={
+      services:partial.services||current.services,
+      announcement:partial.announcement||current.announcement,
+      support:partial.support||current.support,
+      content:partial.content||current.content||{
+        heroTitle:'أنجز معاملاتك بسهولة ووضوح',
+        heroSubtitle:'احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.',
+        servicesTitle:'الخدمات الرئيسية'
+      },
+      updated_by:tcSession.user.id,
+      updated_at:new Date().toISOString()
+    };
+    const {error}=await tcSupabase.from('app_settings').update(merged).eq('id','global');
+    if(error)throw error;
+    admin19Save('trafficAdmin19',{services:merged.services,announcement:merged.announcement,support:merged.support,content:merged.content});
+    admin19Apply();
+    tcAdmin2611ApplyContent(merged.content);
+    tcAdmin2610State('تم الحفظ في Supabase ✓',false);
+    return true;
+  }catch(e){console.error('admin settings write',e);tcAdmin2610State('تعذر الحفظ: '+(e.message||e),true);alert('تعذر حفظ إعدادات Admin: '+(e.message||e));return false;}
+}
+async function tcAdmin2610LoadIntoForm(){
+  const s=(await tcAdmin2610Read())||admin19Settings();
+  const ids={a19SvcBooking:s.services.booking!==false,a19SvcDiversion:s.services.diversion!==false,a19SvcComplaints:s.services.complaints!==false,a19SvcInquiries:s.services.inquiries!==false,a19SvcSupport:s.services.support!==false};
+  Object.keys(ids).forEach(id=>{const el=document.getElementById(id);if(el)el.checked=ids[id]});
+  const t=document.getElementById('a19AnnouncementTitle');if(t)t.value=s.announcement.title||'';
+  const b=document.getElementById('a19AnnouncementBody');if(b)b.value=s.announcement.body||'';
+  const p=document.getElementById('a19SupportPhone');if(p)p.value=s.support.phone||'';
+  const f=document.getElementById('a19SupportFrom');if(f)f.value=s.support.from||'09:00';
+  const to=document.getElementById('a19SupportTo');if(to)to.value=s.support.to||'14:30';
+  const ht=document.getElementById('a2611HeroTitle');if(ht)ht.value=(s.content&&s.content.heroTitle)||'أنجز معاملاتك بسهولة ووضوح';
+  const hs=document.getElementById('a2611HeroSubtitle');if(hs)hs.value=(s.content&&s.content.heroSubtitle)||'احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.';
+  const st=document.getElementById('a2611ServicesTitle');if(st)st.value=(s.content&&s.content.servicesTitle)||'الخدمات الرئيسية';
+  admin19Apply();
+  tcAdmin2611ApplyContent(s.content||{});
+  tcAdmin2610State('الإعدادات متزامنة مع Supabase ✓',false);
+  return s;
+}
+async function admin19SaveServices(){
+  const services={booking:!!document.getElementById('a19SvcBooking').checked,diversion:!!document.getElementById('a19SvcDiversion').checked,complaints:!!document.getElementById('a19SvcComplaints').checked,inquiries:!!document.getElementById('a19SvcInquiries').checked,support:!!document.getElementById('a19SvcSupport').checked};
+  await tcAdmin2610Write({services});
+}
+async function admin19SaveAnnouncement(){
+  const announcement={title:(document.getElementById('a19AnnouncementTitle').value||'').trim(),body:(document.getElementById('a19AnnouncementBody').value||'').trim()};
+  if(await tcAdmin2610Write({announcement}))alert('تم حفظ الإعلان وسيظهر للمقاولين.');
+}
+async function admin19SaveSupport(){
+  const support={phone:document.getElementById('a19SupportPhone').value||'',from:document.getElementById('a19SupportFrom').value||'09:00',to:document.getElementById('a19SupportTo').value||'14:30'};
+  if(await tcAdmin2610Write({support}))alert('تم حفظ بيانات التواصل في Supabase.');
+}
+async function tcAdmin2610Reload(){
+  tcAdmin2610State('جاري تحديث البيانات...',false);
+  await tcAdmin2610LoadIntoForm();
+  await tcRenderAdminCloud();
+  await admin19RenderEngineersRemote();
+}
+async function tcApplyGlobalSettings(){
+  const s=await tcAdmin2610Read();
+  if(s){admin19Apply();tcAdmin2611ApplyContent(s.content||{});}
+}
+
+
+/* ===== Admin content management ===== */
+let tcAdminPreviewActive=false;
+function tcAdmin2611ApplyContent(content){
+  const c=Object.assign({
+    heroTitle:'أنجز معاملاتك بسهولة ووضوح',
+    heroSubtitle:'احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.',
+    servicesTitle:'الخدمات الرئيسية'
+  },content||{});
+  const hero=document.querySelector('#home .home16-copy h1');if(hero)hero.textContent=c.heroTitle;
+  const sub=document.querySelector('#home .home16-copy p');if(sub)sub.textContent=c.heroSubtitle;
+  const sec=document.querySelector('#home .home16-section-head h3');if(sec)sec.textContent=c.servicesTitle;
+}
+async function tcAdmin2611SaveContent(){
+  const content={
+    heroTitle:(document.getElementById('a2611HeroTitle')?.value||'').trim()||'أنجز معاملاتك بسهولة ووضوح',
+    heroSubtitle:(document.getElementById('a2611HeroSubtitle')?.value||'').trim()||'احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.',
+    servicesTitle:(document.getElementById('a2611ServicesTitle')?.value||'').trim()||'الخدمات الرئيسية'
+  };
+  if(await tcAdmin2610Write({content})){
+    tcAdmin2611ApplyContent(content);
+    alert('تم حفظ محتوى الصفحة الرئيسية وسيظهر لجميع المستخدمين.');
+  }
+}
+function tcAdminPreviewBar(){
+  let bar=document.getElementById('tcAdminPreviewBar');
+  if(!bar){
+    bar=document.createElement('div');bar.id='tcAdminPreviewBar';
+    bar.innerHTML='<b>👁 معاينة Admin — لن تتغير صلاحية حسابك</b><button type="button" onclick="tcAdminPreviewExit()">← العودة إلى لوحة Admin</button>';
+    document.body.appendChild(bar);
+  }
+  bar.style.display='flex';document.body.classList.add('tc-admin-preview');
+}
+function tcAdminPreviewExit(){
+  tcAdminPreviewActive=false;
+  const bar=document.getElementById('tcAdminPreviewBar');if(bar)bar.style.display='none';
+  document.body.classList.remove('tc-admin-preview');
+  showScreen('adminConsole');
+}
+async function tcAdminPreview(screenId){
+  if(!tcProfile || tcProfile.role!=='admin'){alert('المعاينة متاحة للـ Admin فقط.');return;}
+  tcAdminPreviewActive=true;
+  if(screenId==='booking'){
+    try{await openBookingScreen();}catch(e){showScreen('booking')}
+  }else showScreen(screenId);
+  tcAdminPreviewBar();
+  if(screenId==='home')await tcApplyGlobalSettings();
+}
+
+// Refresh cloud content whenever its screens are opened.
+const tcOriginalShowScreen=showScreen;
+showScreen=function(screenId){
+  const result=tcOriginalShowScreen(screenId);
+  if(screenId==='requests')setTimeout(()=>renderRequests(),0);
+  if(screenId==='engineerDashboard')setTimeout(async()=>{await tcRenderEngineerIdentity();await v25RenderEngineerBookings('pending')},0);
+  if(screenId==='responsibleDashboard')setTimeout(()=>tcRenderResponsible(),0);
+  if(screenId==='adminConsole')setTimeout(async()=>{tcAdminPreviewActive=false;const bar=document.getElementById('tcAdminPreviewBar');if(bar)bar.style.display='none';document.body.classList.remove('tc-admin-preview');await tcRenderAdminCloud();await tcAdmin2610LoadIntoForm();await admin19RenderEngineersRemote()},0);
+  if(screenId==='home')setTimeout(()=>tcApplyGlobalSettings(),0);
+  if(tcAdminPreviewActive && screenId!=='adminConsole')setTimeout(()=>tcAdminPreviewBar(),0);
+  return result
+}
+
+window.addEventListener('load',async()=>{
+  // Always start at the role/login screen. This prevents a previous contractor session
+  // from forcing the next person into the contractor dashboard when opening the shared link.
+  try{if(tcSupabase)await tcGetSession()}catch(e){console.warn('session check',e)}
+  returnToLogin();
+});
+</script>
+
+</body>
+</html>
