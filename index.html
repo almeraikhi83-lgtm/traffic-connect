@@ -412,7 +412,9 @@ background-size:auto,38px 38px,38px 38px}
 .v10-benefit b{display:block;font-size:20px;margin-bottom:6px}.v10-benefit strong{display:block;font-size:13px}.v10-benefit small{display:block;color:#d3e9e6;margin-top:4px;line-height:1.5}
 .v10-brand-photo{position:relative;z-index:2;margin-top:auto;padding-top:28px}
 .v10-photo-frame{position:relative;border-radius:24px;overflow:hidden;height:230px;border:1px solid rgba(255,255,255,.18);box-shadow:0 18px 44px rgba(0,0,0,.24)}
-.v10-photo-frame img{width:100%;height:100%;object-fit:cover;display:block}.v10-photo-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(4,54,50,.72))}
+.v10-photo-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.v10-photo-frame.v10-illustration svg{width:100%;height:100%;display:block}
+.v10-photo-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 62%,rgba(4,54,50,.55))}
 .v10-photo-caption{position:absolute;bottom:15px;right:16px;left:16px;display:flex;justify-content:space-between;align-items:end;gap:12px}.v10-photo-caption strong{font-size:15px}.v10-photo-caption span{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.17);font-size:10px}
 .v10-login-panel{display:flex;align-items:center;justify-content:center;padding:36px 52px;background:radial-gradient(circle at 88% 8%,rgba(35,166,151,.08),transparent 23%),#f8faf9}
 .v10-login-wrap{width:min(100%,620px)}
@@ -431,7 +433,24 @@ background-size:auto,38px 38px,38px 38px}
 .v10-divider{display:flex;align-items:center;gap:10px;margin:18px 0;color:#9aa6a4;font-size:10px}.v10-divider:before,.v10-divider:after{content:"";height:1px;background:#e7eded;flex:1}
 .v10-new{text-align:center;color:#7c8a87;font-size:11px}.v10-new button{border:0;background:none;color:#0b746c;font-weight:800;cursor:pointer}
 .v10-foot{margin-top:15px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.v10-foot div{border:1px solid #e1e9e7;background:#fff;border-radius:14px;padding:10px;text-align:center;font-size:9.5px;color:#71817e}.v10-foot b{display:block;color:#0b746c;font-size:15px;margin-bottom:4px}
-@media(max-width:900px){.v10-login-shell{grid-template-columns:1fr}.v10-brand-panel{display:none}.v10-login-panel{padding:18px 13px;min-height:100vh}.v10-login-card{padding:24px 18px;border-radius:22px}.v10-role-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+  .v10-login-shell{grid-template-columns:1fr;min-height:auto}
+  .v10-brand-panel{display:flex;padding:22px 20px 20px;min-height:auto}
+  .v10-brand-panel:before{width:320px;height:320px;right:-160px;top:-140px}
+  .v10-brand-head{gap:10px}
+  .v10-logo-box{width:52px;height:52px;border-radius:16px}
+  .v10-brand-title strong{font-size:19px}.v10-brand-title span{font-size:9px;letter-spacing:2px}
+  .v10-brand-copy{margin-top:18px}
+  .v10-kicker{font-size:10px;padding:6px 10px}
+  .v10-brand-copy h1{font-size:24px;margin:12px 0 8px}
+  .v10-brand-copy p{font-size:12.5px;line-height:1.7}
+  .v10-benefits{display:none}
+  .v10-brand-photo{margin-top:16px;padding-top:0}
+  .v10-photo-frame{height:140px;border-radius:18px}
+  .v10-login-panel{padding:18px 13px;min-height:auto}
+  .v10-login-card{padding:24px 18px;border-radius:22px}
+  .v10-role-grid{grid-template-columns:repeat(2,1fr)}
+}
 
 
 /* =========================================================
@@ -512,41 +531,9 @@ background-size:auto,38px 38px,38px 38px}
   margin:22px -34px 0;
   height:315px;
   overflow:hidden;
-  background:
-    linear-gradient(180deg,transparent 0 54%,rgba(255,255,255,.22)),
-    linear-gradient(180deg,#dff1f4,#f7fbfb 60%,#d5e5df 61%,#d5e5df 100%);
+  border-radius:20px;
 }
-.v11-skyline{
-  position:absolute;left:0;right:0;bottom:94px;height:145px;
-  background:
-    linear-gradient(90deg,
-      transparent 2%, #b7d4da 2% 5%, transparent 5% 8%, #9fc9d2 8% 13%,
-      transparent 13% 18%,#b1d2d9 18% 21%,transparent 21% 25%,#8ebdc8 25% 31%,
-      transparent 31% 36%,#a8ced5 36% 40%,transparent 40% 45%,#93c0c9 45% 52%,
-      transparent 52% 59%,#a8ced6 59% 63%,transparent 63% 70%,#8fbcc6 70% 76%,
-      transparent 76% 81%,#a8ced4 81% 85%,transparent 85% 90%,#9fc7cf 90% 96%,transparent 96%);
-  opacity:.75;
-  clip-path:polygon(0 100%,0 65%,4% 65%,4% 35%,7% 35%,7% 70%,11% 70%,11% 45%,15% 45%,15% 62%,18% 62%,18% 22%,22% 22%,22% 70%,27% 70%,27% 50%,31% 50%,31% 34%,35% 34%,35% 75%,41% 75%,41% 52%,46% 52%,46% 25%,50% 25%,50% 68%,55% 68%,55% 40%,60% 40%,60% 17%,64% 17%,64% 70%,69% 70%,69% 44%,74% 44%,74% 30%,79% 30%,79% 74%,84% 74%,84% 55%,88% 55%,88% 38%,93% 38%,93% 66%,100% 66%,100% 100%);
-}
-.v11-road{
-  position:absolute;left:-8%;right:-8%;bottom:-10px;height:145px;
-  background:linear-gradient(180deg,#778a91,#586a70);
-  transform:perspective(280px) rotateX(42deg);
-  border-radius:36% 36% 0 0/18% 18% 0 0;
-}
-.v11-road:before{
-  content:"";
-  position:absolute;left:50%;top:0;bottom:0;width:5px;
-  background:repeating-linear-gradient(180deg,#fff 0 20px,transparent 20px 39px);
-  transform:translateX(-50%);
-  opacity:.88;
-}
-.v11-car{
-  position:absolute;bottom:48px;width:56px;height:26px;border-radius:8px 8px 5px 5px;background:#eceff0;box-shadow:0 6px 10px rgba(0,0,0,.18)
-}
-.v11-car:before,.v11-car:after{content:"";position:absolute;bottom:-4px;width:10px;height:10px;background:#233;border-radius:50%}
-.v11-car:before{left:7px}.v11-car:after{right:7px}
-.v11-car.c1{left:22%;transform:scale(.86)}.v11-car.c2{left:48%;bottom:32px;transform:scale(1.12)}.v11-car.c3{right:18%;bottom:57px;transform:scale(.78)}
+
 .v11-features{
   position:relative;z-index:3;
   margin:-10px auto 0;
@@ -676,9 +663,13 @@ background-size:auto,38px 38px,38px 38px}
 .v11-bottom div + div{border-inline-start:1px solid #e7eceb}
 .v11-bottom b{display:block;color:#0b746c;font-size:18px;margin-bottom:4px}
 @media(max-width:1100px){
-  .v11-register-shell{grid-template-columns:1fr}
-  .v11-left{display:none}
-  .v11-right{padding:60px 18px 120px}
+  .v11-register-shell{grid-template-columns:1fr;min-height:auto}
+  .v11-left{display:flex;position:static;min-height:auto;padding:22px 20px 18px}
+  .v11-city,.v11-features{display:none}
+  .v11-left-copy{margin-top:14px}
+  .v11-left-copy h2{font-size:20px}
+  .v11-left-copy p{font-size:12px}
+  .v11-right{padding:24px 18px 60px}
   .v11-bottom{left:18px;right:18px}
 }
 @media(max-width:650px){
@@ -968,10 +959,112 @@ body.tc-admin-preview .screen.active{padding-top:66px}
       </div>
     </div>
     <div class="v10-brand-photo">
-      <div class="v10-photo-frame">
-        <img src="assets/traffic-centre-front.jpeg" alt="مركز إدارة المرور">
+      <div class="v10-photo-frame v10-illustration">
+        <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="طريق مروري وأفق مدينة">
+          <defs>
+            <linearGradient id="tcSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#bfe9f2"/>
+              <stop offset="55%" stop-color="#eaf7f2"/>
+              <stop offset="100%" stop-color="#f7fbf9"/>
+            </linearGradient>
+            <linearGradient id="tcRoad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4b5a58"/>
+              <stop offset="100%" stop-color="#2c3735"/>
+            </linearGradient>
+          </defs>
+
+          <rect x="0" y="0" width="600" height="340" fill="url(#tcSky)"/>
+
+          <circle cx="497" cy="55" r="34" fill="#ffe7ab" opacity=".9"/>
+          <g opacity=".55" fill="#ffffff">
+            <ellipse cx="120" cy="60" rx="46" ry="14"/><ellipse cx="160" cy="52" rx="30" ry="11"/>
+            <ellipse cx="330" cy="42" rx="38" ry="12"/><ellipse cx="365" cy="50" rx="26" ry="10"/>
+          </g>
+
+          <g opacity=".92">
+            <rect x="0" y="150" width="46" height="90" fill="#0e5f57"/>
+            <rect x="52" y="120" width="38" height="120" fill="#0b746c"/>
+            <rect x="96" y="165" width="34" height="75" fill="#12817a"/>
+            <rect x="470" y="140" width="40" height="100" fill="#0b746c"/>
+            <rect x="515" y="110" width="34" height="130" fill="#0e5f57"/>
+            <rect x="554" y="160" width="46" height="80" fill="#12817a"/>
+            <g fill="#ffe7ab" opacity=".8">
+              <rect x="10" y="165" width="6" height="8"/><rect x="26" y="165" width="6" height="8"/>
+              <rect x="10" y="185" width="6" height="8"/><rect x="26" y="185" width="6" height="8"/>
+              <rect x="62" y="140" width="6" height="8"/><rect x="76" y="140" width="6" height="8"/>
+              <rect x="62" y="160" width="6" height="8"/><rect x="76" y="160" width="6" height="8"/>
+              <rect x="480" y="158" width="6" height="8"/><rect x="494" y="158" width="6" height="8"/>
+              <rect x="524" y="128" width="6" height="8"/><rect x="538" y="128" width="6" height="8"/>
+            </g>
+          </g>
+
+          <g opacity=".5">
+            <path d="M455 132 Q510 88 575 132" stroke="#8fb9c2" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M455 132 Q510 100 575 132" stroke="#aed2d8" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="514" cy="130" rx="26" ry="11" fill="#e2a495"/>
+            <ellipse cx="514" cy="126" rx="18" ry="12" fill="#dd8f7c"/>
+          </g>
+
+          <g transform="translate(250,152)">
+            <rect x="-85" y="-40" width="170" height="40" fill="#f2eee2"/>
+            <rect x="-85" y="-46" width="170" height="7" fill="#e4ddc9"/>
+            <g fill="#f5f1e6">
+              <rect x="-82" y="-104" width="8" height="64" rx="2"/>
+              <rect x="-44" y="-112" width="8" height="72" rx="2"/>
+              <rect x="36" y="-112" width="8" height="72" rx="2"/>
+              <rect x="74" y="-104" width="8" height="64" rx="2"/>
+            </g>
+            <g fill="#caa85c">
+              <rect x="-83" y="-82" width="10" height="4"/>
+              <rect x="-45" y="-90" width="10" height="4"/>
+              <rect x="35" y="-90" width="10" height="4"/>
+              <rect x="73" y="-82" width="10" height="4"/>
+            </g>
+            <g fill="#f5f1e6">
+              <circle cx="-78" cy="-106" r="3.5"/><circle cx="-40" cy="-114" r="3.5"/>
+              <circle cx="40" cy="-114" r="3.5"/><circle cx="78" cy="-106" r="3.5"/>
+            </g>
+            <ellipse cx="-34" cy="-50" rx="15" ry="12" fill="#f2eee2"/>
+            <ellipse cx="34" cy="-50" rx="15" ry="12" fill="#f2eee2"/>
+            <ellipse cx="0" cy="-60" rx="27" ry="21" fill="#f7f3e8"/>
+            <rect x="-12" y="-82" width="24" height="16" fill="#f7f3e8"/>
+            <circle cx="0" cy="-86" r="3.5" fill="#caa85c"/>
+          </g>
+
+          <path d="M0 240 L600 240 L600 340 L0 340 Z" fill="#dfeeea"/>
+          <path d="M215 150 L385 150 L520 340 L80 340 Z" fill="url(#tcRoad)"/>
+          <path d="M215 150 L385 150 L520 340 L490 340 L360 160 L240 160 L110 340 L80 340 Z" fill="#5a6a68" opacity=".35"/>
+
+          <g fill="#f4d35e">
+            <path d="M298 150 L302 150 L299 172 L301 172 Z"/>
+            <path d="M292 190 L296 190 L290 222 L293 222 Z"/>
+            <path d="M283 240 L288 240 L279 282 L273 282 Z"/>
+            <path d="M269 300 L275 300 L262 336 L255 336 Z"/>
+          </g>
+
+          <g>
+            <rect x="248" y="128" width="66" height="16" rx="8" fill="#0b746c"/>
+            <rect x="258" y="133" width="22" height="7" rx="3.5" fill="#eafaf6"/>
+          </g>
+
+          <g transform="translate(292,192)">
+            <rect x="-16" y="-9" width="32" height="18" rx="6" fill="#0b746c"/>
+            <rect x="-11" y="-14" width="22" height="10" rx="4" fill="#0b746c"/>
+            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/>
+          </g>
+          <g transform="translate(233,255) scale(1.35)">
+            <rect x="-16" y="-9" width="32" height="18" rx="6" fill="#f4a53b"/>
+            <rect x="-11" y="-14" width="22" height="10" rx="4" fill="#f4a53b"/>
+            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/>
+          </g>
+          <g transform="translate(345,205) scale(1.1)">
+            <rect x="-16" y="-9" width="32" height="18" rx="6" fill="#eafaf6"/>
+            <rect x="-11" y="-14" width="22" height="10" rx="4" fill="#eafaf6"/>
+            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/>
+          </g>
+        </svg>
         <div class="v10-photo-overlay"></div>
-        <div class="v10-photo-caption"><strong>مركز إدارة المرور — أبوظبي</strong><span>صور تعريفية داخل التطبيق</span></div>
+        <div class="v10-photo-caption"><strong>مركز النقل المتكامل</strong><span>Integrated Transport Centre</span></div>
       </div>
     </div>
   </aside>
@@ -1024,9 +1117,41 @@ body.tc-admin-preview .screen.active{padding-top:66px}
       </div>
 
       <div class="v11-city">
-        <div class="v11-skyline"></div>
-        <div class="v11-road"></div>
-        <div class="v11-car c1"></div><div class="v11-car c2"></div><div class="v11-car c3"></div>
+        <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="طريق مروري وأفق مدينة" style="width:100%;height:100%;display:block">
+          <defs>
+            <linearGradient id="tcSky2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#bfe9f2"/><stop offset="55%" stop-color="#eaf7f2"/><stop offset="100%" stop-color="#f7fbf9"/>
+            </linearGradient>
+            <linearGradient id="tcRoad2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4b5a58"/><stop offset="100%" stop-color="#2c3735"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="600" height="340" fill="url(#tcSky2)"/>
+          <circle cx="497" cy="55" r="34" fill="#ffe7ab" opacity=".9"/>
+          <g opacity=".55" fill="#ffffff"><ellipse cx="120" cy="60" rx="46" ry="14"/><ellipse cx="160" cy="52" rx="30" ry="11"/><ellipse cx="330" cy="42" rx="38" ry="12"/><ellipse cx="365" cy="50" rx="26" ry="10"/></g>
+          <g opacity=".92">
+            <rect x="0" y="150" width="46" height="90" fill="#0e5f57"/><rect x="52" y="120" width="38" height="120" fill="#0b746c"/><rect x="96" y="165" width="34" height="75" fill="#12817a"/>
+            <rect x="470" y="140" width="40" height="100" fill="#0b746c"/><rect x="515" y="110" width="34" height="130" fill="#0e5f57"/><rect x="554" y="160" width="46" height="80" fill="#12817a"/>
+            <g fill="#ffe7ab" opacity=".8"><rect x="10" y="165" width="6" height="8"/><rect x="26" y="165" width="6" height="8"/><rect x="10" y="185" width="6" height="8"/><rect x="26" y="185" width="6" height="8"/><rect x="62" y="140" width="6" height="8"/><rect x="76" y="140" width="6" height="8"/><rect x="62" y="160" width="6" height="8"/><rect x="76" y="160" width="6" height="8"/><rect x="480" y="158" width="6" height="8"/><rect x="494" y="158" width="6" height="8"/><rect x="524" y="128" width="6" height="8"/><rect x="538" y="128" width="6" height="8"/></g>
+          </g>
+          <g opacity=".5"><path d="M455 132 Q510 88 575 132" stroke="#8fb9c2" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M455 132 Q510 100 575 132" stroke="#aed2d8" stroke-width="3.5" fill="none" stroke-linecap="round"/><ellipse cx="514" cy="130" rx="26" ry="11" fill="#e2a495"/><ellipse cx="514" cy="126" rx="18" ry="12" fill="#dd8f7c"/></g>
+          <g transform="translate(250,152)">
+            <rect x="-85" y="-40" width="170" height="40" fill="#f2eee2"/><rect x="-85" y="-46" width="170" height="7" fill="#e4ddc9"/>
+            <g fill="#f5f1e6"><rect x="-82" y="-104" width="8" height="64" rx="2"/><rect x="-44" y="-112" width="8" height="72" rx="2"/><rect x="36" y="-112" width="8" height="72" rx="2"/><rect x="74" y="-104" width="8" height="64" rx="2"/></g>
+            <g fill="#caa85c"><rect x="-83" y="-82" width="10" height="4"/><rect x="-45" y="-90" width="10" height="4"/><rect x="35" y="-90" width="10" height="4"/><rect x="73" y="-82" width="10" height="4"/></g>
+            <g fill="#f5f1e6"><circle cx="-78" cy="-106" r="3.5"/><circle cx="-40" cy="-114" r="3.5"/><circle cx="40" cy="-114" r="3.5"/><circle cx="78" cy="-106" r="3.5"/></g>
+            <ellipse cx="-34" cy="-50" rx="15" ry="12" fill="#f2eee2"/><ellipse cx="34" cy="-50" rx="15" ry="12" fill="#f2eee2"/>
+            <ellipse cx="0" cy="-60" rx="27" ry="21" fill="#f7f3e8"/><rect x="-12" y="-82" width="24" height="16" fill="#f7f3e8"/><circle cx="0" cy="-86" r="3.5" fill="#caa85c"/>
+          </g>
+          <path d="M0 240 L600 240 L600 340 L0 340 Z" fill="#dfeeea"/>
+          <path d="M215 150 L385 150 L520 340 L80 340 Z" fill="url(#tcRoad2)"/>
+          <path d="M215 150 L385 150 L520 340 L490 340 L360 160 L240 160 L110 340 L80 340 Z" fill="#5a6a68" opacity=".35"/>
+          <g fill="#f4d35e"><path d="M298 150 L302 150 L299 172 L301 172 Z"/><path d="M292 190 L296 190 L290 222 L293 222 Z"/><path d="M283 240 L288 240 L279 282 L273 282 Z"/><path d="M269 300 L275 300 L262 336 L255 336 Z"/></g>
+          <g><rect x="248" y="128" width="66" height="16" rx="8" fill="#0b746c"/><rect x="258" y="133" width="22" height="7" rx="3.5" fill="#eafaf6"/></g>
+          <g transform="translate(292,192)"><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#0b746c"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#0b746c"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/></g>
+          <g transform="translate(233,255) scale(1.35)"><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#f4a53b"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#f4a53b"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/></g>
+          <g transform="translate(345,205) scale(1.1)"><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#eafaf6"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#eafaf6"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/></g>
+        </svg>
       </div>
 
       <div class="v11-features">
@@ -1241,9 +1366,15 @@ body.tc-admin-preview .screen.active{padding-top:66px}
         <div class="card"><label>البريد الإلكتروني للمقاول</label><input id="forgotEmail" type="email" placeholder="name@company.com" />
         <button class="btn" onclick="simulatePasswordReset()">إرسال رابط الاستعادة</button><div class="test-note">سيتم إرسال رابط آمن إلى بريدك الإلكتروني المسجل.</div></div>
       </section>
-      <section id="companyAdmin" class="screen"><button class="back" onclick="showScreen('adminDashboard')">← رجوع</button><h2>إدارة الشركات</h2><div id="companyAdminList" class="card"></div></section>
-      <section id="usageStats" class="screen"><button class="back" onclick="showScreen('adminDashboard')">← رجوع</button><h2>الزوار ونشاط الشركات</h2><div id="usageMetrics" class="metric-grid"></div><div id="companyUsageList" class="card" style="margin-top:12px"></div></section>
-      <section id="engineerAdmin" class="screen"><button class="back" onclick="showScreen('adminDashboard')">← رجوع</button><h2>المهندسون والحالة</h2><div id="engineerAdminList" class="card"></div></section>
+      <section id="resetPassword" class="screen">
+        <button class="back" onclick="returnToLogin()">← رجوع لتسجيل الدخول</button><h2>تعيين كلمة مرور جديدة</h2>
+        <div class="card">
+          <label>كلمة المرور الجديدة</label><input id="newPassword1" type="password" autocomplete="new-password" placeholder="8 أحرف على الأقل، حرف كبير، رقم، رمز خاص">
+          <label>تأكيد كلمة المرور</label><input id="newPassword2" type="password" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور">
+          <button class="btn" onclick="tcUpdatePassword()">حفظ كلمة المرور الجديدة</button>
+          <div class="test-note">بعد الحفظ سيتم توجيهك إلى تسجيل الدخول بكلمة المرور الجديدة.</div>
+        </div>
+      </section>
       <section id="publicFeedback" class="screen"><button class="back" onclick="showScreen('home')">← رجوع</button><h2>تعليق عام على التطبيق</h2><div class="card"><label>التقييم</label><select id="appRating"><option value="5">5 - ممتاز</option><option value="4">4 - جيد جدًا</option><option value="3">3 - جيد</option><option value="2">2</option><option value="1">1</option></select><label>التعليق</label><textarea id="appComment" placeholder="اكتب رأيك أو اقتراحك..."></textarea><button class="btn" onclick="saveAppFeedback()">إرسال التعليق</button></div><div id="feedbackList" class="card"></div></section>
 
       <div class="lightbox" id="galleryLightbox" onclick="closeGalleryImage(event)">
@@ -1469,10 +1600,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
     </div>
 
     <div class="admin19-stats">
-      <div class="admin19-stat"><b id="a19Visits">0</b><span>زيارات التطبيق</span></div>
-      <div class="admin19-stat"><b id="a19Companies">0</b><span>الشركات المسجلة</span></div>
-      <div class="admin19-stat"><b id="a19Requests">0</b><span>الطلبات</span></div>
-      <div class="admin19-stat"><b id="a19Complaints">0</b><span>الشكاوى</span></div>
+      <div class="admin19-stat"><b id="a19Visits">0</b><span>زيارات التطبيق (هذا الجهاز)</span></div>
     </div>
 
     <div class="admin19-grid">
@@ -1501,18 +1629,6 @@ body.tc-admin-preview .screen.active{padding-top:66px}
           <input id="a19SupportTo" class="admin19-input" type="time">
         </div>
         <button class="admin19-btn" style="width:100%;margin-top:10px" onclick="admin19SaveSupport()">حفظ بيانات التواصل</button>
-      </div>
-
-      <div class="admin19-card">
-        <h3>إشعار</h3>
-        <input id="a19NotifTitle" class="admin19-input" placeholder="عنوان الإشعار">
-        <textarea id="a19NotifBody" class="admin19-textarea" style="margin-top:8px" placeholder="نص الإشعار..."></textarea>
-        <button class="admin19-btn" style="width:100%;margin-top:10px" onclick="admin19AddNotification()">إضافة الإشعار</button>
-      </div>
-
-      <div class="admin19-card" style="grid-column:1/-1">
-        <h3>الشركات المسجلة</h3>
-        <div style="overflow:auto"><table class="admin19-table"><thead><tr><th>الشركة</th><th>البريد</th><th>الزيارات</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="a19CompaniesBody"></tbody></table></div>
       </div>
 
       <div id="a2610Engineers" class="admin19-card admin2610-card-anchor" style="grid-column:1/-1">
@@ -1561,20 +1677,6 @@ function admin19TrackVisit(){
   var n=parseInt(localStorage.getItem('trafficVisitCount19')||'0',10);
   if(!isFinite(n))n=0;
   localStorage.setItem('trafficVisitCount19',String(n+1));
-}
-function admin19RegisterCompany(){
-  var current=admin19Load('trafficCurrentContractor',null);
-  var email='';
-  var emailEl=document.getElementById('loginIdentity');
-  if(emailEl)email=(emailEl.value||'').trim();
-  var arr=admin19Load('trafficCompanies19',[]);
-  var companyName=(current&&current.company)?current.company:'غير محدد';
-  var name=(current&&current.name)?current.name:'مقاول';
-  var key=email || ((current&&current.email)?current.email:'unknown@company.local');
-  var row=arr.find(function(x){return x.email===key;});
-  if(row){row.visits=(row.visits||0)+1;}
-  else{arr.unshift({company:companyName,name:name,email:key,visits:1,blocked:false});}
-  admin19Save('trafficCompanies19',arr);
 }
 function admin19Apply(){
   var s=admin19Settings();
@@ -1630,25 +1732,7 @@ function admin19Render(){
   var f=document.getElementById('a19SupportFrom');if(f)f.value=s.support.from||'09:00';
   var to=document.getElementById('a19SupportTo');if(to)to.value=s.support.to||'14:30';
 
-  var companies=admin19Load('trafficCompanies19',[]);
-  var added=admin19Load('trafficAddedRequests',[]);
-  var defaults=(typeof DEFAULT_REQUESTS!=='undefined' && Array.isArray(DEFAULT_REQUESTS))?DEFAULT_REQUESTS:[];
-  var requests=added.concat(defaults);
   var v=document.getElementById('a19Visits');if(v)v.textContent=localStorage.getItem('trafficVisitCount19')||'0';
-  var c=document.getElementById('a19Companies');if(c)c.textContent=String(companies.length);
-  var r=document.getElementById('a19Requests');if(r)r.textContent=String(requests.length);
-  var cc=document.getElementById('a19Complaints');if(cc)cc.textContent=String(requests.filter(function(x){return String(x.id||'').indexOf('CMP')===0 || x.kind==='complaint';}).length);
-
-  var body=document.getElementById('a19CompaniesBody');
-  if(body){
-    if(!companies.length){body.innerHTML='<tr><td colspan="5">لا توجد شركات مسجلة حتى الآن.</td></tr>';}
-    else{
-      body.innerHTML=companies.map(function(x,i){
-        return '<tr><td>'+escapeHtml(x.company||'شركة')+'</td><td>'+escapeHtml(x.email||'')+'</td><td>'+String(x.visits||1)+'</td><td><span class="admin19-badge '+(x.blocked?'blocked':'active')+'">'+(x.blocked?'محظورة':'نشطة')+'</span></td><td><button class="admin19-btn secondary" onclick="admin19ToggleCompany('+i+')">'+(x.blocked?'إلغاء الحظر':'حظر')+'</button></td></tr>';
-      }).join('');
-    }
-  }
-
   var eb=document.getElementById('a19EngineersBody');
   if(eb){
     eb.innerHTML='<tr><td colspan="6">جاري تحميل المهندسين من Supabase...</td></tr>';
@@ -1765,89 +1849,6 @@ async function admin19RemoveEngineerAvatar(engineerId){
   }catch(e){alert('تعذر حذف الصورة: '+(e.message||e));}
 }
 
-function admin19SaveServices(){
-  var s=admin19Settings();
-  s.services={
-    booking:!!document.getElementById('a19SvcBooking').checked,
-    diversion:!!document.getElementById('a19SvcDiversion').checked,
-    complaints:!!document.getElementById('a19SvcComplaints').checked,
-    inquiries:!!document.getElementById('a19SvcInquiries').checked,
-    support:!!document.getElementById('a19SvcSupport').checked
-  };
-  admin19Save('trafficAdmin19',s);admin19Apply();
-}
-function admin19SaveAnnouncement(){
-  var s=admin19Settings();
-  s.announcement={title:(document.getElementById('a19AnnouncementTitle').value||'').trim(),body:(document.getElementById('a19AnnouncementBody').value||'').trim()};
-  admin19Save('trafficAdmin19',s);admin19Apply();alert('تم حفظ الإعلان.');
-}
-function admin19SaveSupport(){
-  var s=admin19Settings();
-  s.support={phone:document.getElementById('a19SupportPhone').value||'',from:document.getElementById('a19SupportFrom').value||'09:00',to:document.getElementById('a19SupportTo').value||'14:30'};
-  admin19Save('trafficAdmin19',s);alert('تم حفظ بيانات التواصل.');
-}
-function admin19AddNotification(){
-  var title=(document.getElementById('a19NotifTitle').value||'').trim();
-  var body=(document.getElementById('a19NotifBody').value||'').trim();
-  if(!title && !body){alert('اكتب عنوان أو نص الإشعار.');return;}
-  var arr=admin19Load('trafficNotifications19',[]);
-  arr.unshift({title:title||'إشعار',body:body,date:new Date().toLocaleString('ar-AE')});
-  admin19Save('trafficNotifications19',arr);alert('تمت إضافة الإشعار.');
-}
-function admin19ToggleCompany(i){
-  var arr=admin19Load('trafficCompanies19',[]);
-  if(!arr[i])return;
-  arr[i].blocked=!arr[i].blocked;
-  admin19Save('trafficCompanies19',arr);admin19Render();
-}
-function admin19EngineerStatus(id,status){
-  var map=admin19Load('trafficEngineerStatuses',{});
-  map[id]=status;admin19Save('trafficEngineerStatuses',map);
-  admin19Render();
-}
-
-
-
-function submitService16(prefix,descId,message){
-  try{
-    const field=document.getElementById(descId);
-    const desc=(field?.value||'').trim();
-    if(!desc){alert('يرجى كتابة التفاصيل قبل الإرسال.');field?.focus();return}
-    if(desc.length<5){alert('يرجى كتابة تفاصيل أوضح.');field?.focus();return}
-
-    const id=prefix+'-2026-'+Math.floor(1000+Math.random()*8999);
-    const arr=loadJSON('trafficAddedRequests',[]);
-    let title='بلاغ فني',kind='issue',status='قيد المراجعة',statusClass='review';
-    if(prefix==='CMP'){title='شكوى جديدة';kind='complaint';status='مفتوحة';statusClass='pending'}
-    if(prefix==='INQ'){title='استفسار جديد';kind='inquiry'}
-
-    const rec={id,kind,title,status,statusClass,date:'تم الإرسال الآن',screen:'requestStatus',description:desc};
-
-    if(prefix==='CMP'){
-      rec.type=document.getElementById('complaintType')?.value||'أخرى';
-      rec.location=(document.getElementById('complaintLocation')?.value||'').trim();
-      rec.permit=(document.getElementById('complaintPermit')?.value||'').trim();
-      rec.attachments=[...(document.getElementById('complaintFiles')?.files||[])].map(f=>({name:f.name,size:f.size,type:f.type}));
-      const complaints=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);
-      complaints.unshift({id,type:rec.type,description:desc,location:rec.location,permit:rec.permit,status:'مفتوحة',createdAt:new Date().toLocaleString('ar-AE'),attachments:rec.attachments});
-      saveJSON('trafficComplaints',complaints);
-    }
-    if(prefix==='INQ'){
-      rec.topic=document.getElementById('inquiryTopic')?.value||'استفسار عام';
-      rec.permit=(document.getElementById('inquiryRef')?.value||'').trim();
-    }
-
-    arr.unshift(rec);saveJSON('trafficAddedRequests',arr);
-    if(field)field.value='';
-    renderAll();
-    alert(message+'\nرقم الطلب: '+id);
-    showScreen('requests');
-  }catch(err){
-    console.error('submitService16',err);
-    alert('تعذر إرسال الطلب. يرجى المحاولة مرة أخرى.');
-  }
-}
-
 
 
 function openBookingScreen(){
@@ -1907,48 +1908,10 @@ const SUPPORT_TEAM=[
 const STATUS_LABELS={available:'متاح',booked:'محجوز / لديه موعد',leave:'في إجازة',blocked:'محظور'};
 function engineerStatus(e){const m=loadJSON('trafficEngineerStatuses',{});return m[e.id]||e.status}
 function isEngineerBlocked(e){return engineerStatus(e)==='blocked'}
-const DEFAULT_REQUESTS=[];
-const DEFAULT_COMPLAINTS=[];
+
 function loadJSON(key,fallback){try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){return fallback}}
 function saveJSON(key,val){localStorage.setItem(key,JSON.stringify(val))}
 function escapeHtml(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function login(){
-  try{
-    currentRole=document.getElementById('role')?document.getElementById('role').value:'contractor';
-    var app=document.querySelector('.app');if(app)app.classList.add('wide-mode');
-    var loginEl=document.getElementById('login');if(loginEl){loginEl.classList.remove('active');loginEl.style.display='none';}
-    var shell=document.getElementById('shell');if(shell){shell.classList.remove('hidden');shell.style.display='block';}
-    var stats=loadJSON('trafficGlobalStats',{visits:0,logins:0,contacts:0});stats.logins=(stats.logins||0)+1;saveJSON('trafficGlobalStats',stats);
-    if(currentRole==='contractor'){
-      admin19RegisterCompany();
-      var current=loadJSON('trafficCurrentContractor',null);
-      var welcome=document.getElementById('welcome');
-      if(welcome && current && current.name)welcome.textContent='مرحباً بك، '+current.name;
-      showScreen('home');
-      admin19Apply();
-    }else if(currentRole==='admin'){
-      showScreen('adminConsole');
-      admin19Render();
-    }else if(currentRole==='engineer' && document.getElementById('engineerDashboard')){
-      showScreen('engineerDashboard');v25RenderEngineerBookings('pending');
-    }else if(currentRole==='officer' && document.getElementById('officerDashboard')){
-      showScreen('officerDashboard');
-    }else{
-      showScreen('home');
-    }
-  }catch(err){
-    console.error('Login error',err);
-    var shell2=document.getElementById('shell');if(shell2){shell2.classList.remove('hidden');shell2.style.display='block';}
-    showScreen('home');
-  }
-}
-function logout(){var app=document.querySelector('.app');if(app)app.classList.remove('wide-mode');var shell=document.getElementById('shell');if(shell){shell.classList.add('hidden');shell.style.display='';}var loginEl=document.getElementById('login');if(loginEl){loginEl.style.display='block';loginEl.classList.add('active');}window.scrollTo(0,0)}
-function goDashboard(){
-  if(currentRole==='admin' && document.getElementById('adminConsole')){showScreen('adminConsole');return}
-  if(currentRole==='engineer' && document.getElementById('engineerDashboard')){showScreen('engineerDashboard');return}
-  if(currentRole==='officer' && document.getElementById('officerDashboard')){showScreen('officerDashboard');return}
-  showScreen('home');
-}
 function nextId(prefix){const n=String(Math.floor(1000+Math.random()*8999));return `${prefix}-2026-${n}`}
 function showSelectedFiles(input,listId){
   const list=document.getElementById(listId); list.innerHTML='';
@@ -1966,34 +1929,6 @@ function showSelectedFiles(input,listId){
 function openImagePreview(src){document.getElementById('imagePreviewFull').src=src;document.getElementById('imagePreviewModal').classList.add('open')}
 function closeImagePreview(e,force=false){if(force||e.target.id==='imagePreviewModal'){document.getElementById('imagePreviewModal').classList.remove('open');document.getElementById('imagePreviewFull').src=''}}
 
-function populateSupportSelects(){
-  ['inquiryOwner','issueOwner'].forEach(id=>{
-    const sel=document.getElementById(id); if(!sel)return;
-    sel.innerHTML=SUPPORT_TEAM.map(p=>`<option value="${escapeHtml(p.email)}">${escapeHtml(p.name)} — ${escapeHtml(p.role)}</option>`).join('');
-  });
-  updateSupportHints();
-}
-function updateSupportHints(){
-  const pairs=[['inquiryOwner','inquiryOwnerEmail'],['issueOwner','issueOwnerEmail']];
-  pairs.forEach(([sid,hid])=>{const s=document.getElementById(sid),h=document.getElementById(hid);if(s&&h)h.textContent=s.value?'البريد: '+s.value:''});
-}
-function refreshBookingEngineers(){
-  const service=document.getElementById('bookingService')?.value;
-  const area=document.getElementById('bookingArea')?.value;
-  const sel=document.getElementById('bookingEngineer');
-  if(!sel)return;
-  const matches=ENGINEERS.filter(e=>e.services.includes(service)&&e.areas.includes(area));
-  sel.innerHTML=matches.length?matches.map(e=>{
-    const disabled=engineerStatus(e)!=='available'?' disabled':'';
-    return `<option value="${escapeHtml(e.id)}"${disabled}>${escapeHtml(e.name)} — ${STATUS_LABELS[engineerStatus(e)]}</option>`;
-  }).join(''):`<option value="">لا يوجد مهندس/مسؤول متاح لهذه الخدمة والمنطقة</option>`;
-  if(matches.length && !matches.some(e=>engineerStatus(e)==='available')){
-    sel.innerHTML += '<option value="">لا توجد مواعيد متاحة حاليًا</option>';
-  }
-  const firstAvailable=matches.find(e=>engineerStatus(e)==='available');
-  if(firstAvailable) sel.value=firstAvailable.id;
-  updateEngineerBookingInfo();
-}
 function updateEngineerBookingInfo(){
   const sel=document.getElementById('bookingEngineer');
   const hint=document.getElementById('engineerEmailHint');
@@ -2011,54 +1946,24 @@ function updateEngineerBookingInfo(){
 function selectedEngineer(){
   return ENGINEERS.find(x=>x.id===document.getElementById('bookingEngineer')?.value);
 }
-function submitInquiry(){
-  const owner=document.getElementById('inquiryOwner');
-  const title=document.getElementById('inquiryTitle').value.trim();
-  const desc=document.getElementById('inquiryDescription').value.trim();
-  if(!title||!desc){alert('يرجى كتابة عنوان الاستفسار والوصف.');return}
-  const id=nextId('INQ');
-  const reqs=loadJSON('trafficAddedRequests',[]);
-  reqs.unshift({id,kind:'inquiry',title,status:'قيد المراجعة',statusClass:'review',date:'تم الإرسال الآن'});
-  saveJSON('trafficAddedRequests',reqs);
-  const email=owner.value, name=owner.options[owner.selectedIndex].text;
-  const subject=encodeURIComponent(`Traffic Connect - استفسار جديد ${id}`);
-  const body=encodeURIComponent(`استفسار جديد عبر تواصل مروري\nرقم الاستفسار: ${id}\nالعنوان: ${title}\nالوصف: ${desc}\nرقم التصريح/الطلب: ${document.getElementById('inquiryPermit').value||'غير مذكور'}`);
-  renderAll();showScreen('requests');
-  if(confirm(`تم حفظ الاستفسار ${id}.\nالمسؤول: ${name}\nهل تريد فتح البريد لإرسال الإشعار؟`)) window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
-}
-function submitOfficialIssue(){
-  const desc=document.getElementById('issueDescription').value.trim();
-  if(!desc){alert('يرجى كتابة وصف المشكلة.');return}
-  const owner=document.getElementById('issueOwner');
-  const id=nextId('APP');
-  const reqs=loadJSON('trafficAddedRequests',[]);
-  reqs.unshift({id,kind:'issue',title:'مشكلة في التطبيق الرسمي',status:'قيد المراجعة',statusClass:'review',date:'تم الإرسال الآن'});
-  saveJSON('trafficAddedRequests',reqs);
-  const email=owner.value, name=owner.options[owner.selectedIndex].text;
-  const subject=encodeURIComponent(`Traffic Connect - بلاغ مشكلة تطبيق ${id}`);
-  const body=encodeURIComponent(`بلاغ جديد عن مشكلة في التطبيق الرسمي\nرقم البلاغ: ${id}\nالنوع: ${document.getElementById('issueType').value}\nالوصف: ${desc}\nالصفحة: ${document.getElementById('issuePage').value||'غير مذكورة'}\nرقم التصريح/الطلب: ${document.getElementById('issuePermit').value||'غير مذكور'}`);
-  renderAll();showScreen('requests');
-  if(confirm(`تم حفظ البلاغ ${id}.\nمسؤول الدعم: ${name}\nهل تريد فتح البريد لإرسال الإشعار؟`)) window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
-}
 let activeRatingRequest=null, selectedRating=0;
-function openRating(id,engineer){
-  activeRatingRequest={id,engineer};
-  selectedRating=0;
-  document.getElementById('ratingEngineerName').textContent='المهندس: '+engineer;
-  document.getElementById('ratingRequestId').textContent='رقم الموعد: '+id;
-  document.getElementById('ratingComment').value='';
+function openRating(appointmentId,engineerId,engineerName,existingRating,existingComment){
+  activeRatingRequest={appointmentId,engineerId};
+  selectedRating=existingRating||0;
+  document.getElementById('ratingEngineerName').textContent='المهندس: '+(engineerName||'—');
+  document.getElementById('ratingRequestId').textContent='رقم الموعد: '+String(appointmentId||'').slice(0,8).toUpperCase();
+  document.getElementById('ratingComment').value=existingComment||'';
   paintRatingStars();
   showScreen('rating');
 }
 function setRating(n){selectedRating=n;paintRatingStars()}
 function paintRatingStars(){document.querySelectorAll('#ratingStars button').forEach((b,i)=>b.classList.toggle('active',i<selectedRating))}
-function saveRating(){
+async function saveRating(){
   if(!activeRatingRequest||!selectedRating){alert('اختر التقييم من 1 إلى 5 نجوم.');return}
-  const ratings=loadJSON('trafficEngineerRatings',[]);
-  const existing=ratings.findIndex(r=>r.requestId===activeRatingRequest.id);
-  const rec={requestId:activeRatingRequest.id,engineer:activeRatingRequest.engineer,rating:selectedRating,comment:document.getElementById('ratingComment').value.trim(),createdAt:new Date().toISOString()};
-  if(existing>=0)ratings[existing]=rec;else ratings.unshift(rec);
-  saveJSON('trafficEngineerRatings',ratings);
+  if(!tcSession)await tcGetSession();if(!tcSession){alert('سجل الدخول أولاً.');return}
+  const row={appointment_id:activeRatingRequest.appointmentId,engineer_id:activeRatingRequest.engineerId,contractor_id:tcSession.user.id,rating:selectedRating,comment:(document.getElementById('ratingComment')?.value||'').trim()};
+  const {error}=await tcSupabase.from('appointment_ratings').upsert(row,{onConflict:'appointment_id'});
+  if(error){alert('تعذر حفظ التقييم: '+(error.message||error));return}
   alert('تم حفظ تقييمك بنجاح. شكرًا لك.');
   showScreen('requests');
 }
@@ -2082,87 +1987,7 @@ function loadEngineerSelfAvailability(){
   if(s)s.value=localStorage.getItem('trafficEngineerSelfAvailability')||'available';
 }
 
-function confirmBooking(){
-  try{
-    const eng=selectedEngineer();
-    if(!eng){alert('لا يوجد مهندس أو مسؤول متاح لهذه الخدمة والمنطقة.');return}
-    const liveStatus=engineerStatus(eng);
-    if(liveStatus!=='available'){alert((STATUS_LABELS[liveStatus]||liveStatus)+' — اختر مهندسًا متاحًا.');return}
-    const dateEl=document.getElementById('bookingDate');
-    const timeEl=document.getElementById('bookingTime');
-    const date=(dateEl?.value||'').trim();
-    const time=(timeEl?.value||'').trim();
-    if(!date){alert('يرجى اختيار تاريخ الموعد.');dateEl?.focus();return}
-    if(!time){alert('يرجى اختيار وقت الموعد.');timeEl?.focus();return}
-    const chosen=new Date(date+'T00:00:00');
-    const today=new Date();today.setHours(0,0,0,0);
-    if(isNaN(chosen.getTime())||chosen<today){alert('يرجى اختيار تاريخ صحيح، ولا يمكن الحجز بتاريخ سابق.');dateEl?.focus();return}
-
-    const added=loadJSON('trafficAddedRequests',[]);
-    const duplicate=added.some(r=>r.kind==='booking' && r.engineer===eng.name && r.date===date && r.time===time && r.status!=='ملغي');
-    if(duplicate){alert('هذا الموعد محفوظ مسبقًا لنفس المهندس والوقت. اختر وقتًا آخر.');return}
-
-    const id=nextId('TCP');
-    const serviceText=bookingText('bookingService');
-    const areaText=bookingText('bookingArea');
-    const req={
-      id,kind:'booking',title:serviceText,status:'مؤكد',statusClass:'confirmed',
-      date,screen:'requestStatus',engineer:eng.name,engineerEmail:eng.email,
-      area:areaText,time,
-      permit:(document.getElementById('bookingPermit')?.value||'').trim(),
-      notes:(document.getElementById('bookingNotes')?.value||'').trim(),
-      attachments:[...(document.getElementById('bookingFiles')?.files||[])].map(f=>({name:f.name,size:f.size,type:f.type}))
-    };
-    added.unshift(req);saveJSON('trafficAddedRequests',added);
-    const cc=loadJSON('trafficCurrentContractor',null);if(cc)trackCompany(cc.company,'bookings');
-    renderAll();
-    alert('تم تأكيد الحجز بنجاح.\nرقم الطلب: '+id);
-    showScreen('requests');
-  }catch(err){
-    console.error('confirmBooking',err);
-    alert('تعذر إتمام الحجز. يرجى المحاولة مرة أخرى.');
-  }
-}
-function getComplaintLocation(){
-  const st=document.getElementById('locationStatus');
-  if(!navigator.geolocation){st.textContent='المتصفح لا يدعم تحديد الموقع. يمكنك كتابة الموقع يدويًا.';return}
-  st.textContent='جاري تحديد الموقع...';
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const lat=pos.coords.latitude.toFixed(6),lng=pos.coords.longitude.toFixed(6);
-    document.getElementById('complaintLocation').value=`${lat}, ${lng}`;
-    st.innerHTML=`تم تحديد الموقع ✓ — <a target="_blank" rel="noopener" href="https://www.google.com/maps?q=${lat},${lng}">فتح على الخريطة</a>`;
-  },err=>{st.textContent='تعذر تحديد الموقع تلقائيًا. اسمح للموقع من إعدادات المتصفح أو اكتب الموقع يدويًا.'},{enableHighAccuracy:true,timeout:10000,maximumAge:30000});
-}
-function saveComplaint(){
-  const desc=document.getElementById('complaintDescription').value.trim();
-  if(!desc){alert('اكتب وصف المشكلة أولاً.');document.getElementById('complaintDescription').focus();return}
-  const id=nextId('CMP'); const files=[...document.getElementById('complaintFiles').files];
-  const rec={id,type:document.getElementById('complaintType').value,description:desc,location:document.getElementById('complaintLocation').value.trim(),permit:document.getElementById('complaintPermit').value.trim(),status:'مفتوحة',createdAt:new Date().toLocaleString('ar-AE'),attachments:files.map(f=>({name:f.name,size:f.size,type:f.type}))};
-  const arr=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);arr.unshift(rec);saveJSON('trafficComplaints',arr);
-  const reqs=loadJSON('trafficAddedRequests',[]);reqs.unshift({id,kind:'complaint',title:desc,status:'مفتوحة',statusClass:'pending',date:'تم الإرسال الآن'});saveJSON('trafficAddedRequests',reqs);
-  alert(`تم إرسال الشكوى وحفظها محليًا\nرقم الشكوى: ${id}`);
-  document.getElementById('complaintDescription').value='';document.getElementById('complaintLocation').value='';document.getElementById('complaintPermit').value='';document.getElementById('complaintFiles').value='';document.getElementById('complaintAttachmentList').innerHTML='';
-  renderAll();showScreen('complaints');
-}
-function renderComplaints(){
-  const el=document.getElementById('complaintsList');if(!el)return;const arr=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);
-  if(!arr.length){el.innerHTML='<div class="empty">لا توجد شكاوى حتى الآن.</div>';return}
-  el.innerHTML=arr.map(c=>`<div class="item clickable" onclick="showComplaintDetails('${escapeHtml(c.id)}')"><div class="row"><b>${escapeHtml(c.description)}</b><span class="badge pending">${escapeHtml(c.status||'مفتوحة')}</span></div><div class="small">${escapeHtml(c.id)}${c.location?' · '+escapeHtml(c.location):''}</div>${c.attachments&&c.attachments.length?`<div class="small">📎 ${c.attachments.length} مرفق</div>`:''}</div>`).join('');
-}
-function showComplaintDetails(id){const arr=loadJSON('trafficComplaints',DEFAULT_COMPLAINTS);const c=arr.find(x=>x.id===id);if(!c)return;alert(`رقم الشكوى: ${c.id}\nالنوع: ${c.type}\nالوصف: ${c.description}\nالموقع: ${c.location||'غير محدد'}\nالمرفقات: ${(c.attachments||[]).map(a=>a.name).join(', ')||'لا يوجد'}`)}
-function renderRequests(){
-  const el=document.getElementById('requestsList');if(!el)return;
-  const arr=[...loadJSON('trafficAddedRequests',[]),...DEFAULT_REQUESTS];
-  const ratings=loadJSON('trafficEngineerRatings',[]);
-  el.innerHTML=arr.map(r=>{
-    const rated=ratings.some(x=>x.requestId===r.id);
-    const rateBtn=r.canRate?`<button class="inline-action" onclick="event.stopPropagation();openRating('${escapeHtml(r.id)}','${escapeHtml(r.engineer||'المهندس')}')">${rated?'تعديل التقييم':'⭐ تقييم المهندس'}</button>`:'';
-    return `<div class="item ${r.screen?'clickable':''}" ${r.screen?`onclick="showScreen('${r.screen}')"`:''}><div class="row"><b>${escapeHtml(r.id)}</b><span class="badge ${escapeHtml(r.statusClass||'pending')}">${escapeHtml(r.status)}</span></div><div class="small">${escapeHtml(r.title)}${r.date?' — '+escapeHtml(r.date):''}</div>${r.engineer?`<div class="small">المهندس: ${escapeHtml(r.engineer)}</div>`:''}${rateBtn}</div>`;
-  }).join('');
-}
-function renderRecent(){/* reserved for future dynamic home list */}
-function renderAll(){renderComplaints();renderRequests();renderRecent();checkCurrentCompanyBlock()}
-function saved(msg){alert(msg);showScreen('home')}
+function renderAll(){renderRequests()}
 function setLang(lang){if(lang==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';document.getElementById('brand').textContent='Traffic Connect'}else{document.documentElement.lang='ar';document.documentElement.dir='rtl';document.getElementById('brand').textContent='تواصل مروري'}}
 
 function showRegister(){document.getElementById('login').style.display='none';document.getElementById('shell').classList.remove('hidden');showScreen('register')}
@@ -2175,24 +2000,27 @@ function returnToLogin(){
   if(login){login.style.display='block';login.classList.add('active');}
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function saveContractorRegistration(){ return false; }
-function simulatePasswordReset(){ return tcPasswordReset(); }
-function trackCompany(company,field){if(!company)return;const arr=loadJSON('trafficCompanies',[]);let c=arr.find(x=>x.name===company);if(!c){c={id:'CO-'+Date.now(),name:company,blocked:false,createdAt:new Date().toISOString(),logins:0,bookings:0,contacts:0};arr.unshift(c)}c[field]=(c[field]||0)+1;saveJSON('trafficCompanies',arr)}
-function renderCompanyAdmin(){const el=document.getElementById('companyAdminList');if(!el)return;const arr=loadJSON('trafficCompanies',[]);if(!arr.length){el.innerHTML='<div class="empty">لا توجد شركات مسجلة حتى الآن.</div>';return}el.innerHTML=arr.map(c=>`<div class="item ${c.blocked?'blocked-row':''}"><div class="row"><b>${escapeHtml(c.name)}</b><span class="${c.blocked?'blocked-text':''}">${c.blocked?'محظورة':'نشطة'}</span></div><div class="small">دخول: ${c.logins||0} · حجوزات: ${c.bookings||0} · تواصل: ${c.contacts||0}</div><div class="admin-actions"><button class="${c.blocked?'ok-btn':'danger-btn'}" onclick="toggleCompanyBlock('${c.id}')">${c.blocked?'إلغاء الحظر':'حظر الشركة'}</button></div></div>`).join('')}
-function toggleCompanyBlock(id){const arr=loadJSON('trafficCompanies',[]),c=arr.find(x=>x.id===id);if(!c)return;c.blocked=!c.blocked;saveJSON('trafficCompanies',arr);renderCompanyAdmin()}
-function renderUsageStats(){const stats=loadJSON('trafficGlobalStats',{visits:0,logins:0,contacts:0}),arr=loadJSON('trafficCompanies',[]);const m=document.getElementById('usageMetrics');if(m)m.innerHTML=`<div class="metric"><b>${stats.visits||0}</b><div class="small">زيارات التطبيق</div></div><div class="metric"><b>${stats.logins||0}</b><div class="small">مرات تسجيل الدخول</div></div><div class="metric"><b>${arr.length}</b><div class="small">الشركات المسجلة</div></div><div class="metric"><b>${arr.reduce((a,c)=>a+(c.bookings||0),0)}</b><div class="small">حجوزات الشركات</div></div>`;const l=document.getElementById('companyUsageList');if(l)l.innerHTML=arr.map(c=>`<div class="item ${c.blocked?'blocked-row':''}"><b>${escapeHtml(c.name)}</b><div class="small">دخول ${c.logins||0} · حجوزات ${c.bookings||0} · تواصل ${c.contacts||0}</div></div>`).join('')||'<div class="empty">لا توجد شركات مسجلة.</div>'}
-function renderEngineerAdmin(){const el=document.getElementById('engineerAdminList');if(!el)return;el.innerHTML=ENGINEERS.map(e=>{const st=engineerStatus(e);return `<div class="item ${st==='blocked'?'blocked-row':''}"><div class="row"><b>${escapeHtml(e.name)}</b><span class="${st==='blocked'?'blocked-text':''}">${STATUS_LABELS[st]||st}</span></div><div class="small">${escapeHtml(e.email)}</div><div class="admin-actions"><button class="ok-btn" onclick="setEngineerAdminStatus('${e.id}','available')">متاح</button><button class="ok-btn" onclick="setEngineerAdminStatus('${e.id}','leave')">إجازة</button><button class="danger-btn" onclick="setEngineerAdminStatus('${e.id}','blocked')">حظر</button></div></div>`}).join('')}
-function setEngineerAdminStatus(id,status){const m=loadJSON('trafficEngineerStatuses',{});m[id]=status;saveJSON('trafficEngineerStatuses',m);renderEngineerAdmin();refreshBookingEngineers()}
-function saveAppFeedback(){const comment=document.getElementById('appComment').value.trim();if(!comment){alert('اكتب تعليقك أولاً.');return}const arr=loadJSON('trafficAppFeedback',[]);arr.unshift({rating:Number(document.getElementById('appRating').value),comment,createdAt:new Date().toLocaleString('ar-AE')});saveJSON('trafficAppFeedback',arr);document.getElementById('appComment').value='';renderFeedback();alert('تم حفظ تعليقك. شكرًا لك.')}
-function renderFeedback(){const el=document.getElementById('feedbackList');if(!el)return;const arr=loadJSON('trafficAppFeedback',[]);el.innerHTML=arr.map(x=>`<div class="public-comment"><b>${'⭐'.repeat(x.rating)}</b><div>${escapeHtml(x.comment)}</div><div class="small">${escapeHtml(x.createdAt)}</div></div>`).join('')||'<div class="empty">لا توجد تعليقات حتى الآن.</div>'}
-function checkCurrentCompanyBlock(){const cc=loadJSON('trafficCurrentContractor',null);if(!cc)return;const c=loadJSON('trafficCompanies',[]).find(x=>x.name===cc.company);if(c&&c.blocked){const hero=document.querySelector('#home .hero');if(hero&&!document.getElementById('blockedCompanyNotice'))hero.insertAdjacentHTML('afterend',`<div id="blockedCompanyNotice" class="card blocked-row"><div class="blocked-text">شركتك محظورة حاليًا</div><div class="small">يرجى التواصل مع الدعم للاستفسار عن حالة الشركة.</div></div>`)}}
+async function saveAppFeedback(){
+  const comment=(document.getElementById('appComment')?.value||'').trim();
+  if(!comment){alert('اكتب تعليقك أولاً.');return}
+  if(!tcSession)await tcGetSession();if(!tcSession){alert('سجل الدخول أولاً.');return}
+  const rating=Number(document.getElementById('appRating')?.value||5);
+  const {error}=await tcSupabase.from('app_feedback').insert({contractor_id:tcSession.user.id,rating,comment});
+  if(error){alert('تعذر إرسال التعليق: '+(error.message||error));return}
+  document.getElementById('appComment').value='';
+  await renderFeedback();
+  alert('تم حفظ تعليقك. شكرًا لك.');
+}
+async function renderFeedback(){
+  const el=document.getElementById('feedbackList');if(!el)return;
+  const {data,error}=await tcSupabase.from('app_feedback').select('*').order('created_at',{ascending:false}).limit(20);
+  if(error||!data||!data.length){el.innerHTML='<div class="empty">لا توجد تعليقات حتى الآن.</div>';return}
+  el.innerHTML=data.map(x=>`<div class="public-comment"><b>${'⭐'.repeat(x.rating)}</b><div>${tcEsc(x.comment)}</div><div class="small">${tcEsc(new Date(x.created_at).toLocaleString('ar-AE'))}</div></div>`).join('');
+}
 window.addEventListener('DOMContentLoaded',()=>{
   const gs=loadJSON('trafficGlobalStats',{visits:0,logins:0,contacts:0});gs.visits++;saveJSON('trafficGlobalStats',gs);
-  renderAll(); renderFeedback(); checkCurrentCompanyBlock();
+  renderAll();
   // Engineer data is private; load it only after a successful sign-in.
-  populateSupportSelects();
-  document.getElementById('inquiryOwner')?.addEventListener('change',updateSupportHints);
-  document.getElementById('issueOwner')?.addEventListener('change',updateSupportHints);
   renderEngineerProfilePhoto();
   loadEngineerSelfAvailability();
 });
@@ -2272,74 +2100,12 @@ function v10SetRole(el,role){
   const roleInput=document.getElementById('loginRole');
   if(roleInput)roleInput.value=role||'contractor';
 }
-function v10Login(){
-  const email=(document.getElementById('loginEmail')||{}).value||'';
-  const pass=(document.getElementById('loginPassword')||{}).value||'';
-  const role=(document.getElementById('loginRole')||{}).value||'contractor';
-
-  if(!email.trim() || !pass.trim()){
-    alert('يرجى إدخال البريد الإلكتروني وكلمة المرور.');
-    return;
-  }
-
-  try{
-    localStorage.setItem('tc_last_role',role);
-    localStorage.setItem('tc_last_login',new Date().toISOString());
-  }catch(e){}
-
-  const loginScreen=document.getElementById('login');
-  if(loginScreen){
-    loginScreen.classList.remove('active');
-    loginScreen.style.display='none';
-  }
-
-  const shell=document.getElementById('shell');
-  if(shell){
-    shell.classList.remove('hidden');
-    shell.style.display='block';
-  }
-
-  currentRole=role==='official'?'officer':role;
-
-  if(role==='admin' && document.getElementById('adminConsole')){
-    showScreen('adminConsole');
-  }else{
-    showScreen('home');
-  }
-}
 </script>
 
 <script>
 window.addEventListener('load',function(){
   try{admin19TrackVisit();admin19Apply();}catch(e){console.warn('V19 init',e);}
 });
-
-function v25Bookings(){return loadJSON('trafficAddedRequests',[]).filter(r=>r.kind==='booking')}
-function v25SaveBookings(rows){saveJSON('trafficAddedRequests',rows);renderAll();}
-function v25RenderEngineerBookings(filter='pending'){
-  const el=document.getElementById('v25EngineerBookings'); if(!el)return;
-  const rows=v25Bookings();
-  const pending=rows.filter(r=>(r.engineerDecision||'pending')==='pending');
-  const accepted=rows.filter(r=>r.engineerDecision==='accepted');
-  const rejected=rows.filter(r=>r.engineerDecision==='rejected');
-  const pc=document.getElementById('v25PendingCount'),ac=document.getElementById('v25AcceptedCount'),rc=document.getElementById('v25RejectedCount');
-  if(pc)pc.textContent=pending.length;if(ac)ac.textContent=accepted.length;if(rc)rc.textContent=rejected.length;
-  let view=rows;if(filter==='pending')view=pending;if(filter==='accepted')view=accepted;
-  if(!view.length){el.innerHTML='<div class="v25-empty">لا توجد طلبات في هذه القائمة حاليًا.</div>';return}
-  el.innerHTML=view.map(r=>`<div class="v25-booking"><div class="row"><b>${escapeHtml(r.id)}</b><span class="badge ${escapeHtml(r.statusClass||'pending')}">${escapeHtml(r.status||'')}</span></div><div class="small">الخدمة: ${escapeHtml(r.title||'')}</div><div class="small">التاريخ: ${escapeHtml(r.date||'—')} — الوقت: ${escapeHtml(r.time||'—')}</div><div class="small">المنطقة: ${escapeHtml(r.area||'—')}</div><div class="small">المقاول/المرجع: ${escapeHtml(r.permit||'غير مذكور')}</div><div class="small">ملاحظات: ${escapeHtml(r.notes||'لا توجد')}</div>${(r.engineerDecision||'pending')==='pending'?`<div class="v25-actions"><button class="v25-accept" onclick="v25EngineerDecision('${r.id}','accepted')">✓ قبول الموعد</button><button class="v25-propose" onclick="v25ProposeTime('${r.id}')">◷ اقتراح موعد آخر</button><button class="v25-reject" onclick="v25EngineerDecision('${r.id}','rejected')">رفض</button></div>`:''}</div>`).join('');
-}
-function v25EngineerDecision(id,decision){
-  const all=loadJSON('trafficAddedRequests',[]);const r=all.find(x=>x.id===id);if(!r)return;
-  r.engineerDecision=decision;
-  if(decision==='accepted'){r.status='مؤكد من المهندس';r.statusClass='confirmed'}
-  else {r.status='مرفوض من المهندس';r.statusClass='pending'}
-  saveJSON('trafficAddedRequests',all);v25RenderEngineerBookings('pending');renderAll();
-}
-function v25ProposeTime(id){
-  const value=prompt('اكتب الموعد البديل المقترح (مثال: 18 أغسطس 2026 - 10:30 ص)');if(!value)return;
-  const all=loadJSON('trafficAddedRequests',[]);const r=all.find(x=>x.id===id);if(!r)return;
-  r.engineerDecision='proposed';r.proposedTime=value;r.status='المهندس اقترح موعدًا آخر: '+value;r.statusClass='review';saveJSON('trafficAddedRequests',all);v25RenderEngineerBookings('all');renderAll();
-}
 </script>
 
 <script>
@@ -2347,6 +2113,7 @@ function v25ProposeTime(id){
 const TC_SUPABASE_URL='https://pwcptgtdgzsfflafschl.supabase.co';
 const TC_SUPABASE_KEY='sb_publishable_nV8yxSJkEt8hXCHCDtwSxg_JdEz1UG3';
 const tcSupabase=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(TC_SUPABASE_URL,TC_SUPABASE_KEY):null;
+const TC_RESET_REDIRECT=window.location.origin+window.location.pathname;
 let tcSession=null;
 let tcProfile=null;
 
@@ -2361,6 +2128,30 @@ async function tcGetSession(){
   const {data}=await tcSupabase.auth.getSession();tcSession=data.session||null;
   if(tcSession){const {data:p}=await tcSupabase.from('profiles').select('*').eq('id',tcSession.user.id).maybeSingle();tcProfile=p||null;}
   return tcSession;
+}
+async function tcUpdatePassword(){
+  const p1=(document.getElementById('newPassword1')?.value||'');
+  const p2=(document.getElementById('newPassword2')?.value||'');
+  if(!tcStrongPassword(p1)){alert('كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير ورقم ورمز خاص.');return}
+  if(p1!==p2){alert('كلمتا المرور غير متطابقتين.');return}
+  const {error}=await tcSupabase.auth.updateUser({password:p1});
+  if(error){alert('تعذر تحديث كلمة المرور: '+(error.message||error));return}
+  alert('تم تحديث كلمة المرور بنجاح. سجّل الدخول بكلمة المرور الجديدة.');
+  try{await tcSupabase.auth.signOut({scope:'local'})}catch(e){}
+  tcSession=null;tcProfile=null;
+  returnToLogin();
+}
+let tcIsPasswordRecovery=false;
+if(tcSupabase){
+  tcSupabase.auth.onAuthStateChange((event,session)=>{
+    if(event==='PASSWORD_RECOVERY'){
+      tcIsPasswordRecovery=true;
+      tcSession=session;
+      const loginEl=document.getElementById('login');if(loginEl){loginEl.classList.remove('active');loginEl.style.display='none'}
+      const shell=document.getElementById('shell');if(shell){shell.classList.remove('hidden');shell.style.display='block'}
+      showScreen('resetPassword');
+    }
+  });
 }
 async function tcSetTrialRole(){
   throw new Error('Trial role switching is disabled in production.');
@@ -2495,7 +2286,7 @@ async function tcPasswordReset(){
   if(!tcSupabase){alert('تعذر الاتصال بالخدمة. تحقق من الإنترنت وحاول مرة أخرى.');return}
   const email=(document.getElementById('forgotEmail')?.value||'').trim().toLowerCase();
   if(!email){alert('أدخل البريد الإلكتروني.');return}
-  const {error}=await tcSupabase.auth.resetPasswordForEmail(email,{redirectTo:'https://trafficconnect.app'});
+  const {error}=await tcSupabase.auth.resetPasswordForEmail(email,{redirectTo:TC_RESET_REDIRECT});
   if(error){alert('تعذر إرسال رابط الاستعادة. حاول مرة أخرى لاحقًا.');return}
   alert('إذا كان البريد مسجلًا، فسيصلك رابط استعادة كلمة المرور.');
 }
@@ -2560,17 +2351,25 @@ async function confirmBooking(){
 
 async function renderRequests(){
   const el=document.getElementById('requestsList');if(!el)return;if(!tcSession)await tcGetSession();if(!tcSession){el.innerHTML='<div class="empty">سجل الدخول لعرض الطلبات.</div>';return}
-  const [a,c,i]=await Promise.all([
+  const [a,c,i,rt]=await Promise.all([
     tcSupabase.from('appointments').select('*').order('created_at',{ascending:false}),
     tcSupabase.from('complaints').select('*').order('created_at',{ascending:false}),
-    tcSupabase.from('inquiries').select('*').order('created_at',{ascending:false})
+    tcSupabase.from('inquiries').select('*').order('created_at',{ascending:false}),
+    tcSupabase.from('appointment_ratings').select('appointment_id,rating,comment').eq('contractor_id',tcSession.user.id)
   ]);
+  const ratingsByAppt={};(rt.data||[]).forEach(x=>ratingsByAppt[x.appointment_id]=x);
   let rows=[];
-  (a.data||[]).forEach(r=>rows.push({id:r.id.slice(0,8).toUpperCase(),fullId:r.id,title:r.service,status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),date:tcFmtDate(r.appointment_date),engineer:r.engineer_note?'ملاحظة المهندس: '+r.engineer_note:'',created:r.created_at,extra:r.status==='proposed'?`الموعد البديل: ${tcFmtDate(r.proposed_date)} ${r.proposed_time||''}`:''}));
+  (a.data||[]).forEach(r=>{
+    const canRate=['accepted','completed'].includes(r.status);
+    const existing=ratingsByAppt[r.id];
+    const engName=(ENGINEERS.find(e=>e.id===r.engineer_id)||{}).name||'المهندس';
+    const rateBtn=canRate?`<button class="inline-action" onclick="event.stopPropagation();openRating('${r.id}','${r.engineer_id||''}','${tcEsc(engName)}',${existing?existing.rating:0},'${existing?tcEsc(existing.comment||''):''}')">${existing?'تعديل التقييم ⭐'+existing.rating:'⭐ تقييم المهندس'}</button>`:'';
+    rows.push({id:r.id.slice(0,8).toUpperCase(),fullId:r.id,title:r.service,status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),date:tcFmtDate(r.appointment_date),engineer:r.engineer_note?'ملاحظة المهندس: '+r.engineer_note:'',created:r.created_at,extra:r.status==='proposed'?`الموعد البديل: ${tcFmtDate(r.proposed_date)} ${r.proposed_time||''}`:'',rateBtn});
+  });
   (c.data||[]).forEach(r=>rows.push({id:'CMP-'+r.id.slice(0,8).toUpperCase(),title:r.category||'شكوى',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:r.response||''}));
   (i.data||[]).forEach(r=>rows.push({id:'INQ-'+r.id.slice(0,8).toUpperCase(),title:r.topic||'استفسار',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:r.response||''}));
   rows.sort((x,y)=>new Date(y.created)-new Date(x.created));
-  el.innerHTML=rows.length?rows.map(r=>`<div class="item"><div class="row"><b>${tcEsc(r.id)}</b><span class="badge ${tcEsc(r.statusClass)}">${tcEsc(r.status)}</span></div><div class="small">${tcEsc(r.title)}${r.date?' — '+tcEsc(r.date):''}</div>${r.engineer?`<div class="small">${tcEsc(r.engineer)}</div>`:''}${r.extra?`<div class="notice" style="margin-top:6px">${tcEsc(r.extra)}</div>`:''}</div>`).join(''):'<div class="empty">لا توجد طلبات حتى الآن.</div>';
+  el.innerHTML=rows.length?rows.map(r=>`<div class="item"><div class="row"><b>${tcEsc(r.id)}</b><span class="badge ${tcEsc(r.statusClass)}">${tcEsc(r.status)}</span></div><div class="small">${tcEsc(r.title)}${r.date?' — '+tcEsc(r.date):''}</div>${r.engineer?`<div class="small">${tcEsc(r.engineer)}</div>`:''}${r.extra?`<div class="notice" style="margin-top:6px">${tcEsc(r.extra)}</div>`:''}${r.rateBtn||''}</div>`).join(''):'<div class="empty">لا توجد طلبات حتى الآن.</div>';
 }
 
 async function submitService16(prefix,descId,message){
@@ -2870,6 +2669,7 @@ const tcOriginalShowScreen=showScreen;
 showScreen=function(screenId){
   const result=tcOriginalShowScreen(screenId);
   if(screenId==='requests')setTimeout(()=>renderRequests(),0);
+  if(screenId==='publicFeedback')setTimeout(()=>renderFeedback(),0);
   if(screenId==='engineerDashboard')setTimeout(async()=>{await tcRenderEngineerIdentity();await v25RenderEngineerBookings('pending')},0);
   if(screenId==='responsibleDashboard')setTimeout(()=>tcRenderResponsible(),0);
   if(screenId==='adminConsole')setTimeout(async()=>{tcAdminPreviewActive=false;const bar=document.getElementById('tcAdminPreviewBar');if(bar)bar.style.display='none';document.body.classList.remove('tc-admin-preview');await tcRenderAdminCloud();await tcAdmin2610LoadIntoForm();await admin19RenderEngineersRemote()},0);
@@ -2882,7 +2682,8 @@ window.addEventListener('load',async()=>{
   // Always start at the role/login screen. This prevents a previous contractor session
   // from forcing the next person into the contractor dashboard when opening the shared link.
   try{if(tcSupabase)await tcGetSession()}catch(e){console.warn('session check',e)}
-  returnToLogin();
+  const isRecovery=tcIsPasswordRecovery||/type=recovery/.test(window.location.hash)||/type=recovery/.test(window.location.search);
+  if(!isRecovery) returnToLogin();
 });
 </script>
 
