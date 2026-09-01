@@ -946,16 +946,16 @@ body.tc-admin-preview .screen.active{padding-top:66px}
   <aside class="v10-brand-panel">
     <div class="v10-brand-head">
       <div class="v10-logo-box"><div class="road-logo"></div></div>
-      <div class="v10-brand-title"><strong>تواصل مروري</strong><span>TRAFFIC CONNECT</span></div>
+      <div class="v10-brand-title"><strong data-i18n="brandArName">تواصل مروري</strong><span data-i18n="brandEnName">TRAFFIC CONNECT</span></div>
     </div>
     <div class="v10-brand-copy">
-      <div class="v10-kicker">✦ منصة موحدة لخدمات الحركة المرورية</div>
-      <h1>تواصل أسهل.<br>خدمة أسرع.</h1>
-      <p>احجز مواعيدك، تابع الطلبات، تواصل مع المهندسين والمسؤولين، وارفع الشكاوى والاستفسارات من مكان واحد.</p>
+      <div class="v10-kicker" data-i18n="loginKicker">✦ منصة موحدة لخدمات الحركة المرورية</div>
+      <h1 data-i18n="loginHeroTitle">تواصل أسهل.<br>خدمة أسرع.</h1>
+      <p data-i18n="loginHeroDesc">احجز مواعيدك، تابع الطلبات، تواصل مع المهندسين والمسؤولين، وارفع الشكاوى والاستفسارات من مكان واحد.</p>
       <div class="v10-benefits">
-        <div class="v10-benefit"><b>◷</b><strong>حجز أسرع</strong><small>اختر الخدمة والمهندس والموعد المناسب.</small></div>
-        <div class="v10-benefit"><b>✓</b><strong>متابعة واضحة</strong><small>اعرف حالة طلبك خطوة بخطوة.</small></div>
-        <div class="v10-benefit"><b>⌁</b><strong>تواصل مباشر</strong><small>قنوات منظمة للدعم والاستفسارات.</small></div>
+        <div class="v10-benefit"><b>◷</b><strong data-i18n="benefit1Title">حجز أسرع</strong><small data-i18n="benefit1Desc">اختر الخدمة والمهندس والموعد المناسب.</small></div>
+        <div class="v10-benefit"><b>✓</b><strong data-i18n="benefit2Title">متابعة واضحة</strong><small data-i18n="benefit2Desc">اعرف حالة طلبك خطوة بخطوة.</small></div>
+        <div class="v10-benefit"><b>⌁</b><strong data-i18n="benefit3Title">تواصل مباشر</strong><small data-i18n="benefit3Desc">قنوات منظمة للدعم والاستفسارات.</small></div>
       </div>
     </div>
     <div class="v10-brand-photo">
@@ -963,22 +963,30 @@ body.tc-admin-preview .screen.active{padding-top:66px}
         <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="طريق مروري وأفق مدينة">
           <defs>
             <linearGradient id="tcSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#bfe9f2"/>
-              <stop offset="55%" stop-color="#eaf7f2"/>
+              <stop offset="0%" stop-color="#78c8e8"/>
+              <stop offset="42%" stop-color="#bfe9f2"/>
+              <stop offset="75%" stop-color="#eaf7f2"/>
               <stop offset="100%" stop-color="#f7fbf9"/>
             </linearGradient>
             <linearGradient id="tcRoad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#4b5a58"/>
-              <stop offset="100%" stop-color="#2c3735"/>
+              <stop offset="0%" stop-color="#596967"/>
+              <stop offset="100%" stop-color="#262f2c"/>
             </linearGradient>
+            <radialGradient id="tcSun" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff6dd"/>
+              <stop offset="55%" stop-color="#ffe7ab" stop-opacity=".8"/>
+              <stop offset="100%" stop-color="#ffe7ab" stop-opacity="0"/>
+            </radialGradient>
           </defs>
 
           <rect x="0" y="0" width="600" height="340" fill="url(#tcSky)"/>
 
-          <circle cx="497" cy="55" r="34" fill="#ffe7ab" opacity=".9"/>
-          <g opacity=".55" fill="#ffffff">
+          <circle cx="497" cy="55" r="62" fill="url(#tcSun)"/>
+          <circle cx="497" cy="55" r="25" fill="#fff6dd"/>
+          <g opacity=".6" fill="#ffffff">
             <ellipse cx="120" cy="60" rx="46" ry="14"/><ellipse cx="160" cy="52" rx="30" ry="11"/>
             <ellipse cx="330" cy="42" rx="38" ry="12"/><ellipse cx="365" cy="50" rx="26" ry="10"/>
+            <ellipse cx="55" cy="98" rx="28" ry="9"/>
           </g>
 
           <g opacity=".92">
@@ -1006,6 +1014,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
           </g>
 
           <g transform="translate(250,152)">
+            <ellipse cx="0" cy="1" rx="95" ry="9" fill="#1b2624" opacity=".18"/>
             <rect x="-85" y="-40" width="170" height="40" fill="#f2eee2"/>
             <rect x="-85" y="-46" width="170" height="7" fill="#e4ddc9"/>
             <g fill="#f5f1e6">
@@ -1027,6 +1036,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
             <ellipse cx="-34" cy="-50" rx="15" ry="12" fill="#f2eee2"/>
             <ellipse cx="34" cy="-50" rx="15" ry="12" fill="#f2eee2"/>
             <ellipse cx="0" cy="-60" rx="27" ry="21" fill="#f7f3e8"/>
+            <ellipse cx="-8" cy="-66" rx="9" ry="7" fill="#ffffff" opacity=".5"/>
             <rect x="-12" y="-82" width="24" height="16" fill="#f7f3e8"/>
             <circle cx="0" cy="-86" r="3.5" fill="#caa85c"/>
           </g>
@@ -1034,12 +1044,19 @@ body.tc-admin-preview .screen.active{padding-top:66px}
           <path d="M0 240 L600 240 L600 340 L0 340 Z" fill="#dfeeea"/>
           <path d="M215 150 L385 150 L520 340 L80 340 Z" fill="url(#tcRoad)"/>
           <path d="M215 150 L385 150 L520 340 L490 340 L360 160 L240 160 L110 340 L80 340 Z" fill="#5a6a68" opacity=".35"/>
+          <path d="M215 150 L80 340" stroke="#eef5f3" stroke-width="2" opacity=".35"/>
+          <path d="M385 150 L520 340" stroke="#eef5f3" stroke-width="2" opacity=".35"/>
 
-          <g fill="#f4d35e">
+          <g fill="#ffd23f">
             <path d="M298 150 L302 150 L299 172 L301 172 Z"/>
             <path d="M292 190 L296 190 L290 222 L293 222 Z"/>
             <path d="M283 240 L288 240 L279 282 L273 282 Z"/>
             <path d="M269 300 L275 300 L262 336 L255 336 Z"/>
+          </g>
+
+          <g fill="#3c4a48">
+            <rect x="168" y="176" width="3" height="26"/><circle cx="169.5" cy="174" r="4" fill="#ffe7ab"/>
+            <rect x="429" y="176" width="3" height="26"/><circle cx="430.5" cy="174" r="4" fill="#ffe7ab"/>
           </g>
 
           <g>
@@ -1048,19 +1065,28 @@ body.tc-admin-preview .screen.active{padding-top:66px}
           </g>
 
           <g transform="translate(292,192)">
+            <ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/>
             <rect x="-16" y="-9" width="32" height="18" rx="6" fill="#0b746c"/>
             <rect x="-11" y="-14" width="22" height="10" rx="4" fill="#0b746c"/>
-            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/>
+            <rect x="-8" y="-13" width="16" height="7" rx="2" fill="#d7f0ec" opacity=".9"/>
+            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/>
+            <circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/>
           </g>
           <g transform="translate(233,255) scale(1.35)">
+            <ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/>
             <rect x="-16" y="-9" width="32" height="18" rx="6" fill="#f4a53b"/>
             <rect x="-11" y="-14" width="22" height="10" rx="4" fill="#f4a53b"/>
-            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/>
+            <rect x="-8" y="-13" width="16" height="7" rx="2" fill="#fff3dd" opacity=".9"/>
+            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/>
+            <circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/>
           </g>
           <g transform="translate(345,205) scale(1.1)">
+            <ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/>
             <rect x="-16" y="-9" width="32" height="18" rx="6" fill="#eafaf6"/>
             <rect x="-11" y="-14" width="22" height="10" rx="4" fill="#eafaf6"/>
-            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/>
+            <rect x="-8" y="-13" width="16" height="7" rx="2" fill="#bcd6d2"/>
+            <circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/>
+            <circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/>
           </g>
         </svg>
         <div class="v10-photo-overlay"></div>
@@ -1073,30 +1099,30 @@ body.tc-admin-preview .screen.active{padding-top:66px}
     <div class="v10-login-wrap">
       <div class="v10-login-top">
         <div class="v10-lang"><button class="active" onclick="setLang('ar')">العربية</button><button onclick="setLang('en')">English</button></div>
-        <div class="v10-secure"><span>تسجيل دخول آمن</span><i>✓</i></div>
+        <div class="v10-secure"><span data-i18n="secureLogin">تسجيل دخول آمن</span><i>✓</i></div>
       </div>
 
       <div class="v10-login-card">
         <div class="v10-eyebrow">Traffic Connect · تواصل مروري</div>
-        <h2>تسجيل الدخول</h2>
-        <p class="v10-sub">أدخل بيانات حسابك. سيتم فتح الواجهة المناسبة تلقائيًا حسب صلاحية الحساب.</p>
+        <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
+        <p class="v10-sub" data-i18n="loginSub">أدخل بيانات حسابك. سيتم فتح الواجهة المناسبة تلقائيًا حسب صلاحية الحساب.</p>
 
-        <div class="v10-sub" style="margin:0 0 14px">يتم تحديد نوع الحساب والصلاحيات تلقائيًا بعد تسجيل الدخول.</div>
+        <div class="v10-sub" style="margin:0 0 14px" data-i18n="loginSub2">يتم تحديد نوع الحساب والصلاحيات تلقائيًا بعد تسجيل الدخول.</div>
         <input id="loginRole" type="hidden" value="contractor">
 
-        <div class="v10-field"><label>البريد الإلكتروني أو رقم الهاتف</label><div class="v10-input"><span class="v10-ico">✉</span><input id="loginEmail" autocomplete="email" placeholder="name@company.com"></div></div>
-        <div class="v10-field"><label>كلمة المرور</label><div class="v10-input"><span class="v10-ico">⌑</span><input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div></div>
+        <div class="v10-field"><label data-i18n="emailOrPhone">البريد الإلكتروني أو رقم الهاتف</label><div class="v10-input"><span class="v10-ico">✉</span><input id="loginEmail" autocomplete="email" placeholder="name@company.com"></div></div>
+        <div class="v10-field"><label data-i18n="password">كلمة المرور</label><div class="v10-input"><span class="v10-ico">⌑</span><input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div></div>
 
         <div class="v10-actions">
-          <label style="display:flex;align-items:center;gap:6px;color:#788683"><input type="checkbox" style="width:auto"> تذكرني</label>
-          <a onclick="showScreen('forgotPassword')">نسيت كلمة المرور؟</a>
+          <label style="display:flex;align-items:center;gap:6px;color:#788683"><input type="checkbox" style="width:auto"> <span data-i18n="rememberMe">تذكرني</span></label>
+          <a onclick="showScreen('forgotPassword')" data-i18n="forgotPassword">نسيت كلمة المرور؟</a>
         </div>
-        <button class="v10-primary" onclick="v10Login()">تسجيل الدخول</button>
-        <button class="v10-secondary" onclick="showScreen('register')">إنشاء حساب مقاول جديد</button>
-        <button class="v10-secondary" onclick="showScreen('staffRegister')">تفعيل حساب موظف ITC لأول مرة</button>
+        <button class="v10-primary" onclick="v10Login()" data-i18n="loginBtn">تسجيل الدخول</button>
+        <button class="v10-secondary" onclick="showScreen('register')" data-i18n="createContractorAccount">إنشاء حساب مقاول جديد</button>
+        <button class="v10-secondary" onclick="showScreen('staffRegister')" data-i18n="activateStaffAccount">تفعيل حساب موظف ITC لأول مرة</button>
       </div>
 
-      <div class="v10-foot"><div><b>🛡</b>آمن وموثوق</div><div><b>🔔</b>إشعارات فورية</div><div><b>🎧</b>دعم واستفسارات</div></div>
+      <div class="v10-foot"><div><b>🛡</b><span data-i18n="footSecure">آمن وموثوق</span></div><div><b>🔔</b><span data-i18n="footNotif">إشعارات فورية</span></div><div><b>🎧</b><span data-i18n="footSupport">دعم واستفسارات</span></div></div>
     </div>
   </main>
 </div>
@@ -1112,23 +1138,27 @@ body.tc-admin-preview .screen.active{padding-top:66px}
       </div>
 
       <div class="v11-left-copy">
-        <h2><span>تواصل أسهل..</span><br>خدمة أسرع</h2>
-        <p>منصة لحجز ومتابعة المواعيد مع مهندسي الحركة المرورية والمسؤولين والشكاوى.</p>
+        <h2><span data-i18n="regHeroTag">تواصل أسهل..</span><br><span data-i18n="regHeroTag2">خدمة أسرع</span></h2>
+        <p data-i18n="regHeroDesc">منصة لحجز ومتابعة المواعيد مع مهندسي الحركة المرورية والمسؤولين والشكاوى.</p>
       </div>
 
       <div class="v11-city">
         <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="طريق مروري وأفق مدينة" style="width:100%;height:100%;display:block">
           <defs>
             <linearGradient id="tcSky2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#bfe9f2"/><stop offset="55%" stop-color="#eaf7f2"/><stop offset="100%" stop-color="#f7fbf9"/>
+              <stop offset="0%" stop-color="#78c8e8"/><stop offset="42%" stop-color="#bfe9f2"/><stop offset="75%" stop-color="#eaf7f2"/><stop offset="100%" stop-color="#f7fbf9"/>
             </linearGradient>
             <linearGradient id="tcRoad2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#4b5a58"/><stop offset="100%" stop-color="#2c3735"/>
+              <stop offset="0%" stop-color="#596967"/><stop offset="100%" stop-color="#262f2c"/>
             </linearGradient>
+            <radialGradient id="tcSun2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff6dd"/><stop offset="55%" stop-color="#ffe7ab" stop-opacity=".8"/><stop offset="100%" stop-color="#ffe7ab" stop-opacity="0"/>
+            </radialGradient>
           </defs>
           <rect x="0" y="0" width="600" height="340" fill="url(#tcSky2)"/>
-          <circle cx="497" cy="55" r="34" fill="#ffe7ab" opacity=".9"/>
-          <g opacity=".55" fill="#ffffff"><ellipse cx="120" cy="60" rx="46" ry="14"/><ellipse cx="160" cy="52" rx="30" ry="11"/><ellipse cx="330" cy="42" rx="38" ry="12"/><ellipse cx="365" cy="50" rx="26" ry="10"/></g>
+          <circle cx="497" cy="55" r="62" fill="url(#tcSun2)"/>
+          <circle cx="497" cy="55" r="25" fill="#fff6dd"/>
+          <g opacity=".6" fill="#ffffff"><ellipse cx="120" cy="60" rx="46" ry="14"/><ellipse cx="160" cy="52" rx="30" ry="11"/><ellipse cx="330" cy="42" rx="38" ry="12"/><ellipse cx="365" cy="50" rx="26" ry="10"/><ellipse cx="55" cy="98" rx="28" ry="9"/></g>
           <g opacity=".92">
             <rect x="0" y="150" width="46" height="90" fill="#0e5f57"/><rect x="52" y="120" width="38" height="120" fill="#0b746c"/><rect x="96" y="165" width="34" height="75" fill="#12817a"/>
             <rect x="470" y="140" width="40" height="100" fill="#0b746c"/><rect x="515" y="110" width="34" height="130" fill="#0e5f57"/><rect x="554" y="160" width="46" height="80" fill="#12817a"/>
@@ -1136,28 +1166,32 @@ body.tc-admin-preview .screen.active{padding-top:66px}
           </g>
           <g opacity=".5"><path d="M455 132 Q510 88 575 132" stroke="#8fb9c2" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M455 132 Q510 100 575 132" stroke="#aed2d8" stroke-width="3.5" fill="none" stroke-linecap="round"/><ellipse cx="514" cy="130" rx="26" ry="11" fill="#e2a495"/><ellipse cx="514" cy="126" rx="18" ry="12" fill="#dd8f7c"/></g>
           <g transform="translate(250,152)">
+            <ellipse cx="0" cy="1" rx="95" ry="9" fill="#1b2624" opacity=".18"/>
             <rect x="-85" y="-40" width="170" height="40" fill="#f2eee2"/><rect x="-85" y="-46" width="170" height="7" fill="#e4ddc9"/>
             <g fill="#f5f1e6"><rect x="-82" y="-104" width="8" height="64" rx="2"/><rect x="-44" y="-112" width="8" height="72" rx="2"/><rect x="36" y="-112" width="8" height="72" rx="2"/><rect x="74" y="-104" width="8" height="64" rx="2"/></g>
             <g fill="#caa85c"><rect x="-83" y="-82" width="10" height="4"/><rect x="-45" y="-90" width="10" height="4"/><rect x="35" y="-90" width="10" height="4"/><rect x="73" y="-82" width="10" height="4"/></g>
             <g fill="#f5f1e6"><circle cx="-78" cy="-106" r="3.5"/><circle cx="-40" cy="-114" r="3.5"/><circle cx="40" cy="-114" r="3.5"/><circle cx="78" cy="-106" r="3.5"/></g>
             <ellipse cx="-34" cy="-50" rx="15" ry="12" fill="#f2eee2"/><ellipse cx="34" cy="-50" rx="15" ry="12" fill="#f2eee2"/>
-            <ellipse cx="0" cy="-60" rx="27" ry="21" fill="#f7f3e8"/><rect x="-12" y="-82" width="24" height="16" fill="#f7f3e8"/><circle cx="0" cy="-86" r="3.5" fill="#caa85c"/>
+            <ellipse cx="0" cy="-60" rx="27" ry="21" fill="#f7f3e8"/><ellipse cx="-8" cy="-66" rx="9" ry="7" fill="#ffffff" opacity=".5"/><rect x="-12" y="-82" width="24" height="16" fill="#f7f3e8"/><circle cx="0" cy="-86" r="3.5" fill="#caa85c"/>
           </g>
           <path d="M0 240 L600 240 L600 340 L0 340 Z" fill="#dfeeea"/>
           <path d="M215 150 L385 150 L520 340 L80 340 Z" fill="url(#tcRoad2)"/>
           <path d="M215 150 L385 150 L520 340 L490 340 L360 160 L240 160 L110 340 L80 340 Z" fill="#5a6a68" opacity=".35"/>
-          <g fill="#f4d35e"><path d="M298 150 L302 150 L299 172 L301 172 Z"/><path d="M292 190 L296 190 L290 222 L293 222 Z"/><path d="M283 240 L288 240 L279 282 L273 282 Z"/><path d="M269 300 L275 300 L262 336 L255 336 Z"/></g>
+          <path d="M215 150 L80 340" stroke="#eef5f3" stroke-width="2" opacity=".35"/>
+          <path d="M385 150 L520 340" stroke="#eef5f3" stroke-width="2" opacity=".35"/>
+          <g fill="#ffd23f"><path d="M298 150 L302 150 L299 172 L301 172 Z"/><path d="M292 190 L296 190 L290 222 L293 222 Z"/><path d="M283 240 L288 240 L279 282 L273 282 Z"/><path d="M269 300 L275 300 L262 336 L255 336 Z"/></g>
+          <g fill="#3c4a48"><rect x="168" y="176" width="3" height="26"/><circle cx="169.5" cy="174" r="4" fill="#ffe7ab"/><rect x="429" y="176" width="3" height="26"/><circle cx="430.5" cy="174" r="4" fill="#ffe7ab"/></g>
           <g><rect x="248" y="128" width="66" height="16" rx="8" fill="#0b746c"/><rect x="258" y="133" width="22" height="7" rx="3.5" fill="#eafaf6"/></g>
-          <g transform="translate(292,192)"><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#0b746c"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#0b746c"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/></g>
-          <g transform="translate(233,255) scale(1.35)"><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#f4a53b"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#f4a53b"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/></g>
-          <g transform="translate(345,205) scale(1.1)"><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#eafaf6"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#eafaf6"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/></g>
+          <g transform="translate(292,192)"><ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#0b746c"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#0b746c"/><rect x="-8" y="-13" width="16" height="7" rx="2" fill="#d7f0ec" opacity=".9"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/></g>
+          <g transform="translate(233,255) scale(1.35)"><ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#f4a53b"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#f4a53b"/><rect x="-8" y="-13" width="16" height="7" rx="2" fill="#fff3dd" opacity=".9"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/></g>
+          <g transform="translate(345,205) scale(1.1)"><ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#eafaf6"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#eafaf6"/><rect x="-8" y="-13" width="16" height="7" rx="2" fill="#bcd6d2"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/></g>
         </svg>
       </div>
 
       <div class="v11-features">
-        <div class="v11-feature"><div class="fi">▣</div><div><strong>حجز أسرع</strong><small>احجز موعدك خلال دقائق</small></div></div>
-        <div class="v11-feature"><div class="fi">▤</div><div><strong>متابعة واضحة</strong><small>تابع حالة طلباتك لحظة بلحظة</small></div></div>
-        <div class="v11-feature"><div class="fi">🎧</div><div><strong>تواصل مباشر</strong><small>فريق دعم جاهز لمساعدتك</small></div></div>
+        <div class="v11-feature"><div class="fi">▣</div><div><strong data-i18n="benefit1Title">حجز أسرع</strong><small data-i18n="regFeature1Desc">احجز موعدك خلال دقائق</small></div></div>
+        <div class="v11-feature"><div class="fi">▤</div><div><strong data-i18n="benefit2Title">متابعة واضحة</strong><small data-i18n="regFeature2Desc">تابع حالة طلباتك لحظة بلحظة</small></div></div>
+        <div class="v11-feature"><div class="fi">🎧</div><div><strong data-i18n="benefit3Title">تواصل مباشر</strong><small data-i18n="regFeature3Desc">فريق دعم جاهز لمساعدتك</small></div></div>
       </div>
 
       <div class="v11-language">
@@ -1167,54 +1201,54 @@ body.tc-admin-preview .screen.active{padding-top:66px}
     </aside>
 
     <main class="v11-right">
-      <div class="v11-secure"><span>بياناتك آمنة ومشفرة</span><b>🛡</b></div>
+      <div class="v11-secure"><span data-i18n="dataSecure">بياناتك آمنة ومشفرة</span><b>🛡</b></div>
 
       <div class="v11-card">
         <div class="v11-user-icon">♙+</div>
         <div class="v11-title">
-          <h2>إنشاء حساب مقاول جديد</h2>
-          <p>يرجى تعبئة البيانات التالية لإنشاء حسابك</p>
+          <h2 data-i18n="createContractorAccount">إنشاء حساب مقاول جديد</h2>
+          <p data-i18n="fillDataBelow">يرجى تعبئة البيانات التالية لإنشاء حسابك</p>
         </div>
 
         <div class="v11-field">
-          <div class="v11-label"><span class="req">*</span> الاسم الكامل</div>
-          <div class="v11-input"><span class="ico">♙</span><input id="regName" autocomplete="name" placeholder="مثال: محمد أحمد الكتبي"></div>
+          <div class="v11-label"><span class="req">*</span> <span data-i18n="fullName">الاسم الكامل</span></div>
+          <div class="v11-input"><span class="ico">♙</span><input id="regName" autocomplete="name" data-i18n-ph="fullNamePh" placeholder="مثال: محمد أحمد الكتبي"></div>
         </div>
 
         <div class="v11-field">
-          <div class="v11-label"><span class="req">*</span> اسم الشركة</div>
-          <div class="v11-input"><span class="ico">▦</span><input id="regCompany" autocomplete="organization" placeholder="أدخل اسم الشركة"></div>
+          <div class="v11-label"><span class="req">*</span> <span data-i18n="companyName">اسم الشركة</span></div>
+          <div class="v11-input"><span class="ico">▦</span><input id="regCompany" autocomplete="organization" data-i18n-ph="companyNamePh" placeholder="أدخل اسم الشركة"></div>
         </div>
 
         <div class="v11-field">
-          <div class="v11-label"><span class="req">*</span> رقم التواصل</div>
+          <div class="v11-label"><span class="req">*</span> <span data-i18n="phoneNumber">رقم التواصل</span></div>
           <div class="v11-input"><span class="ico">☎</span><input id="regPhone" type="tel" autocomplete="tel" placeholder="05XXXXXXXX"></div>
         </div>
 
         <div class="v11-field">
-          <div class="v11-label"><span class="req">*</span> البريد الإلكتروني</div>
+          <div class="v11-label"><span class="req">*</span> <span data-i18n="emailAddress">البريد الإلكتروني</span></div>
           <div class="v11-input"><span class="ico">✉</span><input id="regEmail" type="email" autocomplete="email" placeholder="example@company.com"></div>
         </div>
 
         <div class="v11-field">
-          <div class="v11-label"><span class="req">*</span> كلمة المرور</div>
-          <div class="v11-input"><span class="ico">⌑</span><input id="regPassword" type="password" autocomplete="new-password" placeholder="أدخل كلمة المرور"></div>
+          <div class="v11-label"><span class="req">*</span> <span data-i18n="password">كلمة المرور</span></div>
+          <div class="v11-input"><span class="ico">⌑</span><input id="regPassword" type="password" autocomplete="new-password" data-i18n-ph="enterPassword" placeholder="أدخل كلمة المرور"></div>
           <div class="v11-password-rules">
-            <div class="v11-rule">8 أحرف على الأقل <b>✓</b></div>
-            <div class="v11-rule">حرف كبير <b>✓</b></div>
-            <div class="v11-rule">رقم <b>✓</b></div>
-            <div class="v11-rule">رمز خاص <b>✓</b></div>
+            <div class="v11-rule"><span data-i18n="rule8chars">8 أحرف على الأقل</span> <b>✓</b></div>
+            <div class="v11-rule"><span data-i18n="ruleUpper">حرف كبير</span> <b>✓</b></div>
+            <div class="v11-rule"><span data-i18n="ruleNumber">رقم</span> <b>✓</b></div>
+            <div class="v11-rule"><span data-i18n="ruleSymbol">رمز خاص</span> <b>✓</b></div>
           </div>
         </div>
 
         <label class="v11-terms">
           <input id="regTerms" type="checkbox">
-          <span>أوافق على <a>الشروط والأحكام</a> و <a>سياسة الخصوصية</a></span>
+          <span data-i18n="agreeTerms">أوافق على <a>الشروط والأحكام</a> و <a>سياسة الخصوصية</a></span>
         </label>
 
-        <button type="button" id="regSubmitBtn" class="v11-submit" onclick="saveContractorRegistration()">♙+ &nbsp; إنشاء الحساب</button>
-        <div class="v11-divider">أو</div>
-        <div class="v11-login-link">لديك حساب بالفعل؟ <button onclick="returnToLogin()">تسجيل الدخول</button></div>
+        <button type="button" id="regSubmitBtn" class="v11-submit" onclick="saveContractorRegistration()">♙+ &nbsp; <span data-i18n="createAccount">إنشاء الحساب</span></button>
+        <div class="v11-divider" data-i18n="or">أو</div>
+        <div class="v11-login-link"><span data-i18n="alreadyHaveAccount">لديك حساب بالفعل؟</span> <button onclick="returnToLogin()" data-i18n="loginBtn">تسجيل الدخول</button></div>
       </div>
 
       <div class="v11-bottom">
@@ -1256,10 +1290,10 @@ body.tc-admin-preview .screen.active{padding-top:66px}
   <div class="home16">
     <div class="home16-top">
       <div class="home16-greeting">
-        <small>تواصل مروري — خدمات المقاولين</small>
-        <h2 id="welcome">مرحباً بك</h2>
+        <small data-i18n="homeGreetingSmall">تواصل مروري — خدمات المقاولين</small>
+        <h2 id="welcome" data-i18n="welcomeDefault">مرحباً بك</h2>
       </div>
-      <div class="home16-tools"><button class="home16-tool" title="تسجيل الخروج" onclick="tcLogout()">🚪</button><button class="home16-tool" title="لوحة التحكم" onclick="openAdmin19()">⚙️</button>
+      <div class="home16-tools"><button class="home16-tool" data-i18n-title="logout" title="تسجيل الخروج" onclick="tcLogout()">🚪</button><button class="home16-tool" data-i18n-title="controlPanel" title="لوحة التحكم" onclick="openAdmin19()">⚙️</button>
         <button class="home16-tool" onclick="showScreen('notifications')">🔔</button>
         <button class="home16-tool" onclick="showScreen('requests')">☰</button>
       </div>
@@ -1267,72 +1301,72 @@ body.tc-admin-preview .screen.active{padding-top:66px}
 
     <div class="home16-hero">
       <div class="home16-copy">
-        <div class="tag">✦ كل خدماتك المرورية في مكان واحد</div>
-        <h1>أنجز معاملاتك بسهولة ووضوح</h1>
-        <p>احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.</p>
+        <div class="tag" data-i18n="homeTag">✦ كل خدماتك المرورية في مكان واحد</div>
+        <h1 data-i18n="homeHeroTitle">أنجز معاملاتك بسهولة ووضوح</h1>
+        <p data-i18n="homeHeroDesc">احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.</p>
       </div>
       <div class="home16-quick">
-        <button onclick="openBookingScreen()"><b>📅 حجز موعد</b><span>اختر المهندس والوقت المناسب</span></button>
-        <button onclick="showScreen('requests')"><b>📋 طلباتي</b><span>تابع آخر حالة لكل طلب</span></button>
-        <button onclick="showScreen('complaints')"><b>⚠️ شكوى جديدة</b><span>أرسل شكوى مع الموقع والمرفقات</span></button>
+        <button onclick="openBookingScreen()"><b data-i18n="quickBookTitle">📅 حجز موعد</b><span data-i18n="quickBookDesc">اختر المهندس والوقت المناسب</span></button>
+        <button onclick="showScreen('requests')"><b data-i18n="quickRequestsTitle">📋 طلباتي</b><span data-i18n="quickRequestsDesc">تابع آخر حالة لكل طلب</span></button>
+        <button onclick="showScreen('complaints')"><b data-i18n="quickComplaintTitle">⚠️ شكوى جديدة</b><span data-i18n="quickComplaintDesc">أرسل شكوى مع الموقع والمرفقات</span></button>
       </div>
     </div>
 
     <div class="home16-section">
-      <div class="home16-section-head"><h3>الخدمات الرئيسية</h3><button onclick="showScreen('requests')">عرض طلباتي</button></div>
+      <div class="home16-section-head"><h3 data-i18n="mainServices">الخدمات الرئيسية</h3><button onclick="showScreen('requests')" data-i18n="viewMyRequests">عرض طلباتي</button></div>
       <div class="home16-services">
-        <button class="home16-service" onclick="openBookingScreen()"><div class="ico">📅</div><h4>حجز موعد</h4><p>حجز موعد مع مهندس أو اجتماع مع المسؤول.</p></button>
-        <button class="home16-service" onclick="showScreen('requests')"><div class="ico">📋</div><h4>متابعة الطلبات</h4><p>شاهد حالة الحجوزات والطلبات السابقة.</p></button>
-        <button class="home16-service" onclick="showScreen('complaints')"><div class="ico">⚠️</div><h4>الشكاوى</h4><p>إرسال شكوى مع موقع وصور أو ملفات.</p></button>
+        <button class="home16-service" onclick="openBookingScreen()"><div class="ico">📅</div><h4 data-i18n="svcBookTitle">حجز موعد</h4><p data-i18n="svcBookDesc">حجز موعد مع مهندس أو اجتماع مع المسؤول.</p></button>
+        <button class="home16-service" onclick="showScreen('requests')"><div class="ico">📋</div><h4 data-i18n="svcTrackTitle">متابعة الطلبات</h4><p data-i18n="svcTrackDesc">شاهد حالة الحجوزات والطلبات السابقة.</p></button>
+        <button class="home16-service" onclick="showScreen('complaints')"><div class="ico">⚠️</div><h4 data-i18n="svcComplaintTitle">الشكاوى</h4><p data-i18n="svcComplaintDesc">إرسال شكوى مع موقع وصور أو ملفات.</p></button>
 
-        <button class="home16-service" onclick="showScreen('inquiries')"><div class="ico">💬</div><h4>الاستفسارات</h4><p>أرسل استفسارًا عامًا وتابع الرد.</p></button>
-        <button class="home16-service" onclick="showScreen('officialAppIssue')"><div class="ico">📱</div><h4>مشكلة في التطبيق</h4><p>بلاغ فني يصل إلى مسؤولي الدعم.</p></button>
-        <button class="home16-service" onclick="showScreen('notifications')"><div class="ico">🔔</div><h4>الإشعارات</h4><p>آخر التحديثات والتنبيهات على طلباتك.</p></button>
-        <button class="home16-service" onclick="showScreen('publicFeedback')"><div class="ico">⭐</div><h4>التقييم والتعليق</h4><p>شارك رأيك واقتراحاتك لتحسين الخدمة.</p></button>
+        <button class="home16-service" onclick="showScreen('inquiries')"><div class="ico">💬</div><h4 data-i18n="svcInquiryTitle">الاستفسارات</h4><p data-i18n="svcInquiryDesc">أرسل استفسارًا عامًا وتابع الرد.</p></button>
+        <button class="home16-service" onclick="showScreen('officialAppIssue')"><div class="ico">📱</div><h4 data-i18n="svcAppIssueTitle">مشكلة في التطبيق</h4><p data-i18n="svcAppIssueDesc">بلاغ فني يصل إلى مسؤولي الدعم.</p></button>
+        <button class="home16-service" onclick="showScreen('notifications')"><div class="ico">🔔</div><h4 data-i18n="svcNotifTitle">الإشعارات</h4><p data-i18n="svcNotifDesc">آخر التحديثات والتنبيهات على طلباتك.</p></button>
+        <button class="home16-service" onclick="showScreen('publicFeedback')"><div class="ico">⭐</div><h4 data-i18n="svcRateTitle">التقييم والتعليق</h4><p data-i18n="svcRateDesc">شارك رأيك واقتراحاتك لتحسين الخدمة.</p></button>
       </div>
     </div>
 
     <div class="home16-section home16-two">
       <div class="home16-card">
-        <div class="home16-section-head"><h3>أحدث الطلبات</h3><button onclick="showScreen('requests')">عرض الكل</button></div>
-        <div class="home16-request"><div><b>طلباتك تظهر هنا بعد تسجيل الدخول</b><small>استخدم صفحة «طلباتي» لعرض البيانات الفعلية من النظام.</small></div><span class="home16-status review">مباشر</span></div>
+        <div class="home16-section-head"><h3 data-i18n="latestRequests">أحدث الطلبات</h3><button onclick="showScreen('requests')" data-i18n="viewAll">عرض الكل</button></div>
+        <div class="home16-request"><div><b data-i18n="requestsAppearHere">طلباتك تظهر هنا بعد تسجيل الدخول</b><small data-i18n="requestsAppearHereDesc">استخدم صفحة «طلباتي» لعرض البيانات الفعلية من النظام.</small></div><span class="home16-status review" data-i18n="live">مباشر</span></div>
       </div>
 
       <div class="home16-card">
-        <h3>الدعم والتواصل</h3>
-        <div class="home16-contact"><strong>ساعات التواصل</strong><small>من 9:00 صباحًا إلى 2:30 ظهرًا</small></div>
-        <div class="home16-contact"><strong>الدعم الفني</strong><small>Mohamed AL Meraikhi<br>Ahmed El Sanadidy</small></div>
-        <button class="service16-submit" onclick="showScreen('officialAppIssue')">فتح بلاغ دعم</button>
+        <h3 data-i18n="supportContact">الدعم والتواصل</h3>
+        <div class="home16-contact"><strong data-i18n="contactHours">ساعات التواصل</strong><small data-i18n="contactHoursValue">من 9:00 صباحًا إلى 2:30 ظهرًا</small></div>
+        <div class="home16-contact"><strong data-i18n="techSupport">الدعم الفني</strong><small>Mohamed AL Meraikhi<br>Ahmed El Sanadidy</small></div>
+        <button class="service16-submit" onclick="showScreen('officialAppIssue')" data-i18n="openSupportTicket">فتح بلاغ دعم</button>
       </div>
     </div>
 
     <div class="home16-section">
       <div class="card gallery-card" id="contractorGallery">
-        <div class="gallery-head"><h3>تعرف على مركز إدارة المرور</h3><span>اسحب يميناً أو يساراً</span></div>
+        <div class="gallery-head"><h3 data-i18n="galleryTitle">تعرف على مركز إدارة المرور</h3><span data-i18n="gallerySwipe">اسحب يميناً أو يساراً</span></div>
         <div class="gallery-wrap">
           <div class="gallery-track" id="galleryTrack">
-            <div class="gallery-slide" onclick="openGalleryImage(0)"><img src="assets/traffic-centre-front.jpeg"><div class="gallery-caption">مبنى مركز إدارة المرور — أبوظبي</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(1)"><img src="assets/traffic-centre-wide.jpeg"><div class="gallery-caption">مركز إدارة المرور — الواجهة الخارجية</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(2)"><img src="assets/elevators.jpeg"><div class="gallery-caption">المدخل والمصاعد</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(3)"><img src="assets/meeting-room.jpeg"><div class="gallery-caption">قاعة الاجتماعات</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(4)"><img src="assets/zayed-hall-new.jpeg"><div class="gallery-caption">قاعة زايد</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(5)"><img src="assets/waiting-area.jpeg"><div class="gallery-caption">منطقة الانتظار — الطابق الأول</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(0)"><img src="assets/traffic-centre-front.jpeg"><div class="gallery-caption" data-i18n="galleryCap1">مبنى مركز إدارة المرور — أبوظبي</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(1)"><img src="assets/traffic-centre-wide.jpeg"><div class="gallery-caption" data-i18n="galleryCap2">مركز إدارة المرور — الواجهة الخارجية</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(2)"><img src="assets/elevators.jpeg"><div class="gallery-caption" data-i18n="galleryCap3">المدخل والمصاعد</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(3)"><img src="assets/meeting-room.jpeg"><div class="gallery-caption" data-i18n="galleryCap4">قاعة الاجتماعات</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(4)"><img src="assets/zayed-hall-new.jpeg"><div class="gallery-caption" data-i18n="galleryCap5">قاعة زايد</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(5)"><img src="assets/waiting-area.jpeg"><div class="gallery-caption" data-i18n="galleryCap6">منطقة الانتظار — الطابق الأول</div></div>
           </div>
           <button class="gallery-arrow gallery-prev" onclick="moveGallery(-1);event.stopPropagation()">‹</button>
           <button class="gallery-arrow gallery-next" onclick="moveGallery(1);event.stopPropagation()">›</button>
         </div>
         <div class="gallery-dots" id="galleryDots"></div>
-        <div class="gallery-tip">اضغط على أي صورة لفتحها بالحجم الكامل</div>
+        <div class="gallery-tip" data-i18n="galleryTip">اضغط على أي صورة لفتحها بالحجم الكامل</div>
       </div>
     </div>
   </div>
 
   <nav class="home16-nav">
-    <button class="active" onclick="showScreen('home')"><b>🏠</b>الرئيسية</button>
-    <button onclick="showScreen('requests')"><b>📋</b>طلباتي</button>
-    <button onclick="openBookingScreen()"><b>📅</b>حجز</button>
-    <button onclick="showScreen('notifications')"><b>🔔</b>الإشعارات</button>
-    <button onclick="showScreen('inquiries')"><b>💬</b>استفسار</button>
+    <button class="active" onclick="showScreen('home')"><b>🏠</b><span data-i18n="navHome">الرئيسية</span></button>
+    <button onclick="showScreen('requests')"><b>📋</b><span data-i18n="navRequests">طلباتي</span></button>
+    <button onclick="openBookingScreen()"><b>📅</b><span data-i18n="navBook">حجز</span></button>
+    <button onclick="showScreen('notifications')"><b>🔔</b><span data-i18n="navNotif">الإشعارات</span></button>
+    <button onclick="showScreen('inquiries')"><b>💬</b><span data-i18n="navInquiry">استفسار</span></button>
   </nav>
 </section>
 
@@ -1988,7 +2022,149 @@ function loadEngineerSelfAvailability(){
 }
 
 function renderAll(){renderRequests()}
-function setLang(lang){if(lang==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';document.getElementById('brand').textContent='Traffic Connect'}else{document.documentElement.lang='ar';document.documentElement.dir='rtl';document.getElementById('brand').textContent='تواصل مروري'}}
+const TC_I18N={
+  ar:{
+    brandArName:'تواصل مروري',brandEnName:'TRAFFIC CONNECT',
+    loginKicker:'✦ منصة موحدة لخدمات الحركة المرورية',
+    loginHeroTitle:'تواصل أسهل.<br>خدمة أسرع.',
+    loginHeroDesc:'احجز مواعيدك، تابع الطلبات، تواصل مع المهندسين والمسؤولين، وارفع الشكاوى والاستفسارات من مكان واحد.',
+    benefit1Title:'حجز أسرع',benefit1Desc:'اختر الخدمة والمهندس والموعد المناسب.',
+    benefit2Title:'متابعة واضحة',benefit2Desc:'اعرف حالة طلبك خطوة بخطوة.',
+    benefit3Title:'تواصل مباشر',benefit3Desc:'قنوات منظمة للدعم والاستفسارات.',
+    secureLogin:'تسجيل دخول آمن',loginTitle:'تسجيل الدخول',
+    loginSub:'أدخل بيانات حسابك. سيتم فتح الواجهة المناسبة تلقائيًا حسب صلاحية الحساب.',
+    loginSub2:'يتم تحديد نوع الحساب والصلاحيات تلقائيًا بعد تسجيل الدخول.',
+    emailOrPhone:'البريد الإلكتروني أو رقم الهاتف',password:'كلمة المرور',
+    rememberMe:'تذكرني',forgotPassword:'نسيت كلمة المرور؟',loginBtn:'تسجيل الدخول',
+    createContractorAccount:'إنشاء حساب مقاول جديد',activateStaffAccount:'تفعيل حساب موظف ITC لأول مرة',
+    footSecure:'آمن وموثوق',footNotif:'إشعارات فورية',footSupport:'دعم واستفسارات',
+    regHeroTag:'تواصل أسهل..',regHeroTag2:'خدمة أسرع',
+    regHeroDesc:'منصة لحجز ومتابعة المواعيد مع مهندسي الحركة المرورية والمسؤولين والشكاوى.',
+    regFeature1Desc:'احجز موعدك خلال دقائق',regFeature2Desc:'تابع حالة طلباتك لحظة بلحظة',regFeature3Desc:'فريق دعم جاهز لمساعدتك',
+    dataSecure:'بياناتك آمنة ومشفرة',fillDataBelow:'يرجى تعبئة البيانات التالية لإنشاء حسابك',
+    fullName:'الاسم الكامل',fullNamePh:'مثال: محمد أحمد الكتبي',
+    companyName:'اسم الشركة',companyNamePh:'أدخل اسم الشركة',
+    phoneNumber:'رقم التواصل',emailAddress:'البريد الإلكتروني',
+    enterPassword:'أدخل كلمة المرور',
+    rule8chars:'8 أحرف على الأقل',ruleUpper:'حرف كبير',ruleNumber:'رقم',ruleSymbol:'رمز خاص',
+    agreeTerms:'أوافق على <a>الشروط والأحكام</a> و <a>سياسة الخصوصية</a>',
+    createAccount:'إنشاء الحساب',or:'أو',alreadyHaveAccount:'لديك حساب بالفعل؟',
+    homeGreetingSmall:'تواصل مروري — خدمات المقاولين',welcomeDefault:'مرحباً بك',
+    logout:'تسجيل الخروج',controlPanel:'لوحة التحكم',
+    homeTag:'✦ كل خدماتك المرورية في مكان واحد',
+    homeHeroTitle:'أنجز معاملاتك بسهولة ووضوح',
+    homeHeroDesc:'احجز موعدًا، تابع طلباتك، ارفع شكوى أو استفسار، وتواصل مع فريق الدعم من واجهة واحدة.',
+    quickBookTitle:'📅 حجز موعد',quickBookDesc:'اختر المهندس والوقت المناسب',
+    quickRequestsTitle:'📋 طلباتي',quickRequestsDesc:'تابع آخر حالة لكل طلب',
+    quickComplaintTitle:'⚠️ شكوى جديدة',quickComplaintDesc:'أرسل شكوى مع الموقع والمرفقات',
+    mainServices:'الخدمات الرئيسية',viewMyRequests:'عرض طلباتي',
+    svcBookTitle:'حجز موعد',svcBookDesc:'حجز موعد مع مهندس أو اجتماع مع المسؤول.',
+    svcTrackTitle:'متابعة الطلبات',svcTrackDesc:'شاهد حالة الحجوزات والطلبات السابقة.',
+    svcComplaintTitle:'الشكاوى',svcComplaintDesc:'إرسال شكوى مع موقع وصور أو ملفات.',
+    svcInquiryTitle:'الاستفسارات',svcInquiryDesc:'أرسل استفسارًا عامًا وتابع الرد.',
+    svcAppIssueTitle:'مشكلة في التطبيق',svcAppIssueDesc:'بلاغ فني يصل إلى مسؤولي الدعم.',
+    svcNotifTitle:'الإشعارات',svcNotifDesc:'آخر التحديثات والتنبيهات على طلباتك.',
+    svcRateTitle:'التقييم والتعليق',svcRateDesc:'شارك رأيك واقتراحاتك لتحسين الخدمة.',
+    latestRequests:'أحدث الطلبات',viewAll:'عرض الكل',
+    requestsAppearHere:'طلباتك تظهر هنا بعد تسجيل الدخول',
+    requestsAppearHereDesc:'استخدم صفحة «طلباتي» لعرض البيانات الفعلية من النظام.',
+    live:'مباشر',supportContact:'الدعم والتواصل',
+    contactHours:'ساعات التواصل',contactHoursValue:'من 9:00 صباحًا إلى 2:30 ظهرًا',
+    techSupport:'الدعم الفني',openSupportTicket:'فتح بلاغ دعم',
+    galleryTitle:'تعرف على مركز إدارة المرور',gallerySwipe:'اسحب يميناً أو يساراً',
+    galleryCap1:'مبنى مركز إدارة المرور — أبوظبي',galleryCap2:'مركز إدارة المرور — الواجهة الخارجية',
+    galleryCap3:'المدخل والمصاعد',galleryCap4:'قاعة الاجتماعات',galleryCap5:'قاعة زايد',
+    galleryCap6:'منطقة الانتظار — الطابق الأول',galleryTip:'اضغط على أي صورة لفتحها بالحجم الكامل',
+    navHome:'الرئيسية',navRequests:'طلباتي',navBook:'حجز',navNotif:'الإشعارات',navInquiry:'استفسار'
+  },
+  en:{
+    brandArName:'Traffic Connect',brandEnName:'TRAFFIC CONNECT',
+    loginKicker:'✦ A unified platform for traffic services',
+    loginHeroTitle:'Easier contact.<br>Faster service.',
+    loginHeroDesc:'Book appointments, track requests, reach engineers and officials, and submit complaints and inquiries — all in one place.',
+    benefit1Title:'Faster booking',benefit1Desc:'Pick the service, engineer, and time that suits you.',
+    benefit2Title:'Clear tracking',benefit2Desc:'Know your request status step by step.',
+    benefit3Title:'Direct contact',benefit3Desc:'Organized channels for support and inquiries.',
+    secureLogin:'Secure sign-in',loginTitle:'Sign In',
+    loginSub:'Enter your account details. The right interface opens automatically based on your account type.',
+    loginSub2:'Your account type and permissions are determined automatically after sign-in.',
+    emailOrPhone:'Email or phone number',password:'Password',
+    rememberMe:'Remember me',forgotPassword:'Forgot password?',loginBtn:'Sign In',
+    createContractorAccount:'Create a new contractor account',activateStaffAccount:'Activate ITC staff account (first time)',
+    footSecure:'Safe & trusted',footNotif:'Instant notifications',footSupport:'Support & inquiries',
+    regHeroTag:'Easier contact..',regHeroTag2:'Faster service',
+    regHeroDesc:'A platform to book and track appointments with traffic engineers and officials, and submit complaints.',
+    regFeature1Desc:'Book your appointment in minutes',regFeature2Desc:'Track your request status live',regFeature3Desc:'A support team ready to help',
+    dataSecure:'Your data is safe & encrypted',fillDataBelow:'Please fill in the details below to create your account',
+    fullName:'Full name',fullNamePh:'e.g. Mohamed Ahmed Al Ketbi',
+    companyName:'Company name',companyNamePh:'Enter company name',
+    phoneNumber:'Phone number',emailAddress:'Email address',
+    enterPassword:'Enter password',
+    rule8chars:'At least 8 characters',ruleUpper:'Uppercase letter',ruleNumber:'Number',ruleSymbol:'Special character',
+    agreeTerms:'I agree to the <a>Terms & Conditions</a> and <a>Privacy Policy</a>',
+    createAccount:'Create Account',or:'or',alreadyHaveAccount:'Already have an account?',
+    homeGreetingSmall:'Traffic Connect — Contractor Services',welcomeDefault:'Welcome',
+    logout:'Logout',controlPanel:'Control Panel',
+    homeTag:'✦ All your traffic services in one place',
+    homeHeroTitle:'Get things done, simply and clearly',
+    homeHeroDesc:'Book an appointment, track your requests, file a complaint or inquiry, and reach our support team — all from one screen.',
+    quickBookTitle:'📅 Book Appointment',quickBookDesc:'Choose the engineer and a suitable time',
+    quickRequestsTitle:'📋 My Requests',quickRequestsDesc:'Track the latest status of every request',
+    quickComplaintTitle:'⚠️ New Complaint',quickComplaintDesc:'Submit a complaint with location and attachments',
+    mainServices:'Main Services',viewMyRequests:'View my requests',
+    svcBookTitle:'Book Appointment',svcBookDesc:'Book a visit with an engineer or a meeting with an official.',
+    svcTrackTitle:'Track Requests',svcTrackDesc:'View the status of past bookings and requests.',
+    svcComplaintTitle:'Complaints',svcComplaintDesc:'Submit a complaint with a location and photos or files.',
+    svcInquiryTitle:'Inquiries',svcInquiryDesc:'Send a general inquiry and follow up on the reply.',
+    svcAppIssueTitle:'App Issue',svcAppIssueDesc:'A technical report reaching support staff.',
+    svcNotifTitle:'Notifications',svcNotifDesc:'The latest updates and alerts on your requests.',
+    svcRateTitle:'Rate & Review',svcRateDesc:'Share your feedback and suggestions to improve the service.',
+    latestRequests:'Latest Requests',viewAll:'View all',
+    requestsAppearHere:'Your requests appear here after signing in',
+    requestsAppearHereDesc:'Use the "My Requests" page to view live data from the system.',
+    live:'Live',supportContact:'Support & Contact',
+    contactHours:'Contact hours',contactHoursValue:'9:00 AM to 2:30 PM',
+    techSupport:'Technical support',openSupportTicket:'Open a support ticket',
+    galleryTitle:'Get to know the Traffic Management Centre',gallerySwipe:'Swipe right or left',
+    galleryCap1:'Traffic Management Centre building — Abu Dhabi',galleryCap2:'Traffic Management Centre — exterior',
+    galleryCap3:'Entrance and elevators',galleryCap4:'Meeting room',galleryCap5:'Zayed Hall',
+    galleryCap6:'Waiting area — first floor',galleryTip:'Tap any photo to view it full-size',
+    navHome:'Home',navRequests:'Requests',navBook:'Book',navNotif:'Notifications',navInquiry:'Inquiry'
+  }
+};
+function tcApplyI18n(lang){
+  const dict=TC_I18N[lang]||TC_I18N.ar;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(dict[key]!==undefined)el.innerHTML=dict[key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const key=el.getAttribute('data-i18n-ph');
+    if(dict[key]!==undefined)el.setAttribute('placeholder',dict[key]);
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{
+    const key=el.getAttribute('data-i18n-title');
+    if(dict[key]!==undefined)el.setAttribute('title',dict[key]);
+  });
+}
+function setLang(lang){
+  const isEn=lang==='en';
+  document.documentElement.lang=isEn?'en':'ar';
+  document.documentElement.dir=isEn?'ltr':'rtl';
+  try{localStorage.setItem('tc_lang',isEn?'en':'ar')}catch(e){}
+  const brandEl=document.getElementById('brand');
+  if(brandEl)brandEl.textContent=isEn?'Traffic Connect':'تواصل مروري';
+  tcApplyI18n(isEn?'en':'ar');
+  document.querySelectorAll('[onclick^="setLang(\'ar\')"], [onclick^="setLang(\'en\')"]').forEach(btn=>{
+    const isThisEn=btn.getAttribute('onclick').includes("'en'");
+    btn.classList.toggle('active',isThisEn===isEn);
+  });
+}
+(function(){
+  let saved='ar';
+  try{saved=localStorage.getItem('tc_lang')||'ar'}catch(e){}
+  if(saved==='en')window.addEventListener('DOMContentLoaded',()=>setLang('en'));
+})();
 
 function showRegister(){document.getElementById('login').style.display='none';document.getElementById('shell').classList.remove('hidden');showScreen('register')}
 function showForgotPassword(){document.getElementById('login').style.display='none';document.getElementById('shell').classList.remove('hidden');showScreen('forgotPassword')}
