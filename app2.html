@@ -1,0 +1,1544 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E5B4A">
+<title>تواصل مروري — Traffic Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0E5B4A; --primary-dark:#0A4237; --teal:#17877A; --soft:#E6F1EE;
+  --bg:#F4F6F7; --surface:#fff; --border:#E4E9EB; --divider:#EDF1F2;
+  --text:#16282C; --text-2:#6B7B80; --muted:#9AA8AC;
+  --ok:#1B7F4E; --ok-bg:#E3F4EA;
+  --warn:#B5731A; --warn-bg:#FDF0DC;
+  --info:#1F6FA8; --info-bg:#E4F0F8;
+  --danger:#C5453F; --danger-bg:#FBE9E8;
+  --neutral:#6B7B80; --neutral-bg:#EEF1F2;
+  --star:#F2B01E;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{
+  font-family:'Cairo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:#E9EDEE;color:var(--text);font-size:14px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none;padding:0}
+.hide{display:none !important}
+
+/* ===== Phone shell ===== */
+#shell{
+  max-width:430px;margin:0 auto;min-height:100vh;background:var(--bg);
+  display:flex;flex-direction:column;position:relative;
+  box-shadow:0 0 40px rgba(16,40,36,.08);
+}
+#view{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pad{padding:16px}
+.pb-nav{padding-bottom:88px}
+
+/* ===== App bar ===== */
+.bar{
+  position:sticky;top:0;z-index:15;background:var(--bg);
+  display:flex;align-items:center;gap:8px;padding:14px 16px 10px;
+}
+.bar h1{flex:1;margin:0;font-size:17px;font-weight:800;text-align:center}
+.bar-btn{
+  width:36px;height:36px;border-radius:12px;display:grid;place-items:center;
+  color:var(--text-2);flex:none;
+}
+.bar-btn:active{background:var(--soft)}
+
+/* ===== Brand ===== */
+.mark{
+  width:64px;height:64px;border-radius:20px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--teal),var(--primary-dark));color:#fff;flex:none;
+}
+.mark svg{width:34px;height:34px}
+.brand{display:flex;flex-direction:column;align-items:center;gap:10px}
+.brand h2{margin:0;font-size:20px;font-weight:800;color:var(--primary-dark)}
+.brand p{margin:0;font-size:11px;font-weight:700;letter-spacing:1.6px;color:var(--teal)}
+
+/* ===== Cards ===== */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:14px;
+}
+.card+.card{margin-top:10px}
+.card.tap:active{border-color:var(--primary)}
+
+/* ===== Forms ===== */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--text-2);margin-bottom:6px}
+.field label .req{color:var(--danger);margin-inline-end:3px}
+.inp{
+  width:100%;background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:14px;outline:none;transition:border-color .15s;
+}
+.inp:focus{border-color:var(--primary)}
+textarea.inp{resize:vertical;min-height:100px}
+.inp-icon{position:relative}
+.inp-icon .inp{padding-inline-start:44px}
+.inp-icon .ic{
+  position:absolute;inset-inline-start:14px;top:50%;transform:translateY(-50%);
+  color:var(--muted);pointer-events:none;
+}
+.inp-icon .eye{
+  position:absolute;inset-inline-end:12px;top:50%;transform:translateY(-50%);
+  color:var(--muted);
+}
+
+.btn{
+  width:100%;background:var(--primary);color:#fff;border-radius:14px;padding:15px;
+  font-weight:700;font-size:15px;line-height:1.35;
+}
+.btn:active{background:var(--primary-dark)}
+.btn:disabled{background:var(--border);color:var(--muted)}
+.btn .sub{display:block;font-size:11px;font-weight:600;opacity:.85}
+.btn-out{
+  background:var(--surface);color:var(--danger);border:1px solid #F3C9C7;
+}
+.btn-ghost{background:var(--surface);color:var(--primary);border:1px solid var(--border)}
+.btn-link{color:var(--primary);font-weight:700;font-size:13px;width:auto;padding:8px}
+
+.dashed{
+  width:100%;border:1px solid rgba(14,91,74,.35);border-radius:14px;background:var(--surface);
+  color:var(--primary);font-weight:700;font-size:13.5px;padding:13px;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+
+.checkrow{display:flex;align-items:flex-start;gap:10px;margin:2px 0 4px}
+.checkrow input{width:19px;height:19px;accent-color:var(--primary);margin-top:2px;flex:none}
+.checkrow span{font-size:12.5px;color:var(--text-2);line-height:1.55}
+
+/* ===== Language chips ===== */
+.langs{display:flex;justify-content:space-between;gap:10px}
+.lang{
+  display:flex;align-items:center;gap:6px;padding:8px 15px;border-radius:999px;
+  border:1px solid var(--border);background:var(--surface);
+  font-size:12.5px;font-weight:700;color:var(--text-2);
+}
+.lang.on{background:var(--primary);border-color:var(--primary);color:#fff}
+
+/* ===== Welcome card ===== */
+.welcome{
+  border-radius:20px;padding:18px;display:flex;align-items:center;gap:14px;
+  background:linear-gradient(135deg,var(--teal),var(--primary-dark));color:#fff;
+}
+.welcome .t{flex:1;min-width:0}
+.welcome .t small{font-size:12px;color:#D6E8E4}
+.welcome .t b{display:block;font-size:20px;font-weight:800;line-height:1.3}
+.welcome .t span{font-size:12px;color:#BFDCD6}
+.avatar{
+  width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.18);font-weight:800;font-size:19px;flex:none;
+}
+
+/* ===== Service grid ===== */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;
+  padding:18px 10px;display:flex;flex-direction:column;align-items:center;gap:10px;
+  position:relative;
+}
+.tile:active{border-color:var(--primary)}
+.tile .ico{
+  width:46px;height:46px;border-radius:14px;background:var(--soft);color:var(--primary);
+  display:grid;place-items:center;
+}
+.tile b{font-size:13.5px;font-weight:700;text-align:center;line-height:1.35}
+.tile small{font-size:11px;color:var(--muted)}
+.tile .dot{
+  position:absolute;top:10px;inset-inline-end:10px;min-width:18px;height:18px;
+  border-radius:999px;background:var(--danger);color:#fff;font-size:10px;font-weight:800;
+  display:grid;place-items:center;padding:0 5px;
+}
+
+/* ===== Stepper ===== */
+.stepper{display:flex;align-items:flex-start;margin-bottom:18px}
+.step{flex:1;display:flex;flex-direction:column;align-items:center}
+.step .line{display:flex;align-items:center;width:100%}
+.step .ln{flex:1;height:2px;background:var(--border)}
+.step .ln.on{background:var(--primary)}
+.step .n{
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex:none;
+  border:1px solid var(--border);background:var(--surface);color:var(--muted);
+  font-size:12px;font-weight:700;
+}
+.step .n.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.step label{font-size:10.5px;margin-top:6px;color:var(--muted);text-align:center;line-height:1.3}
+.step label.on{color:var(--primary);font-weight:700}
+
+/* ===== Option card ===== */
+.opt{
+  width:100%;display:flex;align-items:center;gap:12px;text-align:start;
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:14px;
+}
+.opt.on{background:var(--soft);border-color:var(--primary)}
+.opt .ico{
+  width:42px;height:42px;border-radius:12px;background:var(--soft);color:var(--primary);
+  display:grid;place-items:center;flex:none;
+}
+.opt.on .ico{background:var(--primary);color:#fff}
+.opt .t{flex:1;min-width:0}
+.opt .t b{display:block;font-size:14px;font-weight:700;line-height:1.4}
+.opt .t small{font-size:11.5px;color:var(--text-2)}
+.radio{
+  width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex:none;
+  display:grid;place-items:center;
+}
+.opt.on .radio{border-color:var(--primary)}
+.opt.on .radio::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--primary)}
+
+/* ===== Chips ===== */
+.chip{
+  padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;
+}
+.c-ok{background:var(--ok-bg);color:var(--ok)}
+.c-warn{background:var(--warn-bg);color:var(--warn)}
+.c-info{background:var(--info-bg);color:var(--info)}
+.c-danger{background:var(--danger-bg);color:var(--danger)}
+.c-neutral{background:var(--neutral-bg);color:var(--neutral)}
+
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filt{
+  flex:none;padding:8px 16px;border-radius:999px;border:1px solid var(--border);
+  background:var(--surface);font-size:12.5px;font-weight:700;color:var(--text-2);
+}
+.filt.on{background:var(--primary);border-color:var(--primary);color:#fff}
+
+/* ===== Request card ===== */
+.req{display:flex;align-items:flex-start;gap:12px}
+.req .t{flex:1;min-width:0;text-align:start}
+.req .t b{display:block;font-size:14px;font-weight:700;line-height:1.4}
+.req .t .ref{font-size:12px;color:var(--text-2);font-weight:600;margin-top:4px}
+.req .t .dt{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+/* ===== Calendar ===== */
+.cal-head{display:flex;align-items:center;margin-bottom:6px}
+.cal-head b{flex:1;text-align:center;font-size:15px;font-weight:800}
+.week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.week span{text-align:center;font-size:10.5px;font-weight:700;color:var(--muted);padding:6px 0}
+.day{
+  aspect-ratio:1;display:grid;place-items:center;border-radius:50%;
+  font-size:13px;font-weight:600;
+}
+.day.off{color:#CBD5D7}
+.day.on{background:var(--primary);color:#fff;font-weight:800}
+.day.free{color:var(--primary);font-weight:800}
+
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.slot{
+  padding:12px 4px;border-radius:12px;border:1px solid var(--border);
+  background:var(--surface);font-size:12.5px;font-weight:700;text-align:center;
+}
+.slot.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.slot:disabled{background:var(--neutral-bg);color:var(--muted);text-decoration:line-through}
+
+/* ===== Rows ===== */
+.rows{border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:hidden}
+.row{padding:12px 14px;border-bottom:1px solid var(--divider);text-align:start}
+.row:last-child{border-bottom:none}
+.row small{display:block;font-size:11.5px;color:var(--muted)}
+.row div{font-size:13.5px;font-weight:700;margin-top:2px;white-space:pre-wrap}
+.row.flex{display:flex;align-items:center;gap:10px}
+.row.flex .g{flex:1}
+.row.flex .v{font-size:13.5px;font-weight:700}
+
+/* ===== Bottom nav ===== */
+.nav{
+  position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 max(8px,env(safe-area-inset-bottom));
+}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);font-size:10.5px}
+.nav button.on{color:var(--primary);font-weight:700}
+
+/* ===== Misc ===== */
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty .circle{
+  width:76px;height:76px;border-radius:50%;background:var(--soft);color:var(--primary);
+  display:grid;place-items:center;margin:0 auto 14px;font-size:30px;
+}
+.alert{border-radius:12px;padding:12px 14px;font-size:12.5px;margin-bottom:14px}
+.a-err{background:var(--danger-bg);color:var(--danger)}
+.a-ok{background:var(--ok-bg);color:var(--ok)}
+.sec{font-size:15px;font-weight:800;margin:0 0 10px}
+.center{text-align:center}
+.mt{margin-top:14px}
+.footer-cta{padding:16px;background:var(--bg);position:sticky;bottom:0}
+
+.stars{display:flex;justify-content:center;gap:4px}
+.stars button{font-size:36px;line-height:1;color:var(--border)}
+.stars button.on{color:var(--star)}
+
+/* ===== صور واقعية ===== */
+.hero{
+  position:relative;width:100%;max-width:340px;height:190px;border-radius:22px;
+  overflow:hidden;background:linear-gradient(#EFF6F4,#D8E7E3);
+  border:1px solid var(--border);
+}
+.hero.hero-sm{height:120px;max-width:100%}
+.hero img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-fade{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,66,55,.55),rgba(10,66,55,0) 55%);
+}
+.hero-ico{
+  position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;
+  gap:16px;color:#fff;
+}
+
+.opt-photo{
+  width:56px;height:56px;border-radius:14px;object-fit:cover;flex:none;
+  border:1px solid var(--border);background:var(--soft);
+}
+.opt.on .opt-photo{border-color:var(--primary)}
+.ava-photo{
+  width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;
+  border:1px solid var(--border);
+}
+
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:60;
+  background:var(--primary-dark);color:#fff;padding:12px 20px;border-radius:14px;
+  font-size:13px;font-weight:600;max-width:90%;text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div id="shell">
+  <div id="view"></div>
+  <nav class="nav hide" id="nav"></nav>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ================= Supabase ================= */
+var SUPABASE_URL='https://pwcptgtdgzsfflafschl.supabase.co';
+var SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3Y3B0Z3RkZ3pzZmZsYWZzY2hsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5Njg3NzAsImV4cCI6MjEwMjU0NDc3MH0.YgYXo-rYoCS3fH0y27QVNXHa8qi_32XB5qj6efuhJ6k';
+var db=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+
+/* ================= i18n ================= */
+var L={
+ar:{
+ dir:'rtl',appName:'تواصل مروري',appEn:'Traffic Connect',
+ tagline:'معاً من أجل حركة مرورية آمنة ومدينة أكثر انسيابية',centre:'مركز النقل المتكامل',
+ welcomeBack:'مرحباً بعودتك',welcomeBackSub:'Welcome Back',
+ email:'البريد الإلكتروني',password:'كلمة المرور',remember:'تذكرني',
+ login:'تسجيل الدخول',loginSub:'Login',forgot:'نسيت كلمة المرور؟',
+ noAccount:'ليس لديك حساب؟ سجل الآن',adminOnly:'مخصص للأدمن فقط',
+ forgotTitle:'نسيت كلمة المرور؟',
+ forgotHint:'أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور',
+ sendLink:'إرسال الرابط',linkSent:'تم إرسال الرابط إلى بريدك',backLogin:'العودة لتسجيل الدخول',
+ signupTitle:'تسجيل مقاول جديد',fullName:'الاسم الكامل',company:'اسم الشركة',
+ mobile:'رقم الهاتف',agree:'أوافق على الشروط والأحكام وسياسة الخصوصية',
+ createAcc:'إنشاء حساب',accCreated:'تم إنشاء الحساب — تحقق من بريدك لتأكيده',
+ badLogin:'البريد الإلكتروني أو كلمة المرور غير صحيحة',
+ home:'الرئيسية',myReq:'طلباتي',inq:'الاستفسارات',profile:'البروفايل',
+ hello:'مرحباً بك',
+ sBook:'حجز موعد',sBookEn:'Book Appointment',sReq:'طلباتي',sReqEn:'My Requests',
+ sInq:'الاستفسارات',sInqEn:'Inquiries',sCmp:'الشكاوى',sCmpEn:'Complaints',
+ sIssue:'مشكلة في التطبيق',sIssueEn:'App Issue',sNotif:'الإشعارات',sNotifEn:'Notifications',
+ sPermits:'التصاريح والتحويلات',sPermitsEn:'Permits & Diversions',
+ sRate:'تقييم التطبيق',sRateEn:'Rate App',
+ book:'حجز موعد',stService:'الخدمة',stEng:'المهندس',stTime:'التاريخ والوقت',stDone:'تأكيد',
+ pickRegion:'اختر المنطقة',pickEng:'اختر المهندس',searchEng:'ابحث عن مهندس',all:'الكل',
+ available:'متاح',busy:'مشغول',
+ pickTime:'اختر التاريخ والوقت',freeSlots:'الأوقات المتاحة',
+ hours:'توقيت الخدمة المتاح',hoursVal:'09:00 AM - 2:30 PM',
+ noSlots:'لا توجد أوقات متاحة في هذا اليوم',
+ apptDetails:'تفاصيل الموعد',reqNo:'رقم الطلب',region:'المنطقة',service:'نوع الخدمة',
+ engineer:'المهندس',permitNo:'رقم التصريح أو الطلب',optional:'اختياري',
+ notes:'ملاحظات',notesHint:'أضف أي ملاحظات تساعد المهندس على التحضير',
+ confirmBook:'تأكيد الحجز',booked:'تم تأكيد حجز موعدك بنجاح',
+ next:'التالي',send:'إرسال',save:'حفظ',close:'إغلاق',required:'هذا الحقل مطلوب',
+ tabAll:'الكل',tabAppt:'مواعيد',tabInq:'استفسارات',tabCmp:'شكاوى',
+ noReq:'لا توجد طلبات حتى الآن',
+ newInq:'استفسار جديد',inqTopic:'موضوع الاستفسار',inqBody:'الاستفسار',
+ inqHint:'اكتب استفسارك بالتفصيل...',inqSent:'تم إرسال الاستفسار',noInq:'لا توجد استفسارات',
+ cmp:'الشكاوى',newCmp:'شكوى جديد',cmpType:'نوع الشكوى',cmpDesc:'وصف المشكلة',
+ cmpLoc:'الموقع',cmpSent:'تم تسجيل الشكوى',noCmp:'لا توجد شكاوى',
+ issue:'مشكلة في التطبيق',newIssue:'بلاغ جديد',issueType:'نوع المشكلة',
+ issuePage:'اسم الصفحة التي ظهرت فيها المشكلة',issueSent:'تم إرسال البلاغ',noIssue:'لا توجد بلاغات',
+ notifs:'الإشعارات',noNotifs:'لا توجد إشعارات',markAll:'تعليم الكل كمقروء',
+ myCompany:'شركتي',tradeNo:'رقم السجل التجاري',logins:'عدد مرات دخول التطبيق',
+ contacts:'عدد مرات التواصل',bookings:'عدد الحجوزات',lastBook:'آخر حجز',
+ times:'مرة',bookingsU:'حجوزات',viewAll:'عرض كل النشاط',
+ contact:'تواصل معنا',
+ contactDesc:'للاستفسارات العامة والدعم الفني يمكنك التواصل معنا عبر:',
+ contactNote:'أو عبر الاستفسارات في التطبيق وسيتم الرد عليك في أقرب وقت',
+ rate:'تقييم التطبيق',rateShare:'شاركنا رأيك',rateCmt:'اكتب تعليقك (اختياري)',
+ rateHint:'اكتب تعليقك هنا...',rateSend:'إرسال التقييم',rateThanks:'شكراً لك، تم استلام تقييمك',
+ staffLink:'موظف في المركز؟ فعّل حسابك',
+ staffTitle:'تفعيل حساب موظف',
+ staffHint:'أدخل بريدك الرسمي @itc.gov.ae واختر كلمة مرور. سيمنحك النظام صلاحيتك تلقائياً حسب الدليل المعتمد.',
+ staffEmail:'البريد الرسمي',confirmPass:'تأكيد كلمة المرور',
+ activate:'تفعيل الحساب',
+ staffNotAuth:'هذا البريد غير مسجّل في دليل الموظفين — راجع إدارة النظام',
+ staffUseStaff:'هذا بريد موظف — استخدم «تفعيل حساب موظف» وليس تسجيل مقاول',
+ passMismatch:'كلمتا المرور غير متطابقتين',
+ passShort:'كلمة المرور يجب ألا تقل عن 8 أحرف',
+ staffDone:'تم إنشاء حسابك — افتح بريدك وأكّد الحساب ثم سجّل الدخول',
+ staffPortal:'حسابك حساب موظف — استخدم لوحة العمل',
+ openPanel:'فتح لوحة العمل',
+ logout:'تسجيل الخروج',status:'الحالة',reply:'رد الجهة المختصة',date:'التاريخ',
+ details:'التفاصيل',track:'متابعة الطلب',noData:'لا توجد بيانات',
+ permits:'التصاريح والتحويلات المرورية',soon:'ستتوفر هذه الخدمة قريباً'
+},
+en:{
+ dir:'ltr',appName:'Traffic Connect',appEn:'تواصل مروري',
+ tagline:'Together for safer traffic and a smoother city',centre:'Integrated Transport Centre',
+ welcomeBack:'Welcome Back',welcomeBackSub:'مرحباً بعودتك',
+ email:'Email address',password:'Password',remember:'Remember me',
+ login:'Login',loginSub:'تسجيل الدخول',forgot:'Forgot Password?',
+ noAccount:"Don't have an account? Sign up",adminOnly:'Administrators only',
+ forgotTitle:'Forgot Password?',
+ forgotHint:'Enter your email and we will send you a reset link',
+ sendLink:'Send link',linkSent:'Reset link sent to your email',backLogin:'Back to login',
+ signupTitle:'New Contractor Registration',fullName:'Full Name',company:'Company Name',
+ mobile:'Mobile Number',agree:'I agree to the Terms and Privacy Policy',
+ createAcc:'Create account',accCreated:'Account created — check your email to confirm',
+ badLogin:'Incorrect email or password',
+ home:'Home',myReq:'Requests',inq:'Inquiries',profile:'Profile',
+ hello:'Welcome',
+ sBook:'Book Appointment',sBookEn:'حجز موعد',sReq:'My Requests',sReqEn:'طلباتي',
+ sInq:'Inquiries',sInqEn:'الاستفسارات',sCmp:'Complaints',sCmpEn:'الشكاوى',
+ sIssue:'App Issue',sIssueEn:'مشكلة في التطبيق',sNotif:'Notifications',sNotifEn:'الإشعارات',
+ sPermits:'Permits & Diversions',sPermitsEn:'التصاريح والتحويلات',
+ sRate:'Rate App',sRateEn:'تقييم التطبيق',
+ book:'Book Appointment',stService:'Service',stEng:'Engineer',stTime:'Date & time',stDone:'Confirm',
+ pickRegion:'Select region',pickEng:'Select engineer',searchEng:'Search for an engineer',all:'All',
+ available:'Available',busy:'Busy',
+ pickTime:'Select date and time',freeSlots:'Available times',
+ hours:'Service hours',hoursVal:'09:00 AM - 2:30 PM',
+ noSlots:'No available times on this day',
+ apptDetails:'Appointment details',reqNo:'Request number',region:'Region',service:'Service type',
+ engineer:'Engineer',permitNo:'Permit / Request number',optional:'optional',
+ notes:'Notes',notesHint:'Add any notes that help the engineer prepare',
+ confirmBook:'Confirm booking',booked:'Your appointment has been confirmed',
+ next:'Next',send:'Submit',save:'Save',close:'Close',required:'This field is required',
+ tabAll:'All',tabAppt:'Appointments',tabInq:'Inquiries',tabCmp:'Complaints',
+ noReq:'No requests yet',
+ newInq:'New inquiry',inqTopic:'Inquiry topic',inqBody:'Inquiry',
+ inqHint:'Write your inquiry in detail...',inqSent:'Inquiry submitted',noInq:'No inquiries',
+ cmp:'Complaints',newCmp:'New complaint',cmpType:'Complaint type',cmpDesc:'Problem description',
+ cmpLoc:'Location',cmpSent:'Complaint registered',noCmp:'No complaints',
+ issue:'App Issue',newIssue:'New report',issueType:'Issue type',
+ issuePage:'Screen where the issue appeared',issueSent:'Report sent',noIssue:'No reports',
+ notifs:'Notifications',noNotifs:'No notifications',markAll:'Mark all as read',
+ myCompany:'My Company',tradeNo:'Trade licence number',logins:'App logins',
+ contacts:'Contacts made',bookings:'Bookings',lastBook:'Last booking',
+ times:'times',bookingsU:'bookings',viewAll:'View all activity',
+ contact:'Contact us',
+ contactDesc:'For general inquiries and technical support you can reach us at:',
+ contactNote:'Or through in-app inquiries and we will reply shortly',
+ rate:'Rate the app',rateShare:'Share your opinion',rateCmt:'Write a comment (optional)',
+ rateHint:'Write your comment here...',rateSend:'Submit rating',rateThanks:'Thank you, rating received',
+ staffLink:'Centre staff? Activate your account',
+ staffTitle:'Staff account activation',
+ staffHint:'Enter your official @itc.gov.ae email and choose a password. Your role is granted automatically from the approved directory.',
+ staffEmail:'Official email',confirmPass:'Confirm password',
+ activate:'Activate account',
+ staffNotAuth:'This email is not in the staff directory — contact system administration',
+ staffUseStaff:'This is a staff email — use "Staff account activation" instead',
+ passMismatch:'Passwords do not match',
+ passShort:'Password must be at least 8 characters',
+ staffDone:'Account created — confirm it from your email, then sign in',
+ staffPortal:'This is a staff account — use the work panel',
+ openPanel:'Open work panel',
+ logout:'Log out',status:'Status',reply:'Official reply',date:'Date',
+ details:'Details',track:'Track request',noData:'No data',
+ permits:'Permits & Traffic Diversions',soon:'This service is coming soon'
+}};
+
+var APP_VERSION='v5';
+var lang='ar';
+function t(k){return (L[lang][k]!==undefined?L[lang][k]:(L.ar[k]!==undefined?L.ar[k]:k));}
+function setLang(v){
+  lang=v;
+  document.documentElement.lang=v;
+  document.documentElement.dir=L[v].dir;
+  render();
+}
+
+/* ================= الصور ==================
+   أسماء ملفات الصور الموجودة في نفس مجلد الموقع (مستودع traffic-connect).
+   لتغيير أي صورة: بدّل اسم الملف هنا فقط — لا شيء آخر.
+   لو لم تُوجد الصورة يعود التصميم تلقائياً للخلفية المتدرجة بدون خطأ. */
+var IMG={
+  hero:'traffic-centre-wide.jpeg',
+  regions:{
+    'أبوظبي':'مركز إدارة حركة المرور.jpeg',
+    'العين':'traffic-centre-front.jpeg',
+    'الظفرة':'zayed-hall.jpeg'
+  }
+};
+/* ترميز اسم الملف — يدعم الأسماء العربية والمسافات */
+function imgUrl(name){ return name?encodeURI(name):''; }
+function regionImg(dep){
+  var k=(dep&&dep.name_ar)||'';
+  for(var n in IMG.regions){
+    if(Object.prototype.hasOwnProperty.call(IMG.regions,n) && k.indexOf(n)!==-1)
+      return IMG.regions[n];
+  }
+  return '';
+}
+
+/* ================= Options ================= */
+var BOOK_SERVICES=[
+ {id:'officer',ar:'حجز اجتماع مع مسؤول التحويلات المرورية',
+  en:'Meeting with the Traffic Diversions Officer',icon:'badge'},
+ {id:'engineer',ar:'حجز موعد مع مهندس',en:'Appointment with an engineer',icon:'eng'}
+];
+var INQ_TOPICS=[
+ {ar:'تصاريح وتحويلات مرورية',en:'Permits & traffic diversions'},
+ {ar:'استفسار عن موعد',en:'Appointment inquiry'},
+ {ar:'اشتراطات السلامة',en:'Safety requirements'},
+ {ar:'استفسار عام',en:'General inquiry'}
+];
+var CMP_TYPES=[
+ {ar:'ازدحام بسبب تحويلة',en:'Congestion from a diversion'},
+ {ar:'إغلاق طريق بدون لوحات',en:'Road closed without signage'},
+ {ar:'شكوى إنارة',en:'Lighting complaint'},
+ {ar:'مشكلة في التصريح',en:'Permit problem'},
+ {ar:'أخرى',en:'Other'}
+];
+var ISSUE_TYPES=[
+ {ar:'مشكلة تسجيل الدخول',en:'Login problem'},
+ {ar:'مشكلة رفع الملفات',en:'File upload problem'},
+ {ar:'بيانات غير صحيحة',en:'Incorrect data'},
+ {ar:'التطبيق لا يعمل',en:'App not working'},
+ {ar:'مشكلة في تصريح أو طلب',en:'Permit or request problem'},
+ {ar:'أخرى',en:'Other'}
+];
+var TICKET={open:{ar:'مفتوح',en:'Open',c:'c-ok'},in_review:{ar:'قيد المراجعة',en:'Under review',c:'c-warn'},
+ resolved:{ar:'تم الحل',en:'Resolved',c:'c-info'},closed:{ar:'مغلق',en:'Closed',c:'c-neutral'}};
+var APPT={pending:{ar:'قيد الانتظار',en:'Pending',c:'c-warn'},accepted:{ar:'مؤكد',en:'Confirmed',c:'c-ok'},
+ proposed:{ar:'اقتراح موعد',en:'Rescheduled',c:'c-info'},rejected:{ar:'مرفوض',en:'Rejected',c:'c-danger'},
+ cancelled:{ar:'ملغي',en:'Cancelled',c:'c-danger'},completed:{ar:'مكتمل',en:'Completed',c:'c-neutral'}};
+
+/* ================= State ================= */
+var S={view:'splash',user:null,profile:null,tab:'home',
+  depts:[],engs:[],appts:[],inqs:[],cmps:[],issues:[],notifs:[],
+  filter:'all',draft:{},detail:null,rating:5,busy:false,msg:null};
+
+/* ================= Helpers ================= */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+  .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function nm(o){return o?(lang==='ar'?o.ar:o.en):'';}
+function initials(n){
+  var p=String(n||'').trim().split(/\s+/).filter(Boolean);
+  if(!p.length)return '؟';
+  return p.length===1?p[0].slice(0,1):(p[0].slice(0,1)+p[1].slice(0,1));
+}
+function fdate(v){
+  if(!v)return '—';
+  try{return new Intl.DateTimeFormat(lang==='ar'?'ar-AE-u-ca-gregory':'en-GB',
+    {day:'numeric',month:'long',year:'numeric'}).format(new Date(v));}
+  catch(e){return String(v).slice(0,10);}
+}
+function ftime(hm){
+  if(!hm)return '';
+  var p=String(hm).split(':'),h=+p[0],m=p[1]||'00';
+  var ap=h<12?'AM':'PM',h12=h%12===0?12:h%12;
+  return (h12<10?'0':'')+h12+':'+m+' '+ap;
+}
+function ymd(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function toast(m){
+  var el=document.createElement('div');
+  el.className='toast';el.textContent=m;document.body.appendChild(el);
+  setTimeout(function(){el.remove();},2600);
+}
+/* صورة المهندس: تُقرأ من عمود avatar_url في قاعدة البيانات،
+   وإن لم تكن موجودة تظهر الأحرف الأولى من اسمه. */
+function engAvatar(e,size){
+  var s=size||44;
+  var fallback='<span class="avatar" style="width:'+s+'px;height:'+s+'px;'+
+    'background:var(--soft);color:var(--primary);font-size:'+Math.round(s*0.34)+'px">'+
+    esc(initials(e.display_name))+'</span>';
+  if(!e.avatar_url) return fallback;
+  return '<img class="ava-photo" style="width:'+s+'px;height:'+s+'px" '+
+    'src="'+esc(e.avatar_url)+'" alt="" '+
+    'onerror="this.outerHTML=this.getAttribute(\'data-fb\')" '+
+    'data-fb="'+esc(fallback)+'">';
+}
+
+function chip(st,map){
+  var o=map[st]||{ar:st,en:st,c:'c-neutral'};
+  return '<span class="chip '+o.c+'">'+esc(lang==='ar'?o.ar:o.en)+'</span>';
+}
+function go(v){S.view=v;S.msg=null;$('view').scrollTop=0;render();}
+
+/* ================= Icons ================= */
+var I={
+ mark:'<path d="M12 2v20"/><path d="M5 22 9 2"/><path d="m19 22-4-20"/>',
+ back:'<path d="m15 18-6-6 6-6"/>',
+ bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+ mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/>',
+ lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+ eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+ cal:'<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+ list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+ chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+ warn:'<path d="M10.3 3.3 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.3a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/>',
+ bug:'<path d="M8 2v2M16 2v2M9 6h6a3 3 0 0 1 3 3v5a6 6 0 0 1-12 0V9a3 3 0 0 1 3-3Z"/><path d="M3 11h3M18 11h3M4 6l2 2M20 6l-2 2M4 18l2-2M20 18l-2-2"/>',
+ route:'<circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M9 19h5a4 4 0 0 0 0-8H10a4 4 0 0 1 0-8h5"/>',
+ star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/>',
+ home:'<path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>',
+ badge:'<rect width="18" height="14" x="3" y="7" rx="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/><circle cx="12" cy="13" r="2"/>',
+ eng:'<path d="M14.7 6.3a4 4 0 0 1-5 5L4 17v3h3l5.7-5.7a4 4 0 0 1 5-5Z"/>',
+ city:'<path d="M3 21h18M6 21V8l6-4 6 4v13"/><path d="M10 21v-5h4v5"/>',
+ bank:'<path d="M3 21h18M4 10h16M5 10V7l7-4 7 4v3M6 10v11M10 10v11M14 10v11M18 10v11"/>',
+ bus:'<path d="M4 17V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v11"/><path d="M4 12h16M7 21h.01M17 21h.01M6 17v4M18 17v4"/>',
+ phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>',
+ head:'<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>',
+ out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ chk:'<path d="M20 6 9 17l-5-5"/>',
+ copy:'<rect width="13" height="13" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+ loc:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+ biz:'<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+ globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/>',
+ left:'<path d="m9 18 6-6-6-6"/>',
+ right:'<path d="m15 18-6-6 6-6"/>'
+};
+function svg(k,sz){
+  return '<svg width="'+(sz||20)+'" height="'+(sz||20)+'" viewBox="0 0 24 24" fill="none" '+
+    'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+
+    I[k]+'</svg>';
+}
+
+/* ================= Data ================= */
+async function loadRef(){
+  var d=await db.from('departments').select('id,name_ar,name_en,region').eq('is_active',true);
+  S.depts=d.data||[];
+  var e=await db.from('engineers')
+        .select('id,display_name,specialization,region,availability,rating,avatar_url')
+        .eq('is_active',true).order('display_name');
+  S.engs=e.data||[];
+}
+async function loadMine(){
+  if(!S.user)return;
+  var uid=S.user.id;
+  var a=await db.from('appointments').select('*').eq('contractor_id',uid)
+        .order('created_at',{ascending:false});
+  S.appts=a.data||[];
+  var i=await db.from('inquiries').select('*').eq('contractor_id',uid)
+        .order('created_at',{ascending:false});
+  S.inqs=i.data||[];
+  var c=await db.from('complaints').select('*').eq('contractor_id',uid)
+        .order('created_at',{ascending:false});
+  S.cmps=c.data||[];
+  var s=await db.from('official_app_issues').select('*').eq('reporter_id',uid)
+        .order('created_at',{ascending:false});
+  S.issues=s.data||[];
+  var n=await db.from('notifications').select('*').eq('user_id',uid)
+        .order('created_at',{ascending:false}).limit(50);
+  S.notifs=n.data||[];
+}
+function unread(){return S.notifs.filter(function(n){return !n.is_read;}).length;}
+
+/* ================= Auth ================= */
+async function doLogin(){
+  S.busy=true;S.msg=null;render();
+  var r=await db.auth.signInWithPassword({
+    email:($('f_email').value||'').trim(),password:$('f_pass').value||''});
+  if(r.error){S.busy=false;S.msg={t:'err',m:t('badLogin')};render();return;}
+  await boot();
+}
+async function doStaffSignup(){
+  var em=($('f_email').value||'').trim();
+  var p1=$('f_pass').value||'', p2=$('f_pass2').value||'';
+  if(!em){S.msg={t:'err',m:t('required')};render();return;}
+  if(p1.length<8){S.msg={t:'err',m:t('passShort')};render();return;}
+  if(p1!==p2){S.msg={t:'err',m:t('passMismatch')};render();return;}
+
+  S.busy=true;S.msg=null;render();
+  var r=await db.auth.signUp({email:em,password:p1,
+    options:{data:{account_type:'staff',phone:($('f_tel').value||'').trim()}}});
+  S.busy=false;
+  if(r.error){
+    var m=String(r.error.message||'');
+    if(m.indexOf('staff_email_not_authorized')!==-1) m=t('staffNotAuth');
+    S.msg={t:'err',m:m};render();return;
+  }
+  toast(t('staffDone'));go('login');
+}
+
+async function doSignup(){
+  if(!$('f_agree').checked){S.msg={t:'err',m:t('agree')};render();return;}
+  S.busy=true;S.msg=null;render();
+  var r=await db.auth.signUp({
+    email:($('f_email').value||'').trim(),password:$('f_pass').value||'',
+    options:{data:{full_name:($('f_name').value||'').trim(),
+      company_name:($('f_co').value||'').trim(),phone:($('f_tel').value||'').trim()}}});
+  S.busy=false;
+  if(r.error){
+    var em=String(r.error.message||'');
+    if(em.indexOf('staff_email_use_staff_activation')!==-1) em=t('staffUseStaff');
+    S.msg={t:'err',m:em};render();return;
+  }
+  toast(t('accCreated'));go('login');
+}
+async function doForgot(){
+  S.busy=true;render();
+  await db.auth.resetPasswordForEmail(($('f_email').value||'').trim(),
+    {redirectTo:location.origin+location.pathname});
+  S.busy=false;toast(t('linkSent'));go('login');
+}
+async function logout(){await db.auth.signOut();S.user=null;S.profile=null;go('login');}
+
+async function boot(){
+  var u=await db.auth.getUser();
+  if(!u.data||!u.data.user){S.busy=false;go('login');return;}
+  S.user=u.data.user;
+  var p=await db.from('profiles').select('*').eq('id',S.user.id).maybeSingle();
+  S.profile=p.data||null;
+  // الموظفون (مهندس/مسؤول/أدمن) لا يستخدمون تطبيق المقاول
+  if(S.profile && S.profile.role && S.profile.role!=='contractor'){
+    S.busy=false;go('staffPortal');return;
+  }
+
+  await loadRef();
+  await loadMine();
+  S.busy=false;S.tab='home';go('home');
+}
+
+/* ================= Submits ================= */
+async function submitBooking(){
+  var d=S.draft;
+  S.busy=true;render();
+  var r=await db.from('appointments').insert({
+    contractor_id:S.user.id,
+    service:d.serviceName,
+    region:d.regionName,
+    engineer_id:d.engId||null,
+    appointment_date:d.date,
+    appointment_time:d.time,
+    permit_reference:(d.permit||'')||null,
+    notes:(d.notes||'')||null,
+    status:'pending'
+  }).select().maybeSingle();
+  S.busy=false;
+  if(r.error){S.msg={t:'err',m:r.error.message};render();return;}
+  await loadMine();
+  toast(t('booked'));
+  S.draft={};S.tab='requests';go('requests');
+}
+async function submitInquiry(){
+  var q=($('f_body').value||'').trim();
+  if(!q){S.msg={t:'err',m:t('required')};render();return;}
+  S.busy=true;render();
+  var r=await db.from('inquiries').insert({
+    contractor_id:S.user.id,topic:$('f_topic').value,question:q,
+    permit_reference:($('f_permit').value||'').trim()||null,status:'open'});
+  S.busy=false;
+  if(r.error){S.msg={t:'err',m:r.error.message};render();return;}
+  await loadMine();toast(t('inqSent'));go('inquiries');
+}
+async function submitComplaint(){
+  var d=($('f_body').value||'').trim();
+  if(!d){S.msg={t:'err',m:t('required')};render();return;}
+  S.busy=true;render();
+  var r=await db.from('complaints').insert({
+    contractor_id:S.user.id,category:$('f_type').value,description:d,
+    location:($('f_loc').value||'').trim()||null,
+    permit_reference:($('f_permit').value||'').trim()||null,status:'open'});
+  S.busy=false;
+  if(r.error){S.msg={t:'err',m:r.error.message};render();return;}
+  await loadMine();toast(t('cmpSent'));go('complaints');
+}
+async function submitIssue(){
+  var d=($('f_body').value||'').trim();
+  if(!d){S.msg={t:'err',m:t('required')};render();return;}
+  S.busy=true;render();
+  var r=await db.from('official_app_issues').insert({
+    reporter_id:S.user.id,issue_type:$('f_type').value,description:d,
+    page_name:($('f_page').value||'').trim()||null,
+    permit_reference:($('f_permit').value||'').trim()||null,
+    issue_date:ymd(new Date()),status:'open'});
+  S.busy=false;
+  if(r.error){S.msg={t:'err',m:r.error.message};render();return;}
+  await loadMine();toast(t('issueSent'));go('issues');
+}
+async function submitRating(){
+  S.busy=true;render();
+  var r=await db.from('app_feedback').insert({
+    contractor_id:S.user.id,rating:S.rating,
+    comment:($('f_cmt').value||'').trim()||'—'});
+  S.busy=false;
+  if(r.error){S.msg={t:'err',m:r.error.message};render();return;}
+  toast(t('rateThanks'));go('profile');
+}
+
+/* ================= Views ================= */
+function bar(title,back,bell){
+  return '<div class="bar">'+
+    (back?'<button class="bar-btn" data-go="'+back+'">'+svg('right',20)+'</button>'
+         :'<span class="bar-btn"></span>')+
+    '<h1>'+esc(title)+'</h1>'+
+    (bell?'<button class="bar-btn" data-go="notifs" style="position:relative">'+svg('bell',20)+
+      (unread()?'<span style="position:absolute;top:6px;inset-inline-end:6px;width:8px;height:8px;'+
+       'border-radius:50%;background:var(--danger)"></span>':'')+'</button>'
+        :'<span class="bar-btn"></span>')+
+  '</div>';
+}
+function alertBox(){
+  if(!S.msg)return '';
+  return '<div class="alert '+(S.msg.t==='err'?'a-err':'a-ok')+'">'+esc(S.msg.m)+'</div>';
+}
+
+function vSplash(){
+  return '<div class="pad" style="min-height:100vh;display:flex;flex-direction:column;'+
+    'align-items:center;justify-content:center;gap:18px;background:#fff">'+
+    '<div class="mark" style="width:92px;height:92px;border-radius:28px">'+svg('mark',48)+'</div>'+
+    '<div class="brand"><h2>'+esc(t('appName'))+'</h2><p>TRAFFIC CONNECT</p></div>'+
+    '<p class="center" style="color:var(--text-2);font-size:13.5px;max-width:300px">'+
+      esc(t('tagline'))+'</p>'+
+    '<div class="hero">'+
+      '<img src="'+esc(imgUrl(IMG.hero))+'" alt="" onerror="this.style.display=\'none\'">'+
+      '<div class="hero-fade"></div>'+
+      '<div class="hero-ico">'+svg('bus',24)+svg('route',24)+svg('city',24)+'</div>'+
+    '</div>'+
+    '<div style="margin-top:6px" class="center">'+
+      '<b style="color:var(--primary-dark);font-size:13px">'+esc(t('centre'))+'</b><br>'+
+      '<small style="color:var(--muted);font-size:11px">Integrated Transport Centre · '+
+      esc(APP_VERSION)+'</small></div>'+
+    '</div>';
+}
+
+function vLogin(){
+  return '<div class="pad">'+
+    '<div class="langs">'+
+      '<button class="lang'+(lang==='en'?' on':'')+'" data-lang="en">'+svg('globe',14)+'English</button>'+
+      '<button class="lang'+(lang==='ar'?' on':'')+'" data-lang="ar">'+svg('globe',14)+'العربية</button>'+
+    '</div>'+
+    '<div class="hero hero-sm" style="margin:16px auto 0">'+
+      '<img src="'+esc(imgUrl(IMG.hero))+'" alt="" onerror="this.style.display=\'none\'">'+
+      '<div class="hero-fade"></div>'+
+    '</div>'+
+    '<div class="brand" style="margin:18px 0 18px">'+
+      '<div class="mark">'+svg('mark',34)+'</div>'+
+      '<h2>'+esc(t('appName'))+'</h2><p>'+esc(t('appEn'))+'</p></div>'+
+    '<h3 class="center" style="margin:0;font-size:19px;font-weight:800">'+esc(t('welcomeBack'))+'</h3>'+
+    '<p class="center" style="margin:0 0 20px;font-size:13px;color:var(--muted)">'+
+      esc(t('welcomeBackSub'))+'</p>'+
+    alertBox()+
+    '<div class="field inp-icon"><span class="ic">'+svg('mail',18)+'</span>'+
+      '<input id="f_email" class="inp" type="email" inputmode="email" '+
+      'autocomplete="username" placeholder="'+esc(t('email'))+'"></div>'+
+    '<div class="field inp-icon"><span class="ic">'+svg('lock',18)+'</span>'+
+      '<button class="eye" data-eye="f_pass">'+svg('eye',18)+'</button>'+
+      '<input id="f_pass" class="inp" type="password" autocomplete="current-password" '+
+      'placeholder="'+esc(t('password'))+'"></div>'+
+    '<label class="checkrow"><input type="checkbox" checked><span>'+esc(t('remember'))+'</span></label>'+
+    '<button class="btn mt" data-act="login"'+(S.busy?' disabled':'')+'>'+
+      esc(S.busy?'...':t('login'))+'<span class="sub">'+esc(t('loginSub'))+'</span></button>'+
+    '<button class="btn btn-out mt" data-go="forgot">'+esc(t('forgot'))+'</button>'+
+    '<div class="center mt"><button class="btn-link" data-go="signup">'+esc(t('noAccount'))+'</button></div>'+
+    '<div class="center" style="border-top:1px solid var(--border);margin-top:10px;padding-top:12px">'+
+      '<button class="btn-link" data-go="staff" style="color:var(--teal)">'+
+      esc(t('staffLink'))+'</button></div>'+
+    '</div>';
+}
+
+function vForgot(){
+  return bar(t('forgotTitle'),'login',false)+
+  '<div class="pad">'+
+    '<div class="center" style="margin:10px 0 18px"><div class="mark" style="margin:0 auto;'+
+      'background:var(--soft);color:var(--primary)">'+svg('lock',30)+'</div></div>'+
+    '<p class="center" style="color:var(--text-2);font-size:13.5px;line-height:1.8">'+
+      esc(t('forgotHint'))+'</p>'+
+    '<div class="field inp-icon mt"><span class="ic">'+svg('mail',18)+'</span>'+
+      '<input id="f_email" class="inp" type="email" placeholder="'+esc(t('email'))+'"></div>'+
+    '<button class="btn" data-act="forgot"'+(S.busy?' disabled':'')+'>'+esc(t('sendLink'))+'</button>'+
+    '<div class="center mt"><button class="btn-link" data-go="login">'+esc(t('backLogin'))+'</button></div>'+
+  '</div>';
+}
+
+function vSignup(){
+  function f(id,label,type,req){
+    return '<div class="field"><label>'+(req?'<span class="req">*</span>':'')+esc(label)+'</label>'+
+      '<input id="'+id+'" class="inp" type="'+type+'"></div>';
+  }
+  return bar(t('signupTitle'),'login',false)+
+  '<div class="pad">'+alertBox()+
+    f('f_name',t('fullName'),'text',true)+
+    f('f_co',t('company'),'text',true)+
+    f('f_tel',t('mobile'),'tel',true)+
+    f('f_email',t('email'),'email',true)+
+    f('f_pass',t('password'),'password',true)+
+    '<label class="checkrow"><input type="checkbox" id="f_agree" checked>'+
+      '<span>'+esc(t('agree'))+'</span></label>'+
+    '<button class="btn mt" data-act="signup"'+(S.busy?' disabled':'')+'>'+
+      esc(t('createAcc'))+'</button>'+
+  '</div>';
+}
+
+function vStaff(){
+  return bar(t('staffTitle'),'login',false)+
+  '<div class="pad pb-nav">'+alertBox()+
+    '<div class="center" style="margin:6px 0 16px">'+
+      '<div class="mark" style="margin:0 auto">'+svg('badge',30)+'</div></div>'+
+    '<p class="center" style="color:var(--text-2);font-size:13px;line-height:1.85">'+
+      esc(t('staffHint'))+'</p>'+
+    '<div class="field mt"><label><span class="req">*</span>'+esc(t('staffEmail'))+'</label>'+
+      '<input id="f_email" class="inp" type="email" inputmode="email" '+
+      'placeholder="name@itc.gov.ae"></div>'+
+    '<div class="field"><label><span class="req">*</span>'+esc(t('mobile'))+'</label>'+
+      '<input id="f_tel" class="inp" type="tel"></div>'+
+    '<div class="field"><label><span class="req">*</span>'+esc(t('password'))+'</label>'+
+      '<input id="f_pass" class="inp" type="password"></div>'+
+    '<div class="field"><label><span class="req">*</span>'+esc(t('confirmPass'))+'</label>'+
+      '<input id="f_pass2" class="inp" type="password"></div>'+
+  '</div><div class="footer-cta"><button class="btn" data-act="staffSignup"'+
+    (S.busy?' disabled':'')+'>'+esc(S.busy?'...':t('activate'))+'</button></div>';
+}
+
+function vStaffPortal(){
+  var p=S.profile||{};
+  return '<div class="pad" style="min-height:100vh;display:flex;flex-direction:column;'+
+    'align-items:center;justify-content:center;gap:16px">'+
+    '<div class="mark" style="width:84px;height:84px;border-radius:26px">'+svg('badge',40)+'</div>'+
+    '<b style="font-size:17px">'+esc(p.full_name||'')+'</b>'+
+    '<p class="center" style="color:var(--text-2);font-size:13.5px;max-width:300px">'+
+      esc(t('staffPortal'))+'</p>'+
+    '<a class="btn" style="text-decoration:none;text-align:center;max-width:300px" '+
+      'href="admin.html">'+esc(t('openPanel'))+'</a>'+
+    '<button class="btn-link" data-act="logout">'+esc(t('logout'))+'</button>'+
+  '</div>';
+}
+
+function vHome(){
+  var p=S.profile||{};
+  function tile(icon,title,sub,act,badge){
+    return '<button class="tile" data-go="'+act+'">'+
+      (badge?'<span class="dot">'+badge+'</span>':'')+
+      '<span class="ico">'+svg(icon,24)+'</span>'+
+      '<b>'+esc(title)+'</b><small>'+esc(sub)+'</small></button>';
+  }
+  return bar(t('home'),null,true)+
+  '<div class="pad pb-nav">'+
+    '<div class="welcome"><div class="t">'+
+      '<small>'+esc(t('hello'))+'</small>'+
+      '<b>'+esc(p.full_name||'—')+'</b>'+
+      '<span>'+esc(lang==='ar'?'مقاول':'Contractor')+'</span></div>'+
+      '<div class="avatar">'+esc(initials(p.full_name))+'</div></div>'+
+    '<div class="grid2" style="margin-top:18px">'+
+      tile('cal',t('sBook'),t('sBookEn'),'book1')+
+      tile('list',t('sReq'),t('sReqEn'),'requests')+
+      tile('chat',t('sInq'),t('sInqEn'),'inquiries')+
+      tile('warn',t('sCmp'),t('sCmpEn'),'complaints')+
+      tile('bug',t('sIssue'),t('sIssueEn'),'issues')+
+      tile('bell',t('sNotif'),t('sNotifEn'),'notifs',unread())+
+      tile('route',t('sPermits'),t('sPermitsEn'),'permits')+
+      tile('star',t('sRate'),t('sRateEn'),'rate')+
+    '</div>'+
+  '</div>';
+}
+
+function stepper(i){
+  var labels=[t('stService'),t('stEng'),t('stTime'),t('stDone')],h='';
+  for(var k=0;k<4;k++){
+    h+='<div class="step"><div class="line">'+
+      (k===0?'<span class="ln" style="visibility:hidden"></span>'
+            :'<span class="ln'+(k<=i?' on':'')+'"></span>')+
+      '<span class="n'+(k<=i?' on':'')+'">'+(k+1)+'</span>'+
+      (k===3?'<span class="ln" style="visibility:hidden"></span>'
+            :'<span class="ln'+(k<i?' on':'')+'"></span>')+
+      '</div><label class="'+(k<=i?'on':'')+'">'+esc(labels[k])+'</label></div>';
+  }
+  return '<div class="stepper">'+h+'</div>';
+}
+
+function vBook1(){
+  var d=S.draft,h='';
+  h+=bar(t('book'),'home',false)+'<div class="pad pb-nav">'+stepper(0);
+  for(var i=0;i<BOOK_SERVICES.length;i++){
+    var s=BOOK_SERVICES[i];
+    h+='<button class="opt'+(d.serviceId===s.id?' on':'')+'" data-svc="'+s.id+'" '+
+       'style="margin-bottom:10px"><span class="ico">'+svg(s.icon,20)+'</span>'+
+       '<span class="t"><b>'+esc(nm(s))+'</b></span>'+
+       '<span class="radio"></span></button>';
+  }
+  h+='<h3 class="sec" style="margin-top:18px">'+esc(t('pickRegion'))+'</h3>';
+  var ic=['city','bank','bus'];
+  for(var j=0;j<S.depts.length;j++){
+    var dep=S.depts[j];
+    var main=lang==='ar'?dep.name_ar:dep.name_en;
+    var photo=regionImg(dep);
+    var lead=photo
+      ? '<img class="opt-photo" src="'+esc(imgUrl(photo))+'" alt="" '+
+        'onerror="this.outerHTML=\'<span class=&quot;ico&quot;></span>\'">'
+      : '<span class="ico">'+svg(ic[j%3],20)+'</span>';
+    h+='<button class="opt'+(d.deptId===dep.id?' on':'')+'" data-dept="'+dep.id+'" '+
+       'style="margin-bottom:10px">'+lead+
+       '<span class="t"><b>'+esc(main)+'</b>'+
+       '<small>'+esc(dep.name_en||dep.region||'')+'</small></span>'+
+       '<span class="radio"></span></button>';
+  }
+  h+='</div><div class="footer-cta"><button class="btn" data-act="b1next">'+
+     esc(t('next'))+'</button></div>';
+  return h;
+}
+
+function vBook2(){
+  var d=S.draft;
+  var q=(d.q||'').toLowerCase();
+  var list=S.engs.filter(function(e){
+    if(d.allRegions!==true && d.regionName){
+      var r=(e.region||'')+' '+(e.specialization||'');
+      if(r.indexOf(d.regionName)===-1 && (e.region||'')!==d.regionName) return false;
+    }
+    if(q && String(e.display_name||'').toLowerCase().indexOf(q)===-1) return false;
+    return true;
+  });
+  if(!list.length) list=S.engs.filter(function(e){
+    return !q||String(e.display_name||'').toLowerCase().indexOf(q)!==-1;});
+
+  var h=bar(t('pickEng'),'book1',false)+'<div class="pad pb-nav">'+stepper(1)+
+   '<div style="display:flex;gap:8px;margin-bottom:14px">'+
+     '<input id="f_q" class="inp" style="flex:1;padding:11px 12px" '+
+       'placeholder="'+esc(t('searchEng'))+'" value="'+esc(d.q||'')+'">'+
+     '<button class="filt'+(d.allRegions?' on':'')+'" data-act="allreg" '+
+       'style="padding:0 14px">'+esc(t('all'))+'</button>'+
+   '</div>';
+  if(!list.length){
+    h+='<div class="empty"><div class="circle">'+svg('user',30)+'</div>'+esc(t('noData'))+'</div>';
+  }
+  for(var i=0;i<list.length;i++){
+    var e=list[i];
+    var free=(e.availability||'available')==='available';
+    h+='<button class="opt'+(d.engId===e.id?' on':'')+'" data-eng="'+e.id+'" style="margin-bottom:10px">'+
+      engAvatar(e,44)+
+      '<span class="t"><b>'+esc(e.display_name)+'</b>'+
+        '<span style="display:flex;gap:7px;align-items:center;margin-top:4px">'+
+        '<span class="chip '+(free?'c-ok':'c-neutral')+'">'+
+          esc(free?t('available'):t('busy'))+'</span>'+
+        '<small>'+esc(e.region||e.specialization||'')+'</small></span></span>'+
+      '<span class="radio"></span></button>';
+  }
+  h+='</div><div class="footer-cta"><button class="btn" data-act="b2next">'+
+     esc(t('next'))+'</button></div>';
+  return h;
+}
+
+function vBook3(){
+  var d=S.draft;
+  var m=d.month?new Date(d.month):new Date();
+  m=new Date(m.getFullYear(),m.getMonth(),1);
+  var today=new Date();today.setHours(0,0,0,0);
+  var monthName=new Intl.DateTimeFormat(lang==='ar'?'ar-AE-u-ca-gregory':'en-GB',
+    {month:'long',year:'numeric'}).format(m);
+
+  var wd=lang==='ar'?['إثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت','أحد']
+                    :['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var h=bar(t('pickTime'),'book2',false)+'<div class="pad pb-nav">'+stepper(2)+
+    '<div class="card"><div class="cal-head">'+
+      '<button class="bar-btn" data-mon="-1">'+svg('right',18)+'</button>'+
+      '<b>'+esc(monthName)+'</b>'+
+      '<button class="bar-btn" data-mon="1">'+svg('left',18)+'</button></div>'+
+    '<div class="week">';
+  for(var w=0;w<7;w++) h+='<span>'+esc(wd[w])+'</span>';
+  h+='</div><div class="days">';
+
+  var lead=(m.getDay()+6)%7;
+  for(var b=0;b<lead;b++) h+='<span></span>';
+  var dim=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+  for(var dnum=1;dnum<=dim;dnum++){
+    var dt=new Date(m.getFullYear(),m.getMonth(),dnum);
+    var iso=ymd(dt);
+    var weekend=(dt.getDay()===6||dt.getDay()===0);
+    var past=dt<today;
+    var dis=weekend||past;
+    h+='<button class="day'+(dis?' off':'')+(d.date===iso?' on':'')+'"'+
+       (dis?' disabled':' data-day="'+iso+'"')+'>'+dnum+'</button>';
+  }
+  h+='</div></div>';
+
+  h+='<h3 class="sec" style="margin-top:18px">'+esc(t('freeSlots'))+'</h3>';
+  if(!d.date){
+    h+='<p style="color:var(--muted);font-size:13px">'+esc(t('pickTime'))+'</p>';
+  }else{
+    var taken=S.booked||[];
+    var times=['09:00','10:00','11:00','12:00','13:00','14:00','14:30'];
+    h+='<div class="slots">';
+    for(var s=0;s<times.length;s++){
+      var tk=taken.indexOf(times[s])!==-1;
+      h+='<button class="slot'+(d.time===times[s]?' on':'')+'"'+(tk?' disabled':'')+
+         ' data-slot="'+times[s]+'">'+esc(ftime(times[s]))+'</button>';
+    }
+    h+='</div>';
+  }
+  h+='<div class="card mt" style="display:flex;align-items:center;gap:8px">'+
+      '<span style="color:var(--primary)">'+svg('cal',18)+'</span>'+
+      '<span style="flex:1;font-size:12.5px;color:var(--text-2)">'+esc(t('hours'))+'</span>'+
+      '<b style="font-size:12.5px">'+esc(t('hoursVal'))+'</b></div>';
+  h+='</div><div class="footer-cta"><button class="btn" data-act="b3next">'+
+     esc(t('next'))+'</button></div>';
+  return h;
+}
+
+function vBook4(){
+  var d=S.draft;
+  var eng=null;
+  for(var i=0;i<S.engs.length;i++) if(S.engs[i].id===d.engId) eng=S.engs[i];
+  var h=bar(t('apptDetails'),'book3',false)+'<div class="pad pb-nav">'+stepper(3)+alertBox()+
+   '<div class="card"><div style="display:flex;align-items:center;gap:8px">'+
+     '<span style="color:var(--primary)">'+svg('cal',20)+'</span>'+
+     '<b style="font-size:15px">'+esc(fdate(d.date))+'</b></div>'+
+     '<div style="margin-top:4px;padding-inline-start:28px;color:var(--text-2);font-size:13px">'+
+       esc(ftime(d.time))+'</div></div>';
+  if(eng){
+    h+='<div class="card" style="display:flex;align-items:center;gap:12px">'+
+      engAvatar(eng,46)+
+      '<div><b style="font-size:14px">'+esc(eng.display_name)+'</b>'+
+      '<div style="font-size:12px;color:var(--muted)">'+
+        esc(eng.specialization||eng.region||'')+'</div></div></div>';
+  }
+  h+='<div class="rows mt">'+
+      '<div class="row"><small>'+esc(t('service'))+'</small><div>'+esc(d.serviceName||'—')+'</div></div>'+
+      '<div class="row"><small>'+esc(t('region'))+'</small><div>'+esc(d.regionName||'—')+'</div></div>'+
+    '</div>'+
+    '<div class="field mt"><label>'+esc(t('permitNo'))+' ('+esc(t('optional'))+')</label>'+
+      '<input id="f_permit" class="inp" placeholder="TRF-2025-01256" value="'+
+      esc(d.permit||'')+'"></div>'+
+    '<div class="field"><label>'+esc(t('notes'))+'</label>'+
+      '<textarea id="f_notes" class="inp" placeholder="'+esc(t('notesHint'))+'">'+
+      esc(d.notes||'')+'</textarea></div>'+
+  '</div><div class="footer-cta"><button class="btn" data-act="bconfirm"'+
+    (S.busy?' disabled':'')+'>'+esc(S.busy?'...':t('confirmBook'))+'</button></div>';
+  return h;
+}
+
+function allRequests(){
+  var out=[];
+  S.appts.forEach(function(a){out.push({k:'appt',id:a.id,title:a.service,
+    ref:a.permit_reference||('#'+a.id.slice(0,8).toUpperCase()),
+    date:a.appointment_date,st:a.status,map:APPT,row:a});});
+  S.inqs.forEach(function(a){out.push({k:'inq',id:a.id,title:a.topic||t('inq'),
+    ref:a.permit_reference||('#'+a.id.slice(0,8).toUpperCase()),
+    date:a.created_at,st:a.status,map:TICKET,row:a});});
+  S.cmps.forEach(function(a){out.push({k:'cmp',id:a.id,title:a.category||t('cmp'),
+    ref:a.permit_reference||('#'+a.id.slice(0,8).toUpperCase()),
+    date:a.created_at,st:a.status,map:TICKET,row:a});});
+  S.issues.forEach(function(a){out.push({k:'iss',id:a.id,title:a.issue_type,
+    ref:a.permit_reference||('#'+a.id.slice(0,8).toUpperCase()),
+    date:a.created_at,st:a.status,map:TICKET,row:a});});
+  out.sort(function(x,y){return new Date(y.date)-new Date(x.date);});
+  return out;
+}
+
+function reqCard(it){
+  return '<button class="card tap" data-det="'+it.k+':'+it.id+'" style="width:100%">'+
+    '<div class="req">'+chip(it.st,it.map)+
+    '<span class="t"><b>'+esc(it.title||'—')+'</b>'+
+      '<div class="ref">'+esc(it.ref)+'</div>'+
+      '<div class="dt">'+esc(fdate(it.date))+'</div></span></div></button>';
+}
+
+function vRequests(){
+  var items=allRequests();
+  var f=S.filter;
+  if(f!=='all') items=items.filter(function(i){
+    return (f==='appt'&&i.k==='appt')||(f==='inq'&&i.k==='inq')||(f==='cmp'&&i.k==='cmp');});
+  var h=bar(t('myReq'),null,true)+'<div class="pad pb-nav">'+
+    '<div class="filters" style="margin-bottom:14px">'+
+      ['all','appt','inq','cmp'].map(function(k){
+        var lbl={all:t('tabAll'),appt:t('tabAppt'),inq:t('tabInq'),cmp:t('tabCmp')}[k];
+        return '<button class="filt'+(f===k?' on':'')+'" data-filter="'+k+'">'+esc(lbl)+'</button>';
+      }).join('')+'</div>';
+  if(!items.length) h+='<div class="empty"><div class="circle">'+svg('list',30)+'</div>'+
+    esc(t('noReq'))+'</div>';
+  else h+=items.map(function(i){return '<div style="margin-bottom:10px">'+reqCard(i)+'</div>';}).join('');
+  return h+'</div>';
+}
+
+function listView(kind){
+  var cfg={
+   inq:{title:t('inq'),add:t('newInq'),go:'newInq',empty:t('noInq'),
+        items:S.inqs,k:'inq',title2:function(r){return r.topic||t('inq');}},
+   cmp:{title:t('cmp'),add:t('newCmp'),go:'newCmp',empty:t('noCmp'),
+        items:S.cmps,k:'cmp',title2:function(r){return r.category||t('cmp');}},
+   iss:{title:t('issue'),add:t('newIssue'),go:'newIssue',empty:t('noIssue'),
+        items:S.issues,k:'iss',title2:function(r){return r.issue_type||t('issue');}}
+  }[kind];
+
+  var h=bar(cfg.title,kind==='inq'?null:'home',true)+'<div class="pad pb-nav">'+
+    '<button class="dashed" data-go="'+cfg.go+'" style="margin-bottom:14px">'+
+      svg('plus',16)+esc(cfg.add)+'</button>';
+  if(!cfg.items.length){
+    h+='<div class="empty"><div class="circle">'+svg('chat',30)+'</div>'+esc(cfg.empty)+'</div>';
+  }else{
+    h+=cfg.items.map(function(r){
+      return '<div style="margin-bottom:10px">'+reqCard({
+        k:cfg.k,id:r.id,title:cfg.title2(r),
+        ref:r.permit_reference||('#'+r.id.slice(0,8).toUpperCase()),
+        date:r.created_at,st:r.status,map:TICKET})+'</div>';
+    }).join('');
+  }
+  return h+'</div>';
+}
+
+function formView(opts){
+  var h=bar(opts.title,opts.back,false)+'<div class="pad pb-nav">'+alertBox();
+  h+=opts.body;
+  return h+'</div><div class="footer-cta"><button class="btn" data-act="'+opts.act+'"'+
+    (S.busy?' disabled':'')+'>'+esc(S.busy?'...':t('send'))+'</button></div>';
+}
+function selectField(id,label,opts,req){
+  var o='';
+  for(var i=0;i<opts.length;i++) o+='<option>'+esc(nm(opts[i]))+'</option>';
+  return '<div class="field"><label>'+(req?'<span class="req">*</span>':'')+esc(label)+'</label>'+
+    '<select id="'+id+'" class="inp">'+o+'</select></div>';
+}
+function textField(id,label,ph,req){
+  return '<div class="field"><label>'+(req?'<span class="req">*</span>':'')+esc(label)+'</label>'+
+    '<input id="'+id+'" class="inp" placeholder="'+esc(ph||'')+'"></div>';
+}
+function areaField(id,label,ph,req){
+  return '<div class="field"><label>'+(req?'<span class="req">*</span>':'')+esc(label)+'</label>'+
+    '<textarea id="'+id+'" class="inp" placeholder="'+esc(ph||'')+'"></textarea></div>';
+}
+
+function vNewInq(){
+  return formView({title:t('newInq'),back:'inquiries',act:'sendInq',
+   body:selectField('f_topic',t('inqTopic'),INQ_TOPICS,true)+
+        areaField('f_body',t('inqBody'),t('inqHint'),true)+
+        textField('f_permit',t('permitNo')+' ('+t('optional')+')','TRF-2025-01256')});
+}
+function vNewCmp(){
+  return formView({title:t('newCmp'),back:'complaints',act:'sendCmp',
+   body:selectField('f_type',t('cmpType'),CMP_TYPES,true)+
+        areaField('f_body',t('cmpDesc'),'',true)+
+        textField('f_loc',t('cmpLoc')+' ('+t('optional')+')','')+
+        textField('f_permit',t('permitNo')+' ('+t('optional')+')','')});
+}
+function vNewIssue(){
+  return formView({title:t('newIssue'),back:'issues',act:'sendIssue',
+   body:selectField('f_type',t('issueType'),ISSUE_TYPES,true)+
+        areaField('f_body',t('cmpDesc'),'',true)+
+        textField('f_page',t('issuePage'),'')+
+        textField('f_permit',t('permitNo')+' ('+t('optional')+')','')});
+}
+
+function vDetail(){
+  var d=S.detail;
+  if(!d) return bar(t('details'),'requests',false)+'<div class="empty">'+esc(t('noData'))+'</div>';
+  var r=d.row,map=d.k==='appt'?APPT:TICKET;
+  var reply=d.k==='appt'?r.engineer_note:r.response;
+  var rows='';
+  function add(l,v){if(v)rows+='<div class="row"><small>'+esc(l)+'</small><div>'+esc(v)+'</div></div>';}
+  add(t('reqNo'),d.ref);
+  add(t('status'),(map[r.status]||{})[lang==='ar'?'ar':'en']||r.status);
+  if(d.k==='appt'){
+    add(t('service'),r.service);add(t('region'),r.region);
+    add(t('date'),fdate(r.appointment_date)+' — '+ftime(r.appointment_time));
+    add(t('notes'),r.notes);
+  }else{
+    add(t('date'),fdate(r.created_at));
+    add(t('details'),r.question||r.description);
+    add(t('cmpLoc'),r.location);
+    add(t('issuePage'),r.page_name);
+  }
+  add(t('permitNo'),r.permit_reference);
+
+  var h=bar(t('track'),'requests',false)+'<div class="pad pb-nav">'+
+    '<div class="card" style="display:flex;align-items:flex-start;gap:10px">'+
+      '<b style="flex:1;font-size:16px;line-height:1.45">'+esc(d.title)+'</b>'+
+      chip(r.status,map)+'</div>'+
+    '<div class="rows mt">'+rows+'</div>';
+  if(reply){
+    h+='<div class="card mt" style="background:var(--soft);border-color:var(--soft)">'+
+      '<div style="display:flex;align-items:center;gap:8px;color:var(--primary-dark)">'+
+        svg('head',18)+'<b style="font-size:13.5px">'+esc(t('reply'))+'</b></div>'+
+      '<p style="margin:8px 0 0;font-size:13px;line-height:1.7">'+esc(reply)+'</p></div>';
+  }
+  return h+'</div>';
+}
+
+function vNotifs(){
+  var h=bar(t('notifs'),'home',false)+'<div class="pad pb-nav">';
+  if(unread()) h+='<button class="dashed" data-act="markall" style="margin-bottom:14px">'+
+    svg('chk',16)+esc(t('markAll'))+'</button>';
+  if(!S.notifs.length){
+    h+='<div class="empty"><div class="circle">'+svg('bell',30)+'</div>'+esc(t('noNotifs'))+'</div>';
+  }
+  for(var i=0;i<S.notifs.length;i++){
+    var n=S.notifs[i];
+    h+='<div class="card" style="margin-bottom:10px;display:flex;gap:11px;'+
+      (n.is_read?'':'background:var(--soft);border-color:var(--soft)')+'">'+
+      '<span style="width:9px;height:9px;border-radius:50%;margin-top:6px;flex:none;background:'+
+        (n.is_read?'var(--border)':'var(--primary)')+'"></span>'+
+      '<div style="flex:1;min-width:0;text-align:start">'+
+        '<b style="font-size:13.5px">'+esc(n.title)+'</b>'+
+        '<p style="margin:2px 0 0;font-size:12.5px;color:var(--text-2);line-height:1.6">'+
+          esc(n.message)+'</p>'+
+        '<small style="font-size:11px;color:var(--muted)">'+esc(fdate(n.created_at))+'</small>'+
+      '</div></div>';
+  }
+  return h+'</div>';
+}
+
+function vProfile(){
+  var p=S.profile||{};
+  function item(icon,label,act){
+    return '<button class="card tap" data-go="'+act+'" style="width:100%;display:flex;'+
+      'align-items:center;gap:12px;margin-bottom:10px">'+
+      '<span class="ico" style="width:38px;height:38px;border-radius:11px;background:var(--soft);'+
+        'color:var(--primary);display:grid;place-items:center">'+svg(icon,19)+'</span>'+
+      '<b style="flex:1;text-align:start;font-size:14px">'+esc(label)+'</b>'+
+      '<span style="color:var(--muted)">'+svg('back',18)+'</span></button>';
+  }
+  return bar(t('profile'),null,true)+'<div class="pad pb-nav">'+
+    '<div class="card" style="display:flex;align-items:center;gap:14px">'+
+      '<span class="avatar" style="background:var(--soft);color:var(--primary);font-size:19px">'+
+        esc(initials(p.full_name))+'</span>'+
+      '<div style="flex:1;min-width:0;text-align:start">'+
+        '<b style="font-size:16px">'+esc(p.full_name||'—')+'</b>'+
+        '<div style="font-size:12px;color:var(--text-2)">'+esc(p.company_name||'')+'</div>'+
+        '<div style="font-size:11.5px;color:var(--muted)">'+esc((S.user||{}).email||'')+'</div>'+
+      '</div></div>'+
+    '<div class="langs" style="margin:16px 0">'+
+      '<button class="lang'+(lang==='en'?' on':'')+'" data-lang="en">'+svg('globe',14)+'English</button>'+
+      '<button class="lang'+(lang==='ar'?' on':'')+'" data-lang="ar">'+svg('globe',14)+'العربية</button>'+
+    '</div>'+
+    item('biz',t('myCompany'),'company')+
+    item('route',t('sPermits'),'permits')+
+    item('head',t('contact'),'contact')+
+    item('star',t('rate'),'rate')+
+    '<button class="card tap" data-act="logout" style="width:100%;display:flex;align-items:center;'+
+      'gap:12px"><span style="width:38px;height:38px;border-radius:11px;background:var(--danger-bg);'+
+      'color:var(--danger);display:grid;place-items:center">'+svg('out',19)+'</span>'+
+      '<b style="flex:1;text-align:start;font-size:14px;color:var(--danger)">'+
+      esc(t('logout'))+'</b></button>'+
+    '<p class="center" style="margin:16px 0 0;font-size:11px;color:var(--muted)">'+
+      'تواصل مروري · '+esc(APP_VERSION)+'</p>'+
+  '</div>';
+}
+
+function vCompany(){
+  var p=S.profile||{};
+  var last=S.appts.length?S.appts[0]:null;
+  function row(l,v){return '<div class="row flex"><span class="g"><small>'+esc(l)+
+    '</small></span><span class="v">'+esc(v)+'</span></div>';}
+  return bar(t('myCompany'),'profile',false)+'<div class="pad pb-nav"><div class="rows">'+
+    row(t('company'),p.company_name||'—')+
+    row(t('tradeNo'),p.trade_license||'—')+
+    row(t('mobile'),p.phone||'—')+
+    row(t('logins'),(p.login_count||0)+' '+t('times'))+
+    row(t('contacts'),(S.inqs.length+S.cmps.length)+' '+t('times'))+
+    row(t('bookings'),S.appts.length+' '+t('bookingsU'))+
+    row(t('lastBook'),last?(fdate(last.appointment_date)+' — '+ftime(last.appointment_time)):'—')+
+  '</div><button class="btn mt" data-go="requests">'+esc(t('viewAll'))+'</button></div>';
+}
+
+function vContact(){
+  return bar(t('contact'),'profile',false)+'<div class="pad pb-nav">'+
+    '<p class="center" style="color:var(--text-2);font-size:13.5px;line-height:1.8">'+
+      esc(t('contactDesc'))+'</p>'+
+    '<div class="card center mt"><div style="color:var(--primary)">'+svg('cal',22)+'</div>'+
+      '<b style="font-size:16px;display:block;margin-top:6px">09:00 AM - 02:30 PM</b></div>'+
+    '<div class="card center"><div class="mark" style="margin:0 auto;width:56px;height:56px;'+
+      'border-radius:50%;background:var(--soft);color:var(--primary)">'+svg('phone',24)+'</div>'+
+      '<b style="display:block;margin-top:12px;font-size:20px;color:var(--primary-dark)">'+
+      '800-123-4567</b></div>'+
+    '<p class="center mt" style="color:var(--muted);font-size:12.5px;line-height:1.8">'+
+      esc(t('contactNote'))+'</p>'+
+    '<div class="center mt" style="color:var(--primary)">'+svg('head',54)+'</div>'+
+  '</div>';
+}
+
+function vRate(){
+  var h=bar(t('rate'),'profile',false)+'<div class="pad pb-nav">'+
+    '<h3 class="center sec" style="margin-top:10px">'+esc(t('rateShare'))+'</h3>'+
+    '<div class="stars">';
+  for(var i=1;i<=5;i++) h+='<button class="'+(i<=S.rating?'on':'')+'" data-star="'+i+'">★</button>';
+  h+='</div><div class="field mt"><label>'+esc(t('rateCmt'))+'</label>'+
+     '<textarea id="f_cmt" class="inp" placeholder="'+esc(t('rateHint'))+'"></textarea></div>'+
+     '</div><div class="footer-cta"><button class="btn" data-act="sendRate">'+
+     esc(t('rateSend'))+'</button></div>';
+  return h;
+}
+
+function vPermits(){
+  return bar(t('permits'),'home',false)+
+    '<div class="empty" style="padding-top:80px"><div class="circle">'+svg('route',30)+'</div>'+
+    esc(t('soon'))+'</div>';
+}
+
+/* ================= Nav ================= */
+var NAVS=[['home','home','home'],['requests','list','myReq'],
+          ['inquiries','chat','inq'],['profile','user','profile']];
+function renderNav(){
+  var show=['home','requests','inquiries','profile'].indexOf(S.view)!==-1;
+  var nav=$('nav');
+  if(!show){nav.classList.add('hide');return;}
+  nav.classList.remove('hide');
+  nav.innerHTML=NAVS.map(function(n){
+    return '<button class="'+(S.view===n[0]?'on':'')+'" data-go="'+n[0]+'">'+
+      svg(n[1],21)+'<span>'+esc(t(n[2]))+'</span></button>';
+  }).join('');
+}
+
+/* ================= Render ================= */
+var VIEWS={splash:vSplash,login:vLogin,forgot:vForgot,signup:vSignup,
+ staff:vStaff,staffPortal:vStaffPortal,home:vHome,
+ book1:vBook1,book2:vBook2,book3:vBook3,book4:vBook4,requests:vRequests,
+ inquiries:function(){return listView('inq');},complaints:function(){return listView('cmp');},
+ issues:function(){return listView('iss');},newInq:vNewInq,newCmp:vNewCmp,newIssue:vNewIssue,
+ detail:vDetail,notifs:vNotifs,profile:vProfile,company:vCompany,contact:vContact,
+ rate:vRate,permits:vPermits};
+
+function render(){
+  var f=VIEWS[S.view]||vLogin;
+  $('view').innerHTML=f();
+  renderNav();
+}
+
+/* ================= Slot loading ================= */
+async function loadSlots(){
+  var d=S.draft;
+  S.booked=[];
+  if(!d.date||!d.engId){render();return;}
+  var r=await db.from('appointments').select('appointment_time')
+    .eq('engineer_id',d.engId).eq('appointment_date',d.date).neq('status','cancelled');
+  S.booked=(r.data||[]).map(function(x){return String(x.appointment_time).slice(0,5);});
+  render();
+}
+
+/* ================= Events ================= */
+document.addEventListener('click',function(ev){
+  var el;
+
+  el=ev.target.closest('[data-lang]');
+  if(el){setLang(el.getAttribute('data-lang'));return;}
+
+  el=ev.target.closest('[data-eye]');
+  if(el){var f=$(el.getAttribute('data-eye'));
+    f.type=f.type==='password'?'text':'password';return;}
+
+  el=ev.target.closest('[data-go]');
+  if(el){
+    var v=el.getAttribute('data-go');
+    if(v==='book1'){S.draft={};}
+    go(v);return;
+  }
+
+  el=ev.target.closest('[data-svc]');
+  if(el){
+    var id=el.getAttribute('data-svc');
+    S.draft.serviceId=id;
+    for(var i=0;i<BOOK_SERVICES.length;i++)
+      if(BOOK_SERVICES[i].id===id) S.draft.serviceName=BOOK_SERVICES[i].ar;
+    render();return;
+  }
+
+  el=ev.target.closest('[data-dept]');
+  if(el){
+    var did=el.getAttribute('data-dept');
+    S.draft.deptId=did;
+    for(var j=0;j<S.depts.length;j++)
+      if(S.depts[j].id===did) S.draft.regionName=S.depts[j].name_ar;
+    S.draft.engId=null;render();return;
+  }
+
+  el=ev.target.closest('[data-eng]');
+  if(el){S.draft.engId=el.getAttribute('data-eng');render();return;}
+
+  el=ev.target.closest('[data-mon]');
+  if(el){
+    var base=S.draft.month?new Date(S.draft.month):new Date();
+    base.setDate(1);
+    base.setMonth(base.getMonth()+(+el.getAttribute('data-mon')));
+    S.draft.month=base.toISOString();render();return;
+  }
+
+  el=ev.target.closest('[data-day]');
+  if(el){S.draft.date=el.getAttribute('data-day');S.draft.time=null;loadSlots();return;}
+
+  el=ev.target.closest('[data-slot]');
+  if(el){S.draft.time=el.getAttribute('data-slot');render();return;}
+
+  el=ev.target.closest('[data-filter]');
+  if(el){S.filter=el.getAttribute('data-filter');render();return;}
+
+  el=ev.target.closest('[data-star]');
+  if(el){S.rating=+el.getAttribute('data-star');render();return;}
+
+  el=ev.target.closest('[data-det]');
+  if(el){
+    var parts=el.getAttribute('data-det').split(':');
+    var list=allRequests();
+    for(var k=0;k<list.length;k++)
+      if(list[k].k===parts[0]&&list[k].id===parts[1]) S.detail=list[k];
+    go('detail');return;
+  }
+
+  el=ev.target.closest('[data-act]');
+  if(!el)return;
+  var a=el.getAttribute('data-act');
+
+  if(a==='login')       return doLogin();
+  if(a==='signup')      return doSignup();
+  if(a==='staffSignup') return doStaffSignup();
+  if(a==='forgot')     return doForgot();
+  if(a==='logout')     return logout();
+  if(a==='sendInq')    return submitInquiry();
+  if(a==='sendCmp')    return submitComplaint();
+  if(a==='sendIssue')  return submitIssue();
+  if(a==='sendRate')   return submitRating();
+  if(a==='bconfirm'){
+    S.draft.permit=($('f_permit')||{}).value||'';
+    S.draft.notes=($('f_notes')||{}).value||'';
+    return submitBooking();
+  }
+  if(a==='allreg'){S.draft.allRegions=!S.draft.allRegions;render();return;}
+  if(a==='b1next'){
+    if(!S.draft.serviceId||!S.draft.deptId){toast(t('required'));return;}
+    go('book2');return;
+  }
+  if(a==='b2next'){
+    if(!S.draft.engId){toast(t('required'));return;}
+    go('book3');return;
+  }
+  if(a==='b3next'){
+    if(!S.draft.date||!S.draft.time){toast(t('required'));return;}
+    go('book4');return;
+  }
+  if(a==='markall'){
+    var ids=S.notifs.filter(function(n){return !n.is_read;}).map(function(n){return n.id;});
+    if(ids.length){
+      db.from('notifications').update({is_read:true}).in('id',ids);
+      S.notifs.forEach(function(n){n.is_read=true;});
+    }
+    render();return;
+  }
+});
+
+document.addEventListener('input',function(ev){
+  if(ev.target.id==='f_q'){S.draft.q=ev.target.value;}
+});
+
+/* ================= Start ================= */
+render();
+db.auth.getSession().then(function(s){
+  if(s.data&&s.data.session) boot();
+  else setTimeout(function(){go('login');},2800);
+});
+})();
+</script>
+</body>
+</html>
