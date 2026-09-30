@@ -2289,7 +2289,7 @@ window.addEventListener('load',function(){
 const TC_SUPABASE_URL='https://pwcptgtdgzsfflafschl.supabase.co';
 const TC_SUPABASE_KEY='sb_publishable_nV8yxSJkEt8hXCHCDtwSxg_JdEz1UG3';
 const tcSupabase=(window.supabase&&window.supabase.createClient)?window.supabase.createClient(TC_SUPABASE_URL,TC_SUPABASE_KEY):null;
-const TC_RESET_REDIRECT=window.location.origin+window.location.pathname;
+const TC_RESET_REDIRECT=/trafficconnect\.app$/.test(window.location.hostname)?'https://trafficconnect.app/':window.location.origin+window.location.pathname;
 let tcSession=null;
 let tcProfile=null;
 
@@ -2311,7 +2311,7 @@ async function tcUpdatePassword(){
   if(!tcStrongPassword(p1)){alert('كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير ورقم ورمز خاص.');return}
   if(p1!==p2){alert('كلمتا المرور غير متطابقتين.');return}
   const {error}=await tcSupabase.auth.updateUser({password:p1});
-  if(error){alert('تعذر تحديث كلمة المرور: '+(error.message||error));return}
+  if(error){alert(tcAuthErrorAr(error,'update')||('تعذر تحديث كلمة المرور. افتح رابط الاستعادة من جديد (الرابط صالح لمرة واحدة).'));return}
   alert('تم تحديث كلمة المرور بنجاح. سجّل الدخول بكلمة المرور الجديدة.');
   try{await tcSupabase.auth.signOut({scope:'local'})}catch(e){}
   tcSession=null;tcProfile=null;
@@ -2348,7 +2348,14 @@ async function v10Login(){
   const password=(document.getElementById('loginPassword')?.value||'');
   if(!email || !password){alert('يرجى إدخال البريد الإلكتروني وكلمة المرور.');return}
   const {data,error}=await tcSupabase.auth.signInWithPassword({email,password});
-  if(error){alert('بيانات الدخول غير صحيحة أو الحساب غير مفعّل.');return}
+  if(error){
+    console.warn('login',error);
+    if(/email_not_confirmed|not confirmed/i.test(String(error.code||'')+' '+String(error.message||''))){
+      if(confirm('لم يتم تأكيد البريد الإلكتروني بعد.\nهل تريد إعادة إرسال رابط التأكيد إلى '+email+'؟'))await tcResendConfirmation(email);
+      return;
+    }
+    alert(tcAuthErrorAr(error,'login')||'بيانات الدخول غير صحيحة أو الحساب غير مفعّل.');return;
+  }
   tcSession=data.session;
   try{await tcGetSession()}catch(e){console.warn(e)}
   if(!tcProfile || tcProfile.is_active===false){
@@ -2362,6 +2369,31 @@ async function v10Login(){
 
 async function tcLogout(){try{if(tcSupabase)await tcSupabase.auth.signOut({scope:'local'})}catch(e){console.warn('logout',e)}tcSession=null;tcProfile=null;try{localStorage.removeItem('tc_last_role');localStorage.removeItem('tc_last_login')}catch(e){}returnToLogin()}
 function logout(){tcLogout()}
+
+/* Maps Supabase auth errors to clear Arabic messages (fix: generic message was hiding the real cause) */
+function tcAuthErrorAr(error,ctx){
+  const code=String(error?.code||'');const msg=String(error?.message||'');const status=Number(error?.status||0);
+  const t=(re)=>re.test(code)||re.test(msg);
+  if(t(/email_address_invalid|invalid.*email|email.*invalid|validate email/i))return 'البريد الإلكتروني غير صالح أو غير مقبول. استخدم بريدًا حقيقيًا (مثل Gmail أو Outlook أو بريد الشركة).';
+  if(t(/user_already_exists|email_exists|already|registered/i))return 'هذا البريد مسجل بالفعل. استخدم تسجيل الدخول أو «نسيت كلمة المرور؟».';
+  if(t(/email_not_confirmed|not confirmed/i))return 'لم يتم تأكيد البريد بعد. افتح رسالة التأكيد في بريدك (وتحقق من مجلد Junk/Spam)، أو اضغط «إعادة إرسال رابط التأكيد».';
+  if(t(/invalid_credentials|invalid login/i))return 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+  if(t(/weak_password|password.*(short|weak|at least)/i))return 'كلمة المرور ضعيفة. استخدم 8 أحرف على الأقل مع حرف كبير ورقم ورمز خاص.';
+  if(t(/same_password|different from the old/i))return 'كلمة المرور الجديدة يجب أن تختلف عن السابقة.';
+  if(t(/over_email_send_rate_limit|email rate limit/i))return 'تم تجاوز الحد المسموح لإرسال الرسائل. انتظر بضع دقائق ثم حاول مرة أخرى.';
+  if(status===429||t(/rate limit|too many|over_request_rate_limit/i))return 'محاولات كثيرة خلال وقت قصير. انتظر دقيقة ثم حاول مرة أخرى.';
+  if(t(/signup.*disabled|signup_disabled/i))return 'التسجيل الجديد متوقف حاليًا. يرجى التواصل مع الدعم.';
+  if(t(/staff_email_use_staff_activation/i)||(ctx==='signup'&&/database error saving new user/i.test(msg)))return 'هذا البريد مسجل كبريد موظف ITC. استخدم «تفعيل حساب الموظفين» بدلًا من تسجيل المقاولين.';
+  if(t(/staff_email_not_authorized/i))return 'هذا البريد غير موجود ضمن قائمة موظفي ITC المعتمدين.';
+  if(t(/sending.*email|smtp|error sending/i))return 'تعذر إرسال رسالة البريد حاليًا. حاول بعد قليل أو تواصل مع الدعم.';
+  if(t(/failed to fetch|network/i))return 'تعذر الاتصال بالخادم. تحقق من الإنترنت وحاول مرة أخرى.';
+  return null;
+}
+async function tcResendConfirmation(email){
+  if(!tcSupabase||!email)return;
+  const {error}=await tcSupabase.auth.resend({type:'signup',email,options:{emailRedirectTo:'https://trafficconnect.app'}});
+  alert(error?(tcAuthErrorAr(error)||'تعذر إعادة إرسال رابط التأكيد.'):'تم إرسال رابط التأكيد مرة أخرى. تحقق من بريدك (ومجلد Junk/Spam).');
+}
 
 function tcStrongPassword(password){
   return password.length>=8 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password);
@@ -2390,13 +2422,12 @@ async function saveContractorRegistration(){
       }
     });
     if(error){
-      const msg=String(error.message||'');
-      if(/already|registered|duplicate|exists/i.test(msg)){
-        alert('هذا البريد مسجل بالفعل. تحقق من بريدك الإلكتروني لتأكيد الحساب، أو استخدم «نسيت كلمة المرور؟».');
-      }else{
-        console.error('signup',error);
-        alert('تعذر إنشاء الحساب حاليًا. حاول مرة أخرى بعد قليل.');
-      }
+      console.error('signup',error);
+      alert(tcAuthErrorAr(error,'signup')||('تعذر إنشاء الحساب حاليًا. حاول مرة أخرى بعد قليل.'+(error.code?' ('+error.code+')':'')));
+      return;
+    }
+    if(data?.user && Array.isArray(data.user.identities) && data.user.identities.length===0){
+      alert('هذا البريد مسجل بالفعل. استخدم تسجيل الدخول أو «نسيت كلمة المرور؟».');
       return;
     }
     if(data?.session){
@@ -2463,7 +2494,7 @@ async function tcPasswordReset(){
   const email=(document.getElementById('forgotEmail')?.value||'').trim().toLowerCase();
   if(!email){alert('أدخل البريد الإلكتروني.');return}
   const {error}=await tcSupabase.auth.resetPasswordForEmail(email,{redirectTo:TC_RESET_REDIRECT});
-  if(error){alert('تعذر إرسال رابط الاستعادة. حاول مرة أخرى لاحقًا.');return}
+  if(error){console.warn('reset',error);alert(tcAuthErrorAr(error,'reset')||'تعذر إرسال رابط الاستعادة. حاول مرة أخرى لاحقًا.');return}
   alert('إذا كان البريد مسجلًا، فسيصلك رابط استعادة كلمة المرور.');
 }
 
