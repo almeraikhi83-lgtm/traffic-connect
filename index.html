@@ -1390,7 +1390,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
 </section>
 <section id="responsibleDashboard" class="screen">
   <div class="service16-page">
-    <div class="service16-head"><div><h2>لوحة المسؤول</h2><p>متابعة الحجوزات والبلاغات والاستفسارات الواردة.</p></div><button class="service16-back" onclick="tcLogout()">تسجيل الخروج</button></div>
+    <div class="service16-head"><div><h2>لوحة المسؤول</h2><p>متابعة الحجوزات والبلاغات والاستفسارات الواردة.</p></div><div class="tc-head-actions"><button class="tc-bell" onclick="showScreen('notifications')" aria-label="الإشعارات">🔔<span class="tc-bell-count" hidden>0</span></button><button class="service16-back" onclick="tcLogout()">تسجيل الخروج</button></div></div>
     <div class="v25-grid"><div class="v25-stat"><b id="v26RespBookings">0</b><span>حجوزات</span></div><div class="v25-stat"><b id="v26RespComplaints">0</b><span>شكاوى</span></div><div class="v25-stat"><b id="v26RespInquiries">0</b><span>استفسارات</span></div></div>
     <div id="v26ResponsibleList" style="margin-top:14px"></div>
   </div>
@@ -1441,8 +1441,9 @@ body.tc-admin-preview .screen.active{padding-top:66px}
       <div class="service16-field"><label>موضوع الاستفسار *</label><select id="inquiryTopic"><option>تصاريح وتحويلات مرورية</option><option>حجز موعد</option><option>متابعة طلب</option><option>موقع أو مركز خدمة</option><option>استفسار عام</option></select></div>
       <div class="service16-field"><label>الاستفسار *</label><textarea id="inquiryDesc" placeholder="اكتب استفسارك بالتفصيل..."></textarea></div>
       <div class="service16-field"><label>رقم الطلب أو التصريح</label><input id="inquiryRef" placeholder="اختياري"></div>
+      <div class="service16-field"><label>مرفقات (اختياري)</label><input id="inquiryFiles" type="file" multiple accept="image/*,.pdf" onchange="showSelectedFiles(this,'inquiryFilesList')"><div id="inquiryFilesList" class="attachment-list"></div></div>
       <button class="service16-submit" onclick="submitService16('INQ','inquiryDesc','تم إرسال الاستفسار بنجاح')">إرسال الاستفسار</button>
-      <div class="service16-note">سيظهر الرد في الإشعارات وطلباتي في النسخة المتكاملة.</div>
+      <div class="service16-note">سيظهر الرد في «الإشعارات» و«طلباتي».</div>
     </div>
   </div>
 </section>
@@ -1462,8 +1463,8 @@ body.tc-admin-preview .screen.active{padding-top:66px}
 
 <section id="notifications" class="screen">
   <div class="service16-page">
-    <div class="service16-head"><div><h2>الإشعارات</h2><p>آخر التنبيهات والتحديثات على حسابك.</p></div><button class="service16-back" onclick="showScreen('home')">← الرئيسية</button></div>
-    <div id="tcNotificationsList" class="notification16"><div class="ni">🔔</div><div><b>لا توجد إشعارات جديدة</b><small>ستظهر هنا التنبيهات الفعلية المرتبطة بحسابك.</small></div></div>
+    <div class="service16-head"><div><h2>الإشعارات</h2><p>آخر التنبيهات والتحديثات على حسابك.</p></div><button class="service16-back" onclick="tcNotifBack()">← رجوع</button></div>
+    <div id="tcNotificationsList"><div class="ni">🔔</div><div><b>لا توجد إشعارات جديدة</b><small>ستظهر هنا التنبيهات الفعلية المرتبطة بحسابك.</small></div></div>
   </div>
 </section>
 <section id="booking" class="screen">
@@ -1594,9 +1595,10 @@ body.tc-admin-preview .screen.active{padding-top:66px}
   <div class="admin19-page">
     <div class="admin19-head">
       <div><h2>لوحة تحكم Traffic Connect</h2><p>تحكم Admin متزامن مع Supabase.</p></div>
-      <button class="admin19-back" onclick="tcLogout()">🚪 تسجيل الخروج</button>
+      <div class="tc-head-actions"><button class="tc-bell" onclick="showScreen('notifications')" aria-label="الإشعارات">🔔<span class="tc-bell-count" hidden>0</span></button><button class="admin19-back" onclick="tcLogout()">🚪 تسجيل الخروج</button></div>
     </div>
     <div class="admin2610-toolbar">
+      <button onclick="document.getElementById('tcAdminInbox').scrollIntoView({behavior:'smooth'})">📥 الشكاوى والاستفسارات</button>
       <button onclick="document.getElementById('a2610Services').scrollIntoView({behavior:'smooth'})">الخدمات</button>
       <button onclick="document.getElementById('a2610Engineers').scrollIntoView({behavior:'smooth'})">المهندسون</button>
       <button onclick="document.getElementById('a2610Announcement').scrollIntoView({behavior:'smooth'})">الإعلان</button>
@@ -1604,6 +1606,8 @@ body.tc-admin-preview .screen.active{padding-top:66px}
       <button onclick="tcAdmin2610Reload()">↻ تحديث</button>
       <button onclick="document.getElementById('a2611Preview').scrollIntoView({behavior:'smooth'})">👁 معاينة الصفحات</button>
     </div>
+
+    <div class="admin19-card" style="margin-bottom:14px"><div id="tcAdminInbox"><div class="admin19-note">جاري تحميل الشكاوى والاستفسارات...</div></div></div>
 
     <div class="admin19-card" style="margin-bottom:14px"><h3>☁️ Supabase — قاعدة البيانات المشتركة</h3><div id="v26AdminCloudStatus" class="admin19-note">جاري الاتصال...</div><div id="a2610SaveState" class="admin2610-save-state"></div></div>
 
@@ -2573,8 +2577,8 @@ async function renderRequests(){
     const rateBtn=canRate?`<button class="inline-action" onclick="event.stopPropagation();openRating('${r.id}','${r.engineer_id||''}','${tcEsc(engName)}',${existing?existing.rating:0},'${existing?tcEsc(existing.comment||''):''}')">${existing?'تعديل التقييم ⭐'+existing.rating:'⭐ تقييم المهندس'}</button>`:'';
     rows.push({id:r.id.slice(0,8).toUpperCase(),fullId:r.id,title:r.service,status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),date:tcFmtDate(r.appointment_date),engineer:r.engineer_note?'ملاحظة المهندس: '+r.engineer_note:'',created:r.created_at,extra:r.status==='proposed'?`الموعد البديل: ${tcFmtDate(r.proposed_date)} ${r.proposed_time||''}`:'',rateBtn});
   });
-  (c.data||[]).forEach(r=>rows.push({id:'CMP-'+r.id.slice(0,8).toUpperCase(),title:r.category||'شكوى',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:r.response||''}));
-  (i.data||[]).forEach(r=>rows.push({id:'INQ-'+r.id.slice(0,8).toUpperCase(),title:r.topic||'استفسار',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:r.response||''}));
+  (c.data||[]).forEach(r=>rows.push({id:'CMP-'+r.id.slice(0,8).toUpperCase(),title:r.category||'شكوى',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:tcReplyLine(r)}));
+  (i.data||[]).forEach(r=>rows.push({id:'INQ-'+r.id.slice(0,8).toUpperCase(),title:r.topic||'استفسار',status:tcStatusAr(r.status),statusClass:tcStatusClass(r.status),created:r.created_at,extra:tcReplyLine(r)}));
   rows.sort((x,y)=>new Date(y.created)-new Date(x.created));
   el.innerHTML=rows.length?rows.map(r=>`<div class="item"><div class="row"><b>${tcEsc(r.id)}</b><span class="badge ${tcEsc(r.statusClass)}">${tcEsc(r.status)}</span></div><div class="small">${tcEsc(r.title)}${r.date?' — '+tcEsc(r.date):''}</div>${r.engineer?`<div class="small">${tcEsc(r.engineer)}</div>`:''}${r.extra?`<div class="notice" style="margin-top:6px">${tcEsc(r.extra)}</div>`:''}${r.rateBtn||''}</div>`).join(''):'<div class="empty">لا توجد طلبات حتى الآن.</div>';
 }
@@ -2585,10 +2589,10 @@ async function submitService16(prefix,descId,message){
     const field=document.getElementById(descId),desc=(field?.value||'').trim();if(desc.length<5){alert('يرجى كتابة تفاصيل أوضح.');return}
     if(prefix==='INQ'){
       const row={contractor_id:tcSession.user.id,topic:document.getElementById('inquiryTopic')?.value||'استفسار عام',question:desc,permit_reference:(document.getElementById('inquiryRef')?.value||'').trim(),status:'open'};
-      const {data,error}=await tcSupabase.from('inquiries').insert(row).select().single();if(error)throw error;alert(message+'\nرقم الطلب: INQ-'+data.id.slice(0,8).toUpperCase());
+      const {data,error}=await tcSupabase.from('inquiries').insert(row).select().single();if(error)throw error;const up=await tcUploadRequestFiles('inquiryFiles','inquiries',data.id);alert(message+'\nرقم الطلب: INQ-'+data.id.slice(0,8).toUpperCase()+up);
     }else{
       const row={contractor_id:tcSession.user.id,category:prefix==='APP'?'مشكلة في التطبيق':document.getElementById('complaintType')?.value||'أخرى',description:desc,location:(document.getElementById('complaintLocation')?.value||'').trim(),permit_reference:(document.getElementById('complaintPermit')?.value||'').trim(),status:'open'};
-      const {data,error}=await tcSupabase.from('complaints').insert(row).select().single();if(error)throw error;alert(message+'\nرقم الطلب: CMP-'+data.id.slice(0,8).toUpperCase());
+      const {data,error}=await tcSupabase.from('complaints').insert(row).select().single();if(error)throw error;const up=await tcUploadRequestFiles(prefix==='APP'?'issueFiles':'complaintFiles','complaints',data.id);alert(message+'\nرقم الطلب: CMP-'+data.id.slice(0,8).toUpperCase()+up);
     }
     if(field)field.value='';showScreen('requests');await renderRequests();
   }catch(e){console.error(e);alert('تعذر الإرسال: '+(e.message||e))}
@@ -2691,7 +2695,7 @@ async function tcRenderResponsible(){
       return `<div class="item"><div class="row"><b>${tcEsc(r.service==='responsible_meeting'?'حجز اجتماع مع المسؤول':r.service)}</b><span class="badge ${tcStatusClass(r.status)}">${tcEsc(tcStatusAr(r.status))}</span></div><div class="small">${tcEsc(tcFmtDate(r.appointment_date))} — ${tcEsc(r.appointment_time||'')}</div><div class="small">المنطقة: ${tcEsc(r.region||'—')}</div><div class="small">المرجع: ${tcEsc(r.permit_reference||'غير مذكور')}</div><div class="small">ملاحظات المقاول: ${tcEsc(r.notes||'لا توجد')}</div>${proposed}${r.engineer_note?`<div class="small">ملاحظة المسؤول: ${tcEsc(r.engineer_note)}</div>`:''}${actions}</div>`;
     }).join('')||'<div class="empty">لا توجد حجوزات اجتماع مع المسؤول.</div>';
     const ticketHtml=tickets.slice(0,20).map(r=>`<div class="item"><div class="row"><b>${tcEsc(r._type+' — '+(r.category||r.topic||''))}</b><span class="badge ${tcStatusClass(r.status)}">${tcEsc(tcStatusAr(r.status))}</span></div><div class="small">${tcEsc(r.description||r.question||'')}</div>${r.response?`<div class="small">الرد: ${tcEsc(r.response)}</div>`:''}<div class="v25-actions"><button class="inline-action" onclick="tcResponsibleTicketUpdate('${r._type}','${r.id}','in_review')">قيد المراجعة</button><button class="inline-action" onclick="tcResponsibleTicketUpdate('${r._type}','${r.id}','resolved')">تم الحل</button><button class="inline-action" onclick="tcResponsibleTicketUpdate('${r._type}','${r.id}','closed')">إغلاق</button></div></div>`).join('')||'<div class="empty">لا توجد طلبات</div>';
-    el.innerHTML='<div class="card"><h3>اجتماعات المسؤول — تحكم مباشر</h3>'+meetingHtml+'</div><div class="card"><h3>الشكاوى والاستفسارات</h3>'+ticketHtml+'</div>';
+    el.innerHTML='<div class="card"><h3>اجتماعات المسؤول — تحكم مباشر</h3>'+meetingHtml+'</div><div class="card"><div id="tcRespInbox"></div></div>';tcRenderInbox('tcRespInbox');
   }catch(e){console.error('responsible dashboard',e);el.innerHTML='<div class="card"><div class="empty">تعذر تحميل لوحة المسؤول: '+tcEsc(e.message||String(e))+'</div></div>'}
 }
 async function tcResponsibleAppointmentDecision(id,decision){
@@ -2892,6 +2896,229 @@ window.addEventListener('load',async()=>{
   const isRecovery=tcIsPasswordRecovery||/type=recovery/.test(window.location.hash)||/type=recovery/.test(window.location.search);
   if(!isRecovery) returnToLogin();
 });
+</script>
+
+<style>
+/* ===== Requests inbox, reply, attachments & notifications ===== */
+.tc-head-actions{display:flex;gap:8px;align-items:center}
+.tc-bell{position:relative;border:0;background:#eaf6f4;color:#0b746c;border-radius:12px;width:42px;height:42px;font-size:19px;cursor:pointer}
+.tc-bell-count{position:absolute;top:-6px;inset-inline-start:-6px;background:#d92d20;color:#fff;border-radius:999px;font-size:11px;font-weight:700;min-width:20px;height:20px;line-height:20px;padding:0 5px;text-align:center}
+.tc-inbox-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.tc-inbox-head h3{margin:0}
+.tc-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tc-tabs button{border:1px solid #d6e5e2;background:#fff;color:#35504c;border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.tc-tabs button.on{background:#0b746c;border-color:#0b746c;color:#fff}
+.tc-req{border:1px solid #e3eeec;border-radius:14px;padding:12px 14px;margin-bottom:9px;background:#fff;cursor:pointer;transition:box-shadow .15s}
+.tc-req:hover{box-shadow:0 6px 18px rgba(8,87,81,.10)}
+.tc-req.new{border-inline-start:4px solid #d92d20}
+.tc-req-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.tc-req-meta{color:#6b7d7a;font-size:12.5px;margin-top:4px;line-height:1.6}
+.tc-req-desc{color:#2b3b39;font-size:13.5px;margin-top:6px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tc-chip{display:inline-block;background:#eaf6f4;color:#0b746c;border-radius:8px;padding:2px 8px;font-size:12px;margin-inline-start:6px}
+.tc-modal{position:fixed;inset:0;background:rgba(10,30,28,.55);z-index:9999;display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:720px){.tc-modal{align-items:center}}
+.tc-modal-box{background:#f6f9f8;width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+@media(min-width:720px){.tc-modal-box{border-radius:22px}}
+.tc-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tc-modal-head h3{margin:0;font-size:18px}
+.tc-x{border:0;background:#e6efed;border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer}
+.tc-sec{background:#fff;border-radius:16px;padding:13px 14px;margin-bottom:10px}
+.tc-sec h4{margin:0 0 8px;font-size:14px;color:#0b746c}
+.tc-kv{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:13.5px}
+.tc-kv span{color:#6b7d7a}
+.tc-att{display:flex;flex-wrap:wrap;gap:8px}
+.tc-att a{display:flex;align-items:center;gap:6px;border:1px solid #d6e5e2;border-radius:10px;padding:6px 10px;font-size:13px;color:#0b746c;text-decoration:none;background:#fff}
+.tc-att img{width:84px;height:84px;object-fit:cover;border-radius:10px;border:1px solid #d6e5e2}
+.tc-reply-prev{background:#eef8f6;border-radius:12px;padding:10px 12px;font-size:13.5px;white-space:pre-wrap}
+.tc-reply-by{color:#6b7d7a;font-size:12px;margin-top:6px}
+.tc-modal textarea{width:100%;min-height:110px;border:1px solid #d6e5e2;border-radius:12px;padding:10px;font:inherit;box-sizing:border-box}
+.tc-modal select{width:100%;border:1px solid #d6e5e2;border-radius:12px;padding:10px;font:inherit;margin-top:8px;background:#fff}
+.tc-send{width:100%;margin-top:10px;border:0;border-radius:14px;padding:13px;background:linear-gradient(135deg,#0b746c,#0a5b54);color:#fff;font-size:15px;font-weight:700;cursor:pointer}
+.tc-send:disabled{opacity:.6}
+.tc-notif{display:flex;gap:12px;background:#fff;border-radius:16px;padding:12px 14px;margin-bottom:9px;cursor:pointer;border:1px solid #e3eeec}
+.tc-notif.unread{border-inline-start:4px solid #0b746c;background:#f3fbf9}
+.tc-notif .ni{width:38px;height:38px;border-radius:12px;background:#eaf6f4;display:flex;align-items:center;justify-content:center;flex:0 0 38px}
+.tc-notif b{display:block;margin-bottom:3px}.tc-notif small{color:#758481;line-height:1.55;display:block}
+.tc-notif-actions{display:flex;justify-content:flex-end;margin-bottom:8px}
+.tc-notif-actions button{border:0;background:none;color:#0b746c;font-weight:700;cursor:pointer}
+</style>
+
+<script>
+/* ===== Requests inbox, reply, attachments & notifications ===== */
+const TC_ATT_BUCKET='request-attachments';
+function tcIsStaff(){return ['admin','responsible'].includes(tcProfile?.role)}
+function tcFmtDateTime(d){if(!d)return '—';try{return new Date(d).toLocaleString('ar-AE',{dateStyle:'medium',timeStyle:'short'})}catch(e){return d}}
+function tcReplyLine(r){
+  if(!r||!r.response)return '';
+  const by=r.responded_by_name?(' — '+r.responded_by_name):'';
+  const at=r.responded_at?(' · '+tcFmtDateTime(r.responded_at)):'';
+  return 'الرد'+by+at+':\n'+r.response;
+}
+function tcRefCode(table,id){return (table==='complaints'?'CMP-':'INQ-')+String(id).slice(0,8).toUpperCase()}
+
+/* ---------- Attachments upload (contractor side) ---------- */
+async function tcUploadRequestFiles(inputId,entityType,entityId){
+  const input=document.getElementById(inputId);
+  const files=input?[...input.files]:[];
+  if(!files.length)return '';
+  let ok=0,fail=0;
+  for(const f of files){
+    try{
+      if(f.size>10*1024*1024)throw new Error('size');
+      const safe=f.name.replace(/[^\w.\-]+/g,'_').slice(-80)||'file';
+      const path=`${tcSession.user.id}/${entityId}/${Date.now()}_${safe}`;
+      const up=await tcSupabase.storage.from(TC_ATT_BUCKET).upload(path,f,{contentType:f.type||undefined,upsert:false});
+      if(up.error)throw up.error;
+      const ins=await tcSupabase.from('attachments').insert({owner_user_id:tcSession.user.id,entity_type:entityType,entity_id:entityId,file_name:f.name,storage_path:path,mime_type:f.type||null,size_bytes:f.size});
+      if(ins.error)throw ins.error;
+      ok++;
+    }catch(e){console.warn('attachment',e);fail++}
+  }
+  input.value='';const list=document.getElementById(inputId+'List')||document.getElementById(inputId.replace('Files','FilesList'));if(list)list.innerHTML='';
+  return fail?`\nتم رفع ${ok} مرفق، وتعذر رفع ${fail} (الحد الأقصى 10MB — صور أو PDF).`:`\nتم رفع ${ok} مرفق.`;
+}
+
+/* ---------- Staff inbox ---------- */
+const tcInboxState={filter:'active',rows:[]};
+async function tcLoadInbox(){
+  const [c,i]=await Promise.all([
+    tcSupabase.from('complaints').select('*').order('created_at',{ascending:false}).limit(300),
+    tcSupabase.from('inquiries').select('*').order('created_at',{ascending:false}).limit(300)
+  ]);
+  if(c.error)throw c.error;if(i.error)throw i.error;
+  const rows=[...(c.data||[]).map(r=>({...r,_table:'complaints'})),...(i.data||[]).map(r=>({...r,_table:'inquiries'}))];
+  const ids=[...new Set(rows.map(r=>r.contractor_id).filter(Boolean))];
+  let people={};
+  if(ids.length){const {data}=await tcSupabase.from('profiles').select('id,full_name,company_name,phone').in('id',ids);(data||[]).forEach(p=>people[p.id]=p)}
+  const reqIds=rows.map(r=>r.id);let attCount={};
+  if(reqIds.length){const {data}=await tcSupabase.from('attachments').select('entity_id').in('entity_id',reqIds);(data||[]).forEach(a=>attCount[a.entity_id]=(attCount[a.entity_id]||0)+1)}
+  rows.forEach(r=>{r._who=people[r.contractor_id]||{};r._att=attCount[r.id]||0});
+  rows.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  tcInboxState.rows=rows;return rows;
+}
+async function tcRenderInbox(containerId){
+  const el=document.getElementById(containerId);if(!el)return;
+  el.dataset.inbox='1';
+  try{
+    if(!tcSession)await tcGetSession();
+    const rows=await tcLoadInbox();
+    tcPaintInbox(el);
+  }catch(e){console.error('inbox',e);el.innerHTML='<div class="admin19-note">تعذر تحميل الشكاوى والاستفسارات: '+tcEsc(e.message||e)+'</div>'}
+}
+function tcPaintInbox(el){
+  const f=tcInboxState.filter,rows=tcInboxState.rows;
+  const counts={active:rows.filter(r=>['open','in_review'].includes(r.status)).length,open:rows.filter(r=>r.status==='open').length,all:rows.length};
+  const shown=rows.filter(r=>f==='all'?true:f==='open'?r.status==='open':f==='done'?['resolved','closed'].includes(r.status):['open','in_review'].includes(r.status));
+  const tab=(k,label)=>`<button class="${f===k?'on':''}" onclick="tcInboxState.filter='${k}';document.querySelectorAll('[data-inbox]').forEach(tcPaintInbox)">${label}</button>`;
+  el.innerHTML=`<div class="tc-inbox-head"><h3>📥 الشكاوى والاستفسارات</h3><div class="tc-tabs">${tab('open','جديدة ('+counts.open+')')}${tab('active','قيد المتابعة ('+counts.active+')')}${tab('done','منتهية')}${tab('all','الكل ('+counts.all+')')}<button onclick="document.querySelectorAll('[data-inbox]').forEach(x=>tcRenderInbox(x.id))">↻</button></div></div>`+
+  (shown.length?shown.map(r=>{
+    const who=[r._who.full_name,r._who.company_name].filter(Boolean).join(' — ')||'مقاول';
+    return `<div class="tc-req ${r.status==='open'?'new':''}" onclick="tcOpenRequest('${r._table}','${r.id}')">
+      <div class="tc-req-top"><b>${r._table==='complaints'?'شكوى':'استفسار'} · ${tcEsc(r.category||r.topic||'')}</b><span class="badge ${tcStatusClass(r.status)}">${tcEsc(tcStatusAr(r.status))}</span></div>
+      <div class="tc-req-meta">${tcEsc(tcRefCode(r._table,r.id))} · ${tcEsc(who)} · ${tcEsc(tcFmtDateTime(r.created_at))}${r._att?`<span class="tc-chip">📎 ${r._att}</span>`:''}${r.response?`<span class="tc-chip">✓ تم الرد${r.responded_by_name?' — '+tcEsc(r.responded_by_name):''}</span>`:''}</div>
+      <div class="tc-req-desc">${tcEsc(r.description||r.question||'')}</div></div>`;
+  }).join(''):'<div class="empty">لا توجد طلبات في هذا التصنيف.</div>');
+}
+
+/* ---------- Request detail + reply ---------- */
+function tcCloseModal(){const m=document.getElementById('tcReqModal');if(m)m.remove();document.body.style.overflow=''}
+async function tcOpenRequest(table,id){
+  tcCloseModal();
+  const m=document.createElement('div');m.id='tcReqModal';m.className='tc-modal';
+  m.onclick=e=>{if(e.target===m)tcCloseModal()};
+  m.innerHTML='<div class="tc-modal-box"><div class="tc-modal-head"><h3>جاري التحميل...</h3><button class="tc-x" onclick="tcCloseModal()">×</button></div></div>';
+  document.body.appendChild(m);document.body.style.overflow='hidden';
+  try{
+    const {data:r,error}=await tcSupabase.from(table).select('*').eq('id',id).maybeSingle();
+    if(error)throw error;if(!r)throw new Error('الطلب غير موجود أو لا تملك صلاحية عرضه.');
+    const [{data:who},{data:atts}]=await Promise.all([
+      tcSupabase.from('profiles').select('full_name,company_name,phone').eq('id',r.contractor_id).maybeSingle(),
+      tcSupabase.from('attachments').select('*').eq('entity_id',id).order('created_at')
+    ]);
+    let attHtml='<div class="small">لا توجد مرفقات.</div>';
+    if(atts&&atts.length){
+      const signed=await tcSupabase.storage.from(TC_ATT_BUCKET).createSignedUrls(atts.map(a=>a.storage_path),3600);
+      attHtml='<div class="tc-att">'+atts.map((a,k)=>{const u=signed.data?.[k]?.signedUrl;if(!u)return `<a>⚠️ ${tcEsc(a.file_name)}</a>`;
+        return (a.mime_type||'').startsWith('image/')?`<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="${tcEsc(a.file_name)}"></a>`:`<a href="${u}" target="_blank" rel="noopener">📄 ${tcEsc(a.file_name)}</a>`}).join('')+'</div>';
+    }
+    const isC=table==='complaints';
+    const prev=r.response?`<div class="tc-reply-prev">${tcEsc(r.response)}</div><div class="tc-reply-by">بواسطة: <b>${tcEsc(r.responded_by_name||'—')}</b> · ${tcEsc(tcFmtDateTime(r.responded_at))}</div>`:'<div class="small">لم يتم الرد بعد.</div>';
+    const statusOpts=[['in_review','قيد المراجعة'],['resolved','تم الحل'],['closed','مغلق'],['open','مفتوح']].map(([v,l])=>`<option value="${v}" ${(r.status==='open'?'in_review':r.status)===v?'selected':''}>${l}</option>`).join('');
+    m.querySelector('.tc-modal-box').innerHTML=`
+      <div class="tc-modal-head"><h3>${isC?'شكوى':'استفسار'} · ${tcEsc(tcRefCode(table,id))}</h3><button class="tc-x" onclick="tcCloseModal()">×</button></div>
+      <div class="tc-sec"><h4>بيانات المقاول</h4><div class="tc-kv"><span>الاسم</span><b>${tcEsc(who?.full_name||'—')}</b><span>الشركة</span><b>${tcEsc(who?.company_name||'—')}</b><span>الهاتف</span><b>${who?.phone?`<a href="tel:${tcEsc(who.phone)}">${tcEsc(who.phone)}</a>`:'—'}</b></div></div>
+      <div class="tc-sec"><h4>تفاصيل الطلب</h4><div class="tc-kv"><span>النوع</span><b>${tcEsc(r.category||r.topic||'—')}</b><span>الحالة</span><b>${tcEsc(tcStatusAr(r.status))}</b><span>تاريخ الإرسال</span><b>${tcEsc(tcFmtDateTime(r.created_at))}</b>${isC?`<span>الموقع</span><b>${tcEsc(r.location||'—')}</b>`:''}<span>رقم التصريح</span><b>${tcEsc(r.permit_reference||'—')}</b></div>
+        <div style="margin-top:10px;white-space:pre-wrap;font-size:14px">${tcEsc(r.description||r.question||'')}</div></div>
+      <div class="tc-sec"><h4>📎 المرفقات</h4>${attHtml}</div>
+      <div class="tc-sec"><h4>الرد الحالي</h4>${prev}</div>
+      ${tcIsStaff()?`<div class="tc-sec"><h4>${r.response?'تحديث الرد':'الرد على المقاول'}</h4>
+        <textarea id="tcReplyText" placeholder="اكتب ردك للمقاول...">${r.response?tcEsc(r.response):''}</textarea>
+        <select id="tcReplyStatus">${statusOpts}</select>
+        <button class="tc-send" id="tcReplySend" onclick="tcSendReply('${table}','${id}')">إرسال الرد</button>
+        <div class="small" style="margin-top:6px">سيصل الرد للمقاول كإشعار داخل التطبيق، ويُسجَّل اسمك ووقت الرد تلقائيًا.</div></div>`:''}`;
+    if(tcIsStaff()){try{await tcSupabase.from('notifications').update({is_read:true}).eq('reference_id',id).eq('user_id',tcSession.user.id).eq('is_read',false);tcRefreshBell()}catch(e){}}
+  }catch(e){console.error(e);m.querySelector('.tc-modal-box').innerHTML=`<div class="tc-modal-head"><h3>تعذر فتح الطلب</h3><button class="tc-x" onclick="tcCloseModal()">×</button></div><div class="tc-sec">${tcEsc(e.message||e)}</div>`}
+}
+async function tcSendReply(table,id){
+  const text=(document.getElementById('tcReplyText')?.value||'').trim();
+  const status=document.getElementById('tcReplyStatus')?.value||'in_review';
+  if(text.length<2){alert('اكتب نص الرد أولاً.');return}
+  const btn=document.getElementById('tcReplySend');if(btn){btn.disabled=true;btn.textContent='جاري الإرسال...'}
+  const {data,error}=await tcSupabase.from(table).update({response:text,status}).eq('id',id).select('responded_by_name,responded_at').maybeSingle();
+  if(error||!data){if(btn){btn.disabled=false;btn.textContent='إرسال الرد'}alert('تعذر إرسال الرد: '+(error?.message||'لا تملك صلاحية التعديل على هذا الطلب.'));return}
+  alert('تم إرسال الرد للمقاول ✅\nبواسطة: '+(data.responded_by_name||'—')+'\nالوقت: '+tcFmtDateTime(data.responded_at));
+  tcCloseModal();
+  document.querySelectorAll('[data-inbox]').forEach(x=>tcRenderInbox(x.id));
+}
+
+/* ---------- Notifications ---------- */
+async function tcRefreshBell(){
+  try{
+    if(!tcSupabase||!tcSession?.user)return;
+    const {count}=await tcSupabase.from('notifications').select('id',{count:'exact',head:true}).eq('user_id',tcSession.user.id).eq('is_read',false);
+    document.querySelectorAll('.tc-bell-count').forEach(b=>{b.textContent=count>99?'99+':String(count||0);b.hidden=!count});
+  }catch(e){}
+}
+async function tcRenderNotifications(){
+  const el=document.getElementById('tcNotificationsList');if(!el)return;
+  if(!tcSession)await tcGetSession();
+  if(!tcSession){el.innerHTML='<div class="empty">سجّل الدخول لعرض الإشعارات.</div>';return}
+  const {data,error}=await tcSupabase.from('notifications').select('*').eq('user_id',tcSession.user.id).order('created_at',{ascending:false}).limit(60);
+  if(error){el.innerHTML='<div class="empty">تعذر تحميل الإشعارات.</div>';return}
+  const icon=k=>({complaint:'📣',inquiry:'💬',appointment:'📅',app_issue:'🛠️'})[k]||'🔔';
+  const unread=(data||[]).some(n=>!n.is_read);
+  el.innerHTML=(unread?'<div class="tc-notif-actions"><button onclick="tcMarkAllRead()">تحديد الكل كمقروء</button></div>':'')+
+   ((data||[]).map(n=>`<div class="tc-notif ${n.is_read?'':'unread'}" onclick="tcOpenNotification('${n.id}','${tcEsc(n.kind||'')}','${n.reference_id||''}')"><div class="ni">${icon(n.kind)}</div><div><b>${tcEsc(n.title)}</b><small>${tcEsc(n.message||'')}</small><small>${tcEsc(tcFmtDateTime(n.created_at))}</small></div></div>`).join('')||
+   '<div class="tc-notif"><div class="ni">🔔</div><div><b>لا توجد إشعارات جديدة</b><small>ستظهر هنا التنبيهات الفعلية المرتبطة بحسابك.</small></div></div>');
+}
+async function tcMarkAllRead(){await tcSupabase.from('notifications').update({is_read:true}).eq('user_id',tcSession.user.id).eq('is_read',false);await tcRenderNotifications();tcRefreshBell()}
+async function tcOpenNotification(nid,kind,ref){
+  try{await tcSupabase.from('notifications').update({is_read:true}).eq('id',nid)}catch(e){}
+  tcRefreshBell();tcRenderNotifications();
+  if(ref&&(kind==='complaint'||kind==='inquiry')){
+    if(tcIsStaff()){tcOpenRequest(kind==='complaint'?'complaints':'inquiries',ref);return}
+    showScreen('requests');return;
+  }
+  if(kind==='appointment'&&!tcIsStaff())showScreen('requests');
+}
+function tcNotifBack(){
+  const r=tcProfile?.role;
+  if(r==='admin')showScreen('adminConsole');else if(r==='responsible')showScreen('responsibleDashboard');else if(r==='engineer')showScreen('engineerDashboard');else showScreen('home');
+}
+
+/* ---------- Wiring ---------- */
+(function(){
+  const prevShow=showScreen;
+  showScreen=function(id){
+    const res=prevShow(id);
+    if(id==='notifications')setTimeout(tcRenderNotifications,0);
+    if(id==='adminConsole')setTimeout(()=>tcRenderInbox('tcAdminInbox'),0);
+    setTimeout(tcRefreshBell,0);
+    return res;
+  };
+  setInterval(()=>{if(document.visibilityState==='visible'){tcRefreshBell();const s=document.querySelector('.screen.active')?.id;if(s==='adminConsole'||s==='responsibleDashboard')document.querySelectorAll('[data-inbox]').forEach(x=>tcLoadInbox().then(()=>tcPaintInbox(x)).catch(()=>{}))}},45000);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')tcCloseModal()});
+})();
 </script>
 
 </body>
