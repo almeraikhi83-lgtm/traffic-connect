@@ -3121,5 +3121,248 @@ function tcNotifBack(){
 })();
 </script>
 
+<style>
+/* ===== LTR layout fixes for English ===== */
+html[dir=ltr] .gallery-caption{text-align:left;direction:ltr}
+html[dir=ltr] .premium-nav button,
+html[dir=ltr] .home16-quick button,
+html[dir=ltr] .home16-service,
+html[dir=ltr] .admin19-table th,html[dir=ltr] .admin19-table td{text-align:left}
+html[dir=ltr] input[type=email],html[dir=ltr] input[type=tel]{direction:ltr}
+html[dir=ltr] body{font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+.tc-lang-loading{opacity:.001}
+</style>
+<script>
+/* =====================================================================
+   Traffic Connect — complete Arabic ⇄ English language engine
+   - Translates every static and dynamically rendered text node,
+     placeholder, title, aria-label, alt, alert/confirm/prompt.
+   - Keeps the original Arabic in memory so switching back is lossless.
+   - Never changes stored data: <option> values keep their Arabic value.
+   - Saves the choice in localStorage ('tc_lang'); does not touch the session.
+   ===================================================================== */
+const TC_EN={
+// ---- brand / general
+'مركز النقل المتكامل':'Integrated Transport Centre','العربية':'العربية','Traffic Connect · تواصل مروري':'Traffic Connect','تواصل مروري':'Traffic Connect',
+'آمن وموثوق':'Safe & trusted','إشعارات فورية':'Instant notifications','تتبع سهل وشفاف':'Easy, transparent tracking','دعم فني متواصل':'Continuous technical support','من أي مكان':'From anywhere',
+'أو':'or','رقم':'Number','حرف كبير':'Uppercase letter','رمز خاص':'Special character','8 أحرف على الأقل':'At least 8 characters','8 أحرف أو أكثر':'8 or more characters',
+'متصل':'Online','Traffic Connect · متصل':'Traffic Connect · Online','غير متصل':'Offline','يرجى الانتظار':'Please wait','إغلاق':'Close','اختياري':'Optional','إن وجد':'If any',
+'← رجوع':'← Back','رجوع':'Back','← الرئيسية':'← Home','← رجوع للرئيسية':'← Back to Home','← رجوع لتسجيل الدخول':'← Back to Sign In','← طلباتي':'← My Requests','الرئيسية':'Home',
+'تسجيل الدخول':'Sign In','تسجيل الخروج':'Log out','🚪 تسجيل الخروج':'🚪 Log out','لوحة التحكم':'Control Panel','و':'and',
+// ---- staff activation
+'حساب الموظف':'Staff Account','تفعيل آمن لموظفي ITC المعتمدين في النظام. يتم تحديد الصلاحية تلقائيًا من البريد الرسمي.':'Secure activation for approved ITC staff. Permissions are assigned automatically from the official email.',
+'الحساب متاح فقط للبريد الرسمي المعتمد':'Available only to approved official emails','تفعيل حساب الموظف':'Activate Staff Account','استخدم بريد ITC الرسمي وحدد كلمة مرور خاصة بك.':'Use your official ITC email and set your own password.',
+'البريد الإلكتروني الرسمي':'Official email','كلمة المرور':'Password','تأكيد كلمة المرور':'Confirm password','تفعيل الحساب':'Activate Account','تم تفعيل حسابك مسبقًا؟':'Already activated your account?',
+'أعد إدخال كلمة المرور':'Re-enter password','أعد كتابة كلمة المرور':'Re-type password','8 أحرف على الأقل، حرف كبير، رقم، رمز خاص':'At least 8 characters, uppercase, number, special character',
+// ---- engineer
+'لوحة المهندس':'Engineer Dashboard','مراجعة طلبات المواعيد واتخاذ الإجراء المناسب.':'Review appointment requests and take action.','جاري تحميل بيانات المهندس…':'Loading engineer data…',
+'بانتظار الرد':'Awaiting reply','مواعيد مقبولة':'Accepted appointments','مرفوضة':'Rejected','طلبات جديدة':'New requests','المواعيد المقبولة':'Accepted Appointments','جميع الطلبات':'All Requests',
+'✓ قبول':'✓ Accept','رفض':'Reject','◷ اقتراح موعد':'◷ Propose time','الموعد البديل':'Alternative time','الموعد المقترح':'Proposed time','ملاحظة المهندس':'Engineer note','ملاحظات المقاول':'Contractor notes',
+'اكتب الرد أو الملاحظة (اختياري)':'Write a reply or note (optional)','التاريخ البديل بصيغة YYYY-MM-DD':'Alternative date (YYYY-MM-DD)','الوقت البديل بصيغة HH:MM':'Alternative time (HH:MM)','ملاحظة للمقاول (اختياري)':'Note to contractor (optional)',
+'يرجى تسجيل الدخول بحساب مهندس.':'Please sign in with an engineer account.','تعذر تحميل بيانات المهندس':'Could not load engineer data','تعذر تحميل الحجوزات':'Could not load bookings','تعذر تحديث الحجز':'Could not update the booking','تعذر اقتراح الموعد':'Could not propose the time',
+'حساب مهندس · لم يتم ربط ملف مهندس بهذا الحساب':'Engineer account · no engineer record linked','الحساب مسجل كمهندس، لكن لا يوجد سجل مهندس مربوط به. لن تظهر الحجوزات المخصصة حتى يتم الربط من الإدارة.':'This account is an engineer, but no engineer record is linked. Assigned bookings won\'t appear until the admin links it.',
+'مهندس Traffic Connect':'Traffic Connect Engineer','تعذر تحديث بيانات الملف الآن':'Could not update the profile right now',
+// ---- responsible
+'لوحة المسؤول':'Responsible Dashboard','متابعة الحجوزات والبلاغات والاستفسارات الواردة.':'Follow up on incoming bookings, reports and inquiries.','حجوزات':'Bookings','شكاوى':'Complaints','استفسارات':'Inquiries',
+'اجتماعات المسؤول — تحكم مباشر':'Responsible meetings — direct control','لا توجد حجوزات اجتماع مع المسؤول.':'No meeting bookings with the official.','تعذر تحميل لوحة المسؤول':'Could not load the Responsible dashboard',
+// ---- password
+'استعادة كلمة المرور':'Reset Password','البريد الإلكتروني للمقاول':'Contractor email','إرسال رابط الاستعادة':'Send reset link','سيتم إرسال رابط آمن إلى بريدك الإلكتروني المسجل.':'A secure link will be sent to your registered email.',
+'تعيين كلمة مرور جديدة':'Set a New Password','كلمة المرور الجديدة':'New password','حفظ كلمة المرور الجديدة':'Save new password','بعد الحفظ سيتم توجيهك إلى تسجيل الدخول بكلمة المرور الجديدة.':'After saving, you\'ll be taken to sign in with your new password.',
+// ---- feedback / rating
+'تعليق عام على التطبيق':'General App Feedback','التقييم':'Rating','5 - ممتاز':'5 - Excellent','4 - جيد جدًا':'4 - Very good','3 - جيد':'3 - Good','التعليق':'Comment','إرسال التعليق':'Send feedback',
+'اكتب رأيك أو اقتراحك...':'Write your opinion or suggestion...','تقييم المهندس':'Rate the Engineer','تعليقك':'Your comment','حفظ التقييم':'Save rating','اكتب ملاحظتك...':'Write your note...',
+'اكتب تعليقك أولاً.':'Write your comment first.','تم حفظ تعليقك. شكرًا لك.':'Your comment was saved. Thank you.','تعذر إرسال التعليق':'Could not send the comment','لا توجد تعليقات حتى الآن.':'No comments yet.',
+'اختر التقييم من 1 إلى 5 نجوم.':'Choose a rating from 1 to 5 stars.','تم حفظ تقييمك بنجاح. شكرًا لك.':'Your rating was saved. Thank you.','تعذر حفظ التقييم':'Could not save the rating',
+// ---- complaints
+'شكوى جديدة':'New Complaint','أرسل تفاصيل المشكلة والموقع والمرفقات.':'Send the problem details, location and attachments.','نوع الشكوى *':'Complaint type *',
+'إغلاق طريق':'Road closure','تحويلة مرورية':'Traffic diversion','مشكلة في التصريح':'Permit issue','تأخير طلب':'Request delay','أخرى':'Other',
+'وصف المشكلة *':'Problem description *','الموقع':'Location','رقم التصريح أو الطلب':'Permit or request number','صور أو مرفقات':'Photos or attachments','إرسال الشكوى':'Submit complaint',
+'يمكنك متابعة حالة الشكوى لاحقًا من صفحة «طلباتي».':'You can track the complaint later from "My Requests".','اكتب تفاصيل المشكلة...':'Describe the problem...','اكتب الموقع أو اسم الشارع':'Enter the location or street name',
+// ---- inquiries
+'الاستفسارات':'Inquiries','أرسل سؤالك إلى الفريق المختص.':'Send your question to the relevant team.','موضوع الاستفسار *':'Inquiry topic *','تصاريح وتحويلات مرورية':'Permits & traffic diversions',
+'حجز موعد':'Book Appointment','متابعة طلب':'Request follow-up','موقع أو مركز خدمة':'Location or service centre','استفسار عام':'General inquiry','الاستفسار *':'Inquiry *','رقم الطلب أو التصريح':'Request or permit number',
+'مرفقات (اختياري)':'Attachments (optional)','إرسال الاستفسار':'Send inquiry','سيظهر الرد في «الإشعارات» و«طلباتي».':'The reply will appear in "Notifications" and "My Requests".','اكتب استفسارك بالتفصيل...':'Write your inquiry in detail...',
+// ---- app issue
+'مشكلة في التطبيق':'App Issue','بلاغات الدخول والأخطاء والمرفقات والمشاكل التقنية.':'Report sign-in, error, attachment and technical problems.','الدعم:':'Support:','Mohamed AL Meraikhi و Ahmed El Sanadidy':'Mohamed AL Meraikhi & Ahmed El Sanadidy',
+'نوع المشكلة *':'Issue type *','مشكلة تسجيل الدخول':'Sign-in problem','مشكلة رفع المرفقات':'Attachment upload problem','خطأ في البيانات':'Data error','زر أو صفحة لا تعمل':'Button or page not working',
+'لقطة شاشة أو ملف':'Screenshot or file','إرسال البلاغ':'Submit report','اشرح ما حدث والخطوات التي قمت بها...':'Explain what happened and the steps you took...','مشكلة التطبيق':'App issue',
+// ---- notifications
+'الإشعارات':'Notifications','آخر التنبيهات والتحديثات على حسابك.':'Latest alerts and updates on your account.','لا توجد إشعارات جديدة':'No new notifications','ستظهر هنا التنبيهات الفعلية المرتبطة بحسابك.':'Real alerts linked to your account will appear here.',
+'تحديد الكل كمقروء':'Mark all as read','سجّل الدخول لعرض الإشعارات.':'Sign in to view notifications.','تعذر تحميل الإشعارات.':'Could not load notifications.',
+// ---- booking
+'اختر الخدمة والمنطقة والمهندس ثم حدد الموعد المناسب.':'Choose the service, area and engineer, then pick a suitable time.','بيانات الحجز':'Booking Details','نوع الخدمة *':'Service type *',
+'حجز موعد مع مهندس — مراجعة التصاريح':'Engineer appointment — permit review','حجز موعد مع مهندس — مناقشة/متابعة ميدانية':'Engineer appointment — field discussion/follow-up','حجز اجتماع مع المسؤول':'Meeting with the official',
+'المنطقة / المركز *':'Area / Centre *','أبوظبي — مركز إدارة المرور':'Abu Dhabi — Traffic Management Centre','العين — مركز النقل':'Al Ain — Transport Centre','الظفرة — محطة الباصات':'Al Dhafra — Bus Station',
+'المهندس / المسؤول *':'Engineer / Official *','التاريخ *':'Date *','الوقت المتاح *':'Available time *','ملاحظات':'Notes','المرفقات':'Attachments','ملخص الموعد':'Appointment Summary','الخدمة':'Service','المهندس':'Engineer','التاريخ':'Date','الوقت':'Time',
+'سيظهر للمقاول إذا كان المهندس متاحًا أو محجوزًا أو في إجازة. لا يمكن تأكيد الحجز مع مهندس غير متاح.':'You\'ll see whether the engineer is available, booked or on leave. A booking can\'t be confirmed with an unavailable engineer.',
+'تأكيد الحجز':'Confirm booking','أضف أي معلومات تساعد المهندس قبل الموعد...':'Add any information that helps the engineer before the appointment...','مثال: TCP-2026-1045':'e.g. TCP-2026-1045',
+'متاح':'Available','محجوز':'Booked','في إجازة':'On leave','مشغول':'Busy','محظور':'Blocked','متاح للحجز':'Available to book','محجوز حاليًا':'Currently booked','محجوز / لديه موعد':'Booked / has an appointment',
+'لا توجد مواعيد متاحة حاليًا':'No available slots right now','لا يوجد اختيار متاح حاليًا.':'No option available right now.','لا يوجد مهندس/مسؤول لهذه الخدمة والمنطقة':'No engineer/official for this service and area',
+'لا يوجد مهندس أو مسؤول متاح لهذه الخدمة حاليًا.':'No engineer or official is available for this service right now.','لدى المهندس موعد قائم مع مقاول آخر، لذلك لا يمكن اختياره الآن.':'The engineer already has an appointment with another contractor, so they can\'t be selected now.',
+'اختر التاريخ والوقت.':'Choose the date and time.','لا يمكن الحجز بتاريخ سابق.':'You can\'t book a past date.','تم إرسال الحجز للمهندس للموافقة.':'The booking was sent to the engineer for approval.','تعذر إرسال الحجز':'Could not send the booking',
+'يمكن للمقاول اختيار التاريخ والوقت المتاح.':'The contractor can choose an available date and time.','يظهر للمقاول أن المهندس غير متاح خلال فترة الإجازة.':'Contractors see the engineer as unavailable during leave.','رقم الموعد':'Appointment no.',
+'عين':'Al Ain','ظفرة':'Al Dhafra','أبوظبي':'Abu Dhabi','المنطقة':'Area','مسؤول':'Official','مهندس':'Engineer','مقاول':'Contractor','إعلان':'Announcement',
+// ---- requests
+'طلباتي':'My Requests','📋 طلباتي':'📋 My Requests','متابعة الحجوزات والاستفسارات والشكاوى.':'Track your bookings, inquiries and complaints.','تفاصيل الطلب':'Request Details','عرض حالة الطلب وآخر التحديثات.':'View the request status and latest updates.',
+'حالة الطلب':'Request Status','تم تسجيل الطلب بنجاح. يمكنك متابعة حالة الطلب من هذه الشاشة.':'Your request was submitted. You can track its status from this screen.','✓ الطلب مسجل في النظام':'✓ Request recorded in the system',
+'لا توجد طلبات':'No requests','لا توجد طلبات حتى الآن.':'No requests yet.','سجل الدخول لعرض الطلبات.':'Sign in to view your requests.','لا توجد طلبات في هذه القائمة.':'No requests in this list.','رقم الطلب':'Request no.','رقم الطلب:':'Request no.:',
+'رقم الطلب: CMP-':'Request no.: CMP-','رقم الطلب: INQ-':'Request no.: INQ-','المرجع':'Reference','الرد':'Reply','بواسطة':'By','بواسطة:':'By:','الوقت:':'Time:',
+// ---- statuses
+'بانتظار موافقة المهندس':'Awaiting engineer approval','مؤكد من المهندس':'Confirmed by engineer','مرفوض من المهندس':'Rejected by engineer','تم اقتراح موعد بديل':'Alternative time proposed',
+'ملغي':'Cancelled','مكتمل':'Completed','مفتوح':'Open','قيد المراجعة':'In review','تم الحل':'Resolved','مغلق':'Closed',
+// ---- inbox (staff)
+'📥 الشكاوى والاستفسارات':'📥 Complaints & Inquiries','الشكاوى والاستفسارات':'Complaints & Inquiries','جاري تحميل الشكاوى والاستفسارات...':'Loading complaints and inquiries...','تعذر تحميل الشكاوى والاستفسارات':'Could not load complaints and inquiries',
+'شكوى':'Complaint','استفسار':'Inquiry','جديدة':'New','قيد المتابعة':'In progress','منتهية':'Done','الكل':'All','✓ تم الرد':'✓ Replied','لا توجد طلبات في هذا التصنيف.':'No requests in this category.',
+'بيانات المقاول':'Contractor Details','الاسم':'Name','الشركة':'Company','الهاتف':'Phone','النوع':'Type','الحالة':'Status','تاريخ الإرسال':'Submitted','رقم التصريح':'Permit no.','📎 المرفقات':'📎 Attachments','لا توجد مرفقات.':'No attachments.',
+'الرد الحالي':'Current Reply','لم يتم الرد بعد.':'No reply yet.','تحديث الرد':'Update Reply','الرد على المقاول':'Reply to Contractor','اكتب ردك للمقاول...':'Write your reply to the contractor...','إرسال الرد':'Send reply',
+'سيصل الرد للمقاول كإشعار داخل التطبيق، ويُسجَّل اسمك ووقت الرد تلقائيًا.':'The contractor receives the reply as an in-app notification; your name and the reply time are recorded automatically.',
+'جاري التحميل...':'Loading...','جاري الإرسال...':'Sending...','تعذر فتح الطلب':'Could not open the request','الطلب غير موجود أو لا تملك صلاحية عرضه.':'The request doesn\'t exist or you don\'t have permission to view it.',
+'اكتب نص الرد أولاً.':'Write the reply text first.','تم إرسال الرد للمقاول ✅':'Reply sent to the contractor ✅','تعذر إرسال الرد':'Could not send the reply','لا تملك صلاحية التعديل على هذا الطلب.':'You don\'t have permission to edit this request.',
+'تم رفع':'Uploaded','مرفق.':'attachment(s).','مرفق، وتعذر رفع':'attachment(s), failed to upload','(الحد الأقصى 10MB — صور أو PDF).':'(max 10MB — images or PDF).','تعذر تحديث الطلب':'Could not update the request',
+// ---- admin console
+'لوحة تحكم Traffic Connect':'Traffic Connect Control Panel','تحكم Admin متزامن مع Supabase.':'Admin control synced with Supabase.','الخدمات':'Services','المهندسون':'Engineers','الإعلان':'Announcement','الدعم':'Support',
+'↻ تحديث':'↻ Refresh','👁 معاينة الصفحات':'👁 Preview pages','☁️ Supabase — قاعدة البيانات المشتركة':'☁️ Supabase — shared database','جاري الاتصال...':'Connecting...','👁 معاينة صفحات التطبيق':'👁 Preview app pages',
+'الطلبات':'Requests','الشكاوى':'Complaints','المعاينة لا تغيّر صلاحية حساب Admin. استخدم زر «العودة إلى لوحة Admin» للرجوع إلى التحكم.':'Preview doesn\'t change your Admin permissions. Use "Back to Admin panel" to return.',
+'✏️ تعديل محتوى الصفحة الرئيسية':'✏️ Edit home page content','العنوان الرئيسي':'Main title','الوصف':'Description','عنوان قسم الخدمات':'Services section title','حفظ محتوى الصفحة':'Save page content',
+'التعديلات تُحفظ في Supabase وتظهر لجميع المستخدمين والأجهزة.':'Changes are saved in Supabase and appear for all users and devices.','زيارات التطبيق (هذا الجهاز)':'App visits (this device)',
+'الخدمات الظاهرة للمقاولين':'Services visible to contractors','إظهار أو إخفاء الخدمة':'Show or hide service','التحويلات المرورية':'Traffic diversions','إعلان الصفحة الرئيسية':'Home page announcement','حفظ الإعلان':'Save announcement',
+'يتم حفظ التعديلات وتطبيقها على إعدادات التطبيق.':'Changes are saved and applied to the app settings.','الدعم والتواصل':'Support & Contact','حفظ بيانات التواصل':'Save contact details','المهندسون والمسؤولون':'Engineers & Officials',
+'الصورة':'Photo','الدور':'Role','تعديل الحالة':'Change status','إدارة الصورة':'Manage photo','وصف الصفحة الرئيسية...':'Home page description...','عنوان الإعلان':'Announcement title','نص الإعلان...':'Announcement text...','رقم التواصل':'Phone number',
+'المستخدمون':'Users','· الشكاوى':'· Complaints','· الحجوزات':'· Bookings','· المهندسون':'· Engineers','· الاستفسارات':'· Inquiries','✅ متصل بقاعدة Traffic Connect':'✅ Connected to the Traffic Connect database',
+'⚠️ الاتصال موجود، لكن تعذر قراءة بعض الإحصاءات':'⚠️ Connected, but some statistics could not be read','خطأ اتصال':'Connection error','يحتاج ربط':'Needs linking','تعذر الاتصال بـ Supabase.':'Could not connect to Supabase.',
+'جاري تحديث البيانات...':'Refreshing data...','جاري تحميل المهندسين من Supabase...':'Loading engineers from Supabase...','تعذر تحميل المهندسين':'Could not load engineers','لا توجد سجلات مهندسين.':'No engineer records.',
+'تعذر تحديث حالة المهندس':'Could not update the engineer status','تم الحفظ في Supabase ✓':'Saved in Supabase ✓','جاري الحفظ في Supabase...':'Saving to Supabase...','الإعدادات متزامنة مع Supabase ✓':'Settings synced with Supabase ✓',
+'تعذر حفظ إعدادات Admin':'Could not save Admin settings','تم حفظ الإعلان وسيظهر للمقاولين.':'Announcement saved; contractors will see it.','تم حفظ بيانات التواصل في Supabase.':'Contact details saved in Supabase.',
+'تم حفظ محتوى الصفحة الرئيسية وسيظهر لجميع المستخدمين.':'Home page content saved; all users will see it.','مسؤول دعم / Admin':'Support officer / Admin','← العودة إلى لوحة Admin':'← Back to Admin panel',
+'👁 معاينة Admin — لن تتغير صلاحية حسابك':'👁 Admin preview — your permissions won\'t change','المعاينة متاحة للـ Admin فقط.':'Preview is available to Admins only.','هذه العملية متاحة للـ Admin فقط.':'This action is available to Admins only.',
+'لوحة الإدارة متاحة لحسابات Admin فقط.':'The admin console is for Admin accounts only.','انتهت جلسة الدخول. سجّل الدخول كـ Admin مرة أخرى.':'Your session has expired. Sign in as Admin again.','تعذر الحفظ':'Could not save','تعذر الإرسال':'Could not send','خطأ غير معروف':'Unknown error',
+// ---- photos
+'إضافة صورة':'Add photo','تغيير الصورة':'Change photo','حذف الصورة':'Delete photo','تم حفظ الصورة ✓':'Photo saved ✓','تعذر حذف الصورة':'Could not delete the photo','تعذر رفع الصورة':'Could not upload the photo','جاري رفع الصورة...':'Uploading photo...',
+'اضغط الصورة للإضافة':'Tap the photo to add','جاري تجهيز الصورة...':'Preparing photo...','حذف صورة هذا المهندس؟':'Delete this engineer\'s photo?','تعذر إنشاء رابط الصورة.':'Could not create the photo link.','تعذر تجهيز الصورة للرفع.':'Could not prepare the photo for upload.',
+'اختر صورة من ألبوم الصور.':'Choose a photo from your library.','تم حفظ الصورة محليًا على هذا الجهاز ✓':'Photo saved locally on this device ✓','رفع صور المهندسين متاح للـ Admin فقط.':'Uploading engineer photos is for Admins only.',
+'الصورة كبيرة جدًا. اختر صورة أقل من 20 MB.':'The photo is too large. Choose one under 20 MB.','تعذر قراءة صيغة الصورة. جرّب صورة JPG أو PNG.':'Could not read the image format. Try JPG or PNG.','اضغط للمعاينة':'Tap to preview',
+'اضغط لمراجعة الصورة بالحجم الكامل':'Tap to view the photo full-size','معاينة الصورة':'Photo preview','معاينة المرفق':'Attachment preview','صورة':'Photo','صورة المهندس':'Engineer photo','طريق مروري وأفق مدينة':'Road and city skyline',
+// ---- auth messages
+'جميع الحقول مطلوبة.':'All fields are required.','أدخل البريد الإلكتروني.':'Enter your email.','كلمتا المرور غير متطابقتين.':'Passwords do not match.','يرجى إدخال البريد الإلكتروني وكلمة المرور.':'Please enter your email and password.',
+'البريد الإلكتروني أو كلمة المرور غير صحيحة.':'Incorrect email or password.','بيانات الدخول غير صحيحة أو الحساب غير مفعّل.':'Incorrect sign-in details or the account isn\'t activated.','سجل الدخول أولاً.':'Sign in first.','لم يتم تسجيل الدخول':'Not signed in',
+'انتهت جلسة الدخول.':'Your session has expired.','انتهت جلسة الدخول. سجّل الدخول مرة أخرى.':'Your session has expired. Please sign in again.','تعذر العثور على جلسة تسجيل الدخول. سجّل الخروج ثم ادخل مرة أخرى.':'Could not find your session. Log out and sign in again.',
+'الحساب غير متاح. يرجى التواصل مع الدعم.':'The account is unavailable. Please contact support.','جاري تفعيل الحساب...':'Activating account...','جاري إنشاء الحساب...':'Creating account...','استخدم بريد ITC الرسمي (@itc.gov.ae).':'Use your official ITC email (@itc.gov.ae).',
+'تم تفعيل الحساب. يمكنك تسجيل الدخول الآن.':'Account activated. You can sign in now.','تم إنشاء الحساب بنجاح. يمكنك تسجيل الدخول الآن.':'Account created successfully. You can sign in now.',
+'تم إنشاء الحساب. افتح بريد ITC واضغط رابط التأكيد، ثم سجّل الدخول.':'Account created. Open your ITC email, tap the confirmation link, then sign in.','تم إنشاء الحساب. تحقق من بريدك الإلكتروني واضغط رابط التأكيد، ثم سجّل الدخول.':'Account created. Check your email, tap the confirmation link, then sign in.',
+'تعذر تفعيل الحساب. تأكد أن البريد موجود ضمن قائمة موظفي ITC المعتمدين ثم حاول مرة أخرى.':'Could not activate the account. Make sure the email is on the approved ITC staff list, then try again.',
+'تعذر إنشاء الحساب حاليًا. حاول مرة أخرى بعد قليل.':'Could not create the account right now. Please try again shortly.','التسجيل الجديد متوقف حاليًا. يرجى التواصل مع الدعم.':'New registration is currently disabled. Please contact support.',
+'هذا البريد غير موجود ضمن قائمة موظفي ITC المعتمدين.':'This email is not on the approved ITC staff list.','هذا البريد مسجل بالفعل. استخدم تسجيل الدخول أو «نسيت كلمة المرور؟».':'This email is already registered. Use Sign In or "Forgot password?".',
+'هذا البريد لديه حساب بالفعل. استخدم تسجيل الدخول أو «نسيت كلمة المرور؟».':'This email already has an account. Use Sign In or "Forgot password?".','هذا البريد مسجل كبريد موظف ITC. استخدم «تفعيل حساب الموظفين» بدلًا من تسجيل المقاولين.':'This is an ITC staff email. Use "Staff Activation" instead of contractor registration.',
+'البريد الإلكتروني غير صالح أو غير مقبول. استخدم بريدًا حقيقيًا (مثل Gmail أو Outlook أو بريد الشركة).':'The email is invalid or not accepted. Use a real email (e.g. Gmail, Outlook or your company email).',
+'لم يتم تأكيد البريد بعد. افتح رسالة التأكيد في بريدك (وتحقق من مجلد Junk/Spam)، أو اضغط «إعادة إرسال رابط التأكيد».':'Your email isn\'t confirmed yet. Open the confirmation message (check Junk/Spam), or tap "Resend confirmation link".',
+'لم يتم تأكيد البريد الإلكتروني بعد.':'Your email isn\'t confirmed yet.','هل تريد إعادة إرسال رابط التأكيد إلى':'Resend the confirmation link to','تم إرسال رابط التأكيد مرة أخرى. تحقق من بريدك (ومجلد Junk/Spam).':'Confirmation link sent again. Check your inbox (and Junk/Spam).',
+'تعذر إعادة إرسال رابط التأكيد.':'Could not resend the confirmation link.','كلمة المرور ضعيفة. استخدم 8 أحرف على الأقل مع حرف كبير ورقم ورمز خاص.':'Weak password. Use at least 8 characters with an uppercase letter, a number and a special character.',
+'كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على حرف كبير ورقم ورمز خاص.':'The password must be at least 8 characters and include an uppercase letter, a number and a special character.','كلمة المرور الجديدة يجب أن تختلف عن السابقة.':'The new password must differ from the old one.',
+'تم تجاوز الحد المسموح لإرسال الرسائل. انتظر بضع دقائق ثم حاول مرة أخرى.':'Email sending limit reached. Wait a few minutes, then try again.','محاولات كثيرة خلال وقت قصير. انتظر دقيقة ثم حاول مرة أخرى.':'Too many attempts. Wait a minute, then try again.',
+'تعذر إرسال رسالة البريد حاليًا. حاول بعد قليل أو تواصل مع الدعم.':'Could not send the email right now. Try again shortly or contact support.','تعذر الاتصال بالخادم. تحقق من الإنترنت وحاول مرة أخرى.':'Could not reach the server. Check your internet and try again.',
+'تعذر الاتصال بالخدمة. تحقق من الإنترنت وحاول مرة أخرى.':'Could not reach the service. Check your internet and try again.','إذا كان البريد مسجلًا، فسيصلك رابط استعادة كلمة المرور.':'If the email is registered, you\'ll receive a password reset link.',
+'تعذر إرسال رابط الاستعادة. حاول مرة أخرى لاحقًا.':'Could not send the reset link. Please try again later.','تم تحديث كلمة المرور بنجاح. سجّل الدخول بكلمة المرور الجديدة.':'Password updated. Sign in with your new password.',
+'تعذر تحديث كلمة المرور. افتح رابط الاستعادة من جديد (الرابط صالح لمرة واحدة).':'Could not update the password. Open the reset link again (it works only once).','يرجى كتابة تفاصيل أوضح.':'Please provide clearer details.',
+'تذكرني':'Remember me','البريد':'Email','البريد الإلكتروني':'Email address','اسم الشركة':'Company name','أدخل اسم الشركة':'Enter company name','الاسم الكامل':'Full name','أدخل كلمة المرور':'Enter password','مثال: محمد أحمد الكتبي':'e.g. Mohamed Ahmed Al Ketbi',
+'إنشاء الحساب':'Create Account','♙+ &nbsp; إنشاء الحساب':'♙+ &nbsp; Create Account','أوافق على':'I agree to the','الشروط والأحكام':'Terms & Conditions','سياسة الخصوصية':'Privacy Policy','لديك حساب بالفعل؟':'Already have an account?',
+// ---- home (fallbacks for dynamic re-render)
+'مرحباً بك':'Welcome','عرض الكل':'View all','عرض طلباتي':'View my requests','أحدث الطلبات':'Latest Requests','الخدمات الرئيسية':'Main Services','أنجز معاملاتك بسهولة ووضوح':'Get things done, simply and clearly','مباشر':'Live',
+'📅 حجز موعد':'📅 Book Appointment','⚠️ شكوى جديدة':'⚠️ New Complaint','متابعة الطلبات':'Track Requests','التقييم والتعليق':'Rate & Review','الدعم الفني':'Technical support','فتح بلاغ دعم':'Open a support ticket','ساعات التواصل':'Contact hours',
+'تواصل مروري — خدمات المقاولين':'Traffic Connect — Contractor Services','قاعة زايد':'Zayed Hall','قاعة الاجتماعات':'Meeting room','المدخل والمصاعد':'Entrance and elevators'
+};
+/* single words allowed inside longer sentences (phrase mode). Multi-word phrases always allowed. */
+const TC_EN_INLINE=new Set(['جديدة','الكل','منتهية','مفتوح','مغلق','ملغي','مكتمل','شكوى','استفسار','مقاول','مهندس','مسؤول','متاح','محجوز','بواسطة','الرد','الحالة','الموقع']);
+
+(function(){
+  const AR=/[\u0600-\u06FF]/;
+  const norm=s=>s.replace(/\s+/g,' ').trim();
+  const dict=new Map(Object.entries(TC_EN).map(([k,v])=>[norm(k),v]));
+  const phrases=[...dict.keys()].filter(k=>k.length>1&&(k.includes(' ')||TC_EN_INLINE.has(k))).sort((a,b)=>b.length-a.length);
+  const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const phraseRe=new RegExp('(?<![\\u0600-\\u06FF])(?:'+phrases.map(esc).join('|')+')(?![\\u0600-\\u06FF])','g');
+  function tr(s){
+    if(!s||!AR.test(s))return s;
+    const n=norm(s);
+    if(dict.has(n)){const lead=s.match(/^\s*/)[0],trail=s.match(/\s*$/)[0];return lead+dict.get(n)+trail}
+    return s.replace(phraseRe,m=>dict.get(norm(m))??m);
+  }
+  window.tcTr=tr;
+  let lang='ar',busy=false;
+  const origText=new WeakMap(),origAttr=new WeakMap();
+  const ATTRS=['placeholder','title','aria-label','alt'];
+  const SKIP='script,style,textarea,[data-i18n],[contenteditable],[data-notr],.tc-req-desc,.tc-reply-prev';
+  function doText(node){
+    const p=node.parentElement;if(!p||p.closest(SKIP))return;
+    if(lang==='en'){
+      const cur=node.nodeValue;
+      let orig=origText.get(node);
+      if(orig===undefined||(AR.test(cur)&&cur!==orig)){orig=cur;origText.set(node,orig)}  // app re-wrote it in Arabic
+      if(!AR.test(orig))return;
+      const t=tr(orig);if(t!==cur)node.nodeValue=t;
+    }else{
+      const orig=origText.get(node);
+      if(orig!==undefined&&node.nodeValue!==orig&&!AR.test(node.nodeValue))node.nodeValue=orig;
+    }
+  }
+  function doEl(el){
+    if(el.closest&&el.closest('script,style,[data-notr]'))return;
+    if(el.tagName==='OPTION'&&!el.hasAttribute('value')&&AR.test(el.textContent))el.setAttribute('value',el.textContent);  // keep stored value in Arabic
+    let saved=origAttr.get(el);
+    for(const a of ATTRS){
+      if(!el.hasAttribute(a)||el.hasAttribute('data-i18n-ph')&&a==='placeholder')continue;
+      const cur=el.getAttribute(a);if(!saved){saved={};origAttr.set(el,saved)}
+      if(lang==='en'){if(saved[a]===undefined||AR.test(cur))saved[a]=cur;if(AR.test(saved[a])){const t=tr(saved[a]);if(t!==cur)el.setAttribute(a,t)}}
+      else if(saved[a]!==undefined&&!AR.test(cur)&&cur!==saved[a])el.setAttribute(a,saved[a]);
+    }
+  }
+  function walk(root){
+    if(!root)return;
+    if(root.nodeType===3){doText(root);return}
+    if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
+    if(root.nodeType===1)doEl(root);
+    const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);
+    while(tw.nextNode()){const n=tw.currentNode;n.nodeType===3?doText(n):doEl(n)}
+  }
+  function apply(l){
+    lang=l==='en'?'en':'ar';busy=true;
+    try{walk(document.body)}catch(e){console.error('i18n',e)}finally{busy=false}
+    document.title=lang==='en'?'Traffic Connect':(document.title.includes('تواصل')?document.title:'Traffic Connect | تواصل مروري');
+  }
+  window.tcApplyFullLang=apply;
+  // dynamic content
+  const mo=new MutationObserver(list=>{
+    if(busy||lang!=='en')return;busy=true;
+    try{for(const m of list){
+      if(m.type==='characterData')doText(m.target);
+      else if(m.type==='attributes')doEl(m.target);
+      else m.addedNodes.forEach(walk);
+    }}catch(e){console.error('i18n',e)}finally{busy=false}
+  });
+  function startObserver(){mo.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:ATTRS})}
+  // dialogs
+  const _alert=window.alert.bind(window),_confirm=window.confirm.bind(window),_prompt=window.prompt.bind(window);
+  window.alert=m=>_alert(lang==='en'?tr(String(m??'')):m);
+  window.confirm=m=>_confirm(lang==='en'?tr(String(m??'')):m);
+  window.prompt=(m,d)=>_prompt(lang==='en'?tr(String(m??'')):m,d);
+  // dates: Arabic locale -> English when EN is active (display only)
+  ['toLocaleString','toLocaleDateString','toLocaleTimeString'].forEach(fn=>{
+    const orig=Date.prototype[fn];
+    Date.prototype[fn]=function(loc,opt){if(lang==='en'&&(!loc||/^ar/i.test(String(loc))))loc='en-GB';return orig.call(this,loc,opt)};
+  });
+  // wrap the existing setLang so every switch runs the full engine
+  const baseSetLang=window.setLang;
+  window.setLang=function(l){
+    const isEn=l==='en';
+    try{baseSetLang(isEn?'en':'ar')}catch(e){console.error('setLang base',e);document.documentElement.lang=isEn?'en':'ar';document.documentElement.dir=isEn?'ltr':'rtl';try{localStorage.setItem('tc_lang',isEn?'en':'ar')}catch(_){}}
+    apply(isEn?'en':'ar');
+  };
+  setLang=window.setLang;
+  // boot: apply saved language before first paint of the shell
+  let saved='ar';try{saved=localStorage.getItem('tc_lang')||'ar'}catch(e){}
+  startObserver();
+  if(saved==='en')window.setLang('en');
+})();
+</script>
+
 </body>
 </html>
