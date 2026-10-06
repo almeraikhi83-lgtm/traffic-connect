@@ -1293,7 +1293,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
         <small data-i18n="homeGreetingSmall">تواصل مروري — خدمات المقاولين</small>
         <h2 id="welcome" data-i18n="welcomeDefault">مرحباً بك</h2>
       </div>
-      <div class="home16-tools"><button class="home16-tool" data-i18n-title="logout" title="تسجيل الخروج" onclick="tcLogout()">🚪</button><button class="home16-tool" data-i18n-title="controlPanel" title="لوحة التحكم" onclick="openAdmin19()">⚙️</button>
+      <div class="home16-tools"><button class="tc-lang-toggle home16-tool" data-notr onclick="tcLangToggle()" aria-label="Language">EN</button><button class="home16-tool" data-i18n-title="logout" title="تسجيل الخروج" onclick="tcLogout()">🚪</button><button class="home16-tool" data-i18n-title="controlPanel" title="لوحة التحكم" onclick="openAdmin19()">⚙️</button>
         <button class="home16-tool" onclick="showScreen('notifications')">🔔</button>
         <button class="home16-tool" onclick="showScreen('requests')">☰</button>
       </div>
@@ -1372,7 +1372,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
 
 <section id="engineerDashboard" class="screen">
   <div class="service16-page">
-    <div class="service16-head"><div><h2>لوحة المهندس</h2><p>مراجعة طلبات المواعيد واتخاذ الإجراء المناسب.</p></div><button class="service16-back" onclick="logout()">تسجيل الخروج</button></div>
+    <div class="service16-head"><div><h2>لوحة المهندس</h2><p>مراجعة طلبات المواعيد واتخاذ الإجراء المناسب.</p></div><div class="tc-head-actions"><button class="tc-lang-toggle" data-notr onclick="tcLangToggle()" aria-label="Language">EN</button><button class="service16-back" onclick="logout()">تسجيل الخروج</button></div></div>
     <div class="v263-engineer-card" id="v263EngineerCard">
       <div class="v263-engineer-avatar" id="v263EngineerAvatar">🦺</div>
       <div class="v263-engineer-info">
@@ -1390,7 +1390,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
 </section>
 <section id="responsibleDashboard" class="screen">
   <div class="service16-page">
-    <div class="service16-head"><div><h2>لوحة المسؤول</h2><p>متابعة الحجوزات والبلاغات والاستفسارات الواردة.</p></div><div class="tc-head-actions"><button class="tc-bell" onclick="showScreen('notifications')" aria-label="الإشعارات">🔔<span class="tc-bell-count" hidden>0</span></button><button class="service16-back" onclick="tcLogout()">تسجيل الخروج</button></div></div>
+    <div class="service16-head"><div><h2>لوحة المسؤول</h2><p>متابعة الحجوزات والبلاغات والاستفسارات الواردة.</p></div><div class="tc-head-actions"><button class="tc-lang-toggle" data-notr onclick="tcLangToggle()" aria-label="Language">EN</button><button class="tc-bell" onclick="showScreen('notifications')" aria-label="الإشعارات">🔔<span class="tc-bell-count" hidden>0</span></button><button class="service16-back" onclick="tcLogout()">تسجيل الخروج</button></div></div>
     <div class="v25-grid"><div class="v25-stat"><b id="v26RespBookings">0</b><span>حجوزات</span></div><div class="v25-stat"><b id="v26RespComplaints">0</b><span>شكاوى</span></div><div class="v25-stat"><b id="v26RespInquiries">0</b><span>استفسارات</span></div></div>
     <div id="v26ResponsibleList" style="margin-top:14px"></div>
   </div>
@@ -1463,7 +1463,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
 
 <section id="notifications" class="screen">
   <div class="service16-page">
-    <div class="service16-head"><div><h2>الإشعارات</h2><p>آخر التنبيهات والتحديثات على حسابك.</p></div><button class="service16-back" onclick="tcNotifBack()">← رجوع</button></div>
+    <div class="service16-head"><div><h2>الإشعارات</h2><p>آخر التنبيهات والتحديثات على حسابك.</p></div><div class="tc-head-actions"><button class="tc-lang-toggle" data-notr onclick="tcLangToggle()" aria-label="Language">EN</button><button class="service16-back" onclick="tcNotifBack()">← رجوع</button></div></div>
     <div id="tcNotificationsList"><div class="ni">🔔</div><div><b>لا توجد إشعارات جديدة</b><small>ستظهر هنا التنبيهات الفعلية المرتبطة بحسابك.</small></div></div>
   </div>
 </section>
@@ -1595,7 +1595,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
   <div class="admin19-page">
     <div class="admin19-head">
       <div><h2>لوحة تحكم Traffic Connect</h2><p>تحكم Admin متزامن مع Supabase.</p></div>
-      <div class="tc-head-actions"><button class="tc-bell" onclick="showScreen('notifications')" aria-label="الإشعارات">🔔<span class="tc-bell-count" hidden>0</span></button><button class="admin19-back" onclick="tcLogout()">🚪 تسجيل الخروج</button></div>
+      <div class="tc-head-actions"><button class="tc-lang-toggle" data-notr onclick="tcLangToggle()" aria-label="Language">EN</button><button class="tc-bell" onclick="showScreen('notifications')" aria-label="الإشعارات">🔔<span class="tc-bell-count" hidden>0</span></button><button class="admin19-back" onclick="tcLogout()">🚪 تسجيل الخروج</button></div>
     </div>
     <div class="admin2610-toolbar">
       <button onclick="document.getElementById('tcAdminInbox').scrollIntoView({behavior:'smooth'})">📥 الشكاوى والاستفسارات</button>
@@ -3131,6 +3131,9 @@ html[dir=ltr] .admin19-table th,html[dir=ltr] .admin19-table td{text-align:left}
 html[dir=ltr] input[type=email],html[dir=ltr] input[type=tel]{direction:ltr}
 html[dir=ltr] body{font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
 .tc-lang-loading{opacity:.001}
+.tc-lang-toggle{border:1px solid #cfe3df;background:#fff;color:#0b746c;border-radius:12px;min-width:42px;height:42px;padding:0 10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit}
+.home16-tool.tc-lang-toggle{min-width:auto}
+@media(max-width:480px){.home16-tools{gap:5px!important;flex-wrap:nowrap}.home16-tools .home16-tool{width:36px!important;height:36px!important;min-width:36px;padding:0!important;font-size:15px}}
 </style>
 <script>
 /* =====================================================================
@@ -3268,15 +3271,22 @@ const TC_EN={
 // ---- home (fallbacks for dynamic re-render)
 'مرحباً بك':'Welcome','عرض الكل':'View all','عرض طلباتي':'View my requests','أحدث الطلبات':'Latest Requests','الخدمات الرئيسية':'Main Services','أنجز معاملاتك بسهولة ووضوح':'Get things done, simply and clearly','مباشر':'Live',
 '📅 حجز موعد':'📅 Book Appointment','⚠️ شكوى جديدة':'⚠️ New Complaint','متابعة الطلبات':'Track Requests','التقييم والتعليق':'Rate & Review','الدعم الفني':'Technical support','فتح بلاغ دعم':'Open a support ticket','ساعات التواصل':'Contact hours',
-'تواصل مروري — خدمات المقاولين':'Traffic Connect — Contractor Services','قاعة زايد':'Zayed Hall','قاعة الاجتماعات':'Meeting room','المدخل والمصاعد':'Entrance and elevators'
+'تواصل مروري — خدمات المقاولين':'Traffic Connect — Contractor Services',
+'تحديث على شكواك':'Update on your complaint','رد على استفسارك':'Reply to your inquiry','تحديث على بلاغك':'Update on your report','تحديث على موعدك':'Update on your appointment',
+'استفسار جديد':'New inquiry','بلاغ جديد عن التطبيق':'New app issue report','طلب موعد جديد':'New appointment request','بلاغ':'Report','موعد':'Appointment',
+'رد الجهة المختصة':'Reply from the responsible team','رد الجهة المختصة:':'Reply from the responsible team:','أصبحت الحالة':'Status changed to','أصبحت الحالة:':'Status changed to:','الحالة:':'Status:',
+'قيد الانتظار':'Pending','تصاريح':'Permits','تحويلات':'Diversions','ميداني':'Field','المستخدمون:':'Users:','مؤكد':'Confirmed','مرفوض':'Rejected','اقتراح موعد جديد':'New time proposed','قاعة زايد':'Zayed Hall','قاعة الاجتماعات':'Meeting room','المدخل والمصاعد':'Entrance and elevators'
 };
 /* single words allowed inside longer sentences (phrase mode). Multi-word phrases always allowed. */
-const TC_EN_INLINE=new Set(['جديدة','الكل','منتهية','مفتوح','مغلق','ملغي','مكتمل','شكوى','استفسار','مقاول','مهندس','مسؤول','متاح','محجوز','بواسطة','الرد','الحالة','الموقع']);
+const TC_EN_INLINE=new Set(['تصاريح','مؤكد','مرفوض','بلاغ','موعد','جديدة','الكل','منتهية','مفتوح','مغلق','ملغي','مكتمل','شكوى','استفسار','مقاول','مهندس','مسؤول','متاح','محجوز','بواسطة','الرد','الحالة','الموقع']);
 
 (function(){
   const AR=/[\u0600-\u06FF]/;
   const norm=s=>s.replace(/\s+/g,' ').trim();
   const dict=new Map(Object.entries(TC_EN).map(([k,v])=>[norm(k),v]));
+  // merge the original login/register/home dictionary so text re-written by the app after login is covered too
+  try{const strip=h=>String(h).replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'');
+    Object.keys(TC_I18N.ar).forEach(k=>{const a=norm(strip(TC_I18N.ar[k])),e=TC_I18N.en[k];if(a&&e!==undefined&&!dict.has(a))dict.set(a,strip(e))})}catch(e){}
   const phrases=[...dict.keys()].filter(k=>k.length>1&&(k.includes(' ')||TC_EN_INLINE.has(k))).sort((a,b)=>b.length-a.length);
   const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   const phraseRe=new RegExp('(?<![\\u0600-\\u06FF])(?:'+phrases.map(esc).join('|')+')(?![\\u0600-\\u06FF])','g');
@@ -3284,13 +3294,15 @@ const TC_EN_INLINE=new Set(['جديدة','الكل','منتهية','مفتوح',
     if(!s||!AR.test(s))return s;
     const n=norm(s);
     if(dict.has(n)){const lead=s.match(/^\s*/)[0],trail=s.match(/\s*$/)[0];return lead+dict.get(n)+trail}
+    const colon=n.match(/^(.*?)\s*([:：])$/);
+    if(colon&&dict.has(colon[1])){const lead=s.match(/^\s*/)[0],trail=s.match(/\s*$/)[0];return lead+dict.get(colon[1])+':'+trail}
     return s.replace(phraseRe,m=>dict.get(norm(m))??m);
   }
   window.tcTr=tr;
   let lang='ar',busy=false;
   const origText=new WeakMap(),origAttr=new WeakMap();
   const ATTRS=['placeholder','title','aria-label','alt'];
-  const SKIP='script,style,textarea,[data-i18n],[contenteditable],[data-notr],.tc-req-desc,.tc-reply-prev';
+  const SKIP='script,style,textarea,[contenteditable],[data-notr],.tc-req-desc,.tc-reply-prev';
   function doText(node){
     const p=node.parentElement;if(!p||p.closest(SKIP))return;
     if(lang==='en'){
@@ -3350,12 +3362,19 @@ const TC_EN_INLINE=new Set(['جديدة','الكل','منتهية','مفتوح',
     Date.prototype[fn]=function(loc,opt){if(lang==='en'&&(!loc||/^ar/i.test(String(loc))))loc='en-GB';return orig.call(this,loc,opt)};
   });
   // wrap the existing setLang so every switch runs the full engine
+  if(typeof tcAdmin2611ApplyContent==='function'){
+    const baseContent=tcAdmin2611ApplyContent;
+    window.tcAdmin2611ApplyContent=tcAdmin2611ApplyContent=function(c){window.__tcHomeContent=c;return baseContent(c)};
+  }
   const baseSetLang=window.setLang;
   window.setLang=function(l){
     const isEn=l==='en';
     try{baseSetLang(isEn?'en':'ar')}catch(e){console.error('setLang base',e);document.documentElement.lang=isEn?'en':'ar';document.documentElement.dir=isEn?'ltr':'rtl';try{localStorage.setItem('tc_lang',isEn?'en':'ar')}catch(_){}}
+    if(!isEn&&window.__tcHomeContent&&typeof tcAdmin2611ApplyContent==='function'){try{tcAdmin2611ApplyContent(window.__tcHomeContent)}catch(e){}}
     apply(isEn?'en':'ar');
+    document.querySelectorAll('.tc-lang-toggle').forEach(b=>{b.textContent=isEn?'ع':'EN';b.title=isEn?'العربية':'English'});
   };
+  window.tcLangToggle=()=>window.setLang(document.documentElement.lang==='en'?'ar':'en');
   setLang=window.setLang;
   // boot: apply saved language before first paint of the shell
   let saved='ar';try{saved=localStorage.getItem('tc_lang')||'ar'}catch(e){}
