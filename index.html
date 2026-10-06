@@ -946,6 +946,14 @@ body.tc-admin-preview .screen.active{padding-top:66px}
 .tc-itc-bar .tc-itc-logo{height:40px}
 @media(max-width:480px){.tc-itc-logo{height:40px}.tc-itc-bar .tc-itc-logo{height:34px}.tc-itc-bar{padding:6px 10px;margin-bottom:12px}}
 </style>
+<style>
+/* ===== Realistic Abu Dhabi diversion photo (login / register hero) ===== */
+.tc-hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;opacity:0;transition:opacity .45s ease;z-index:1;display:block}
+.tc-photo-ok .tc-hero-photo{opacity:1}
+.tc-photo-ok > svg{visibility:hidden}
+.v10-photo-frame .v10-photo-overlay,.v10-photo-frame .v10-photo-caption{z-index:2}
+.v11-city.tc-photo-ok::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,54,50,0) 55%,rgba(4,54,50,.35));pointer-events:none}
+</style>
 </head>
 <body>
 <div class="app">
@@ -1097,6 +1105,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
             <circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/>
           </g>
         </svg>
+        <img class="tc-hero-photo" src="login-diversion.jpg" alt="تحويلة مرورية منظمة في أحد شوارع أبوظبي" loading="eager" decoding="async" onload="this.parentNode.classList.add('tc-photo-ok')" onerror="this.remove()">
         <div class="v10-photo-overlay"></div>
         <div class="v10-photo-caption"><strong>مركز النقل المتكامل</strong><span>Integrated Transport Centre</span></div>
       </div>
@@ -1195,6 +1204,7 @@ body.tc-admin-preview .screen.active{padding-top:66px}
           <g transform="translate(233,255) scale(1.35)"><ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#f4a53b"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#f4a53b"/><rect x="-8" y="-13" width="16" height="7" rx="2" fill="#fff3dd" opacity=".9"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/></g>
           <g transform="translate(345,205) scale(1.1)"><ellipse cx="0" cy="12.5" rx="19" ry="4" fill="#1b2624" opacity=".28"/><rect x="-16" y="-9" width="32" height="18" rx="6" fill="#eafaf6"/><rect x="-11" y="-14" width="22" height="10" rx="4" fill="#eafaf6"/><rect x="-8" y="-13" width="16" height="7" rx="2" fill="#bcd6d2"/><circle cx="-9" cy="10" r="4.5" fill="#22302e"/><circle cx="-9" cy="10" r="1.6" fill="#93a19d"/><circle cx="9" cy="10" r="4.5" fill="#22302e"/><circle cx="9" cy="10" r="1.6" fill="#93a19d"/></g>
         </svg>
+        <img class="tc-hero-photo" src="login-diversion.jpg" alt="تحويلة مرورية منظمة في أحد شوارع أبوظبي" loading="eager" decoding="async" onload="this.parentNode.classList.add('tc-photo-ok')" onerror="this.remove()">
       </div>
 
       <div class="v11-features">
