@@ -1365,12 +1365,12 @@ body.tc-admin-preview .screen.active{padding-top:66px}
         <div class="gallery-head"><h3 data-i18n="galleryTitle">تعرف على مركز إدارة المرور</h3><span data-i18n="gallerySwipe">اسحب يميناً أو يساراً</span></div>
         <div class="gallery-wrap">
           <div class="gallery-track" id="galleryTrack">
-            <div class="gallery-slide" onclick="openGalleryImage(0)"><img src="assets/traffic-centre-front.jpeg"><div class="gallery-caption" data-i18n="galleryCap1">مبنى مركز إدارة المرور — أبوظبي</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(1)"><img src="assets/traffic-centre-wide.jpeg"><div class="gallery-caption" data-i18n="galleryCap2">مركز إدارة المرور — الواجهة الخارجية</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(2)"><img src="assets/elevators.jpeg"><div class="gallery-caption" data-i18n="galleryCap3">المدخل والمصاعد</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(3)"><img src="assets/meeting-room.jpeg"><div class="gallery-caption" data-i18n="galleryCap4">قاعة الاجتماعات</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(4)"><img src="assets/zayed-hall-new.jpeg"><div class="gallery-caption" data-i18n="galleryCap5">قاعة زايد</div></div>
-            <div class="gallery-slide" onclick="openGalleryImage(5)"><img src="assets/waiting-area.jpeg"><div class="gallery-caption" data-i18n="galleryCap6">منطقة الانتظار — الطابق الأول</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(0)"><img loading="lazy" decoding="async" src="/traffic-centre-front.jpeg"><div class="gallery-caption" data-i18n="galleryCap1">مبنى مركز إدارة المرور — أبوظبي</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(1)"><img loading="lazy" decoding="async" src="/traffic-centre-wide.jpeg"><div class="gallery-caption" data-i18n="galleryCap2">مركز إدارة المرور — الواجهة الخارجية</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(2)"><img loading="lazy" decoding="async" src="/elevators.jpeg"><div class="gallery-caption" data-i18n="galleryCap3">المدخل والمصاعد</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(3)"><img loading="lazy" decoding="async" src="/meeting-room.jpeg"><div class="gallery-caption" data-i18n="galleryCap4">قاعة الاجتماعات</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(4)"><img loading="lazy" decoding="async" src="/zayed-hall-new.jpeg"><div class="gallery-caption" data-i18n="galleryCap5">قاعة زايد</div></div>
+            <div class="gallery-slide" onclick="openGalleryImage(5)"><img loading="lazy" decoding="async" src="/waiting-area.jpeg"><div class="gallery-caption" data-i18n="galleryCap6">منطقة الانتظار — الطابق الأول</div></div>
           </div>
           <button class="gallery-arrow gallery-prev" onclick="moveGallery(-1);event.stopPropagation()">‹</button>
           <button class="gallery-arrow gallery-next" onclick="moveGallery(1);event.stopPropagation()">›</button>
@@ -2230,12 +2230,12 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 // Home photo gallery: arrows + touch swipe + full-screen review.
 const GALLERY_IMAGES=[
-  {src:'assets/traffic-centre-front.jpeg',title:'مبنى مركز إدارة المرور — أبوظبي'},
-  {src:'assets/traffic-centre-wide.jpeg',title:'مركز إدارة المرور — الواجهة الخارجية'},
-  {src:'assets/elevators.jpeg',title:'المدخل والمصاعد'},
-  {src:'assets/meeting-room.jpeg',title:'قاعة الاجتماعات'},
-  {src:'assets/zayed-hall-new.jpeg',title:'قاعة زايد'},
-  {src:'assets/waiting-area.jpeg',title:'منطقة الانتظار — الطابق الأول'}
+  {src:'/traffic-centre-front.jpeg',title:'مبنى مركز إدارة المرور — أبوظبي'},
+  {src:'/traffic-centre-wide.jpeg',title:'مركز إدارة المرور — الواجهة الخارجية'},
+  {src:'/elevators.jpeg',title:'المدخل والمصاعد'},
+  {src:'/meeting-room.jpeg',title:'قاعة الاجتماعات'},
+  {src:'/zayed-hall-new.jpeg',title:'قاعة زايد'},
+  {src:'/waiting-area.jpeg',title:'منطقة الانتظار — الطابق الأول'}
 ];
 let galleryIndex=0,galleryTouchStartX=null;
 function renderGallery(){
